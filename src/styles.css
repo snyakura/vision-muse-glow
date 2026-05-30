@@ -75,6 +75,7 @@
 
   html {
     background-color: var(--color-background);
+    scroll-behavior: smooth;
   }
 
   body {
@@ -83,6 +84,16 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background-color: oklch(0.65 0.22 255 / 0.4);
+    color: oklch(0.99 0 0);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
 }
 

@@ -34,20 +34,20 @@ export function Ticker() {
           {
             pair: "BTC/USD",
             price: cryptoData?.bitcoin?.usd?.toLocaleString() || "67,420.10",
-            change: `${cryptoData?.bitcoin?.usd_24h_change >= 0 ? "+" : ""}${cryptoData?.bitcoin?.usd_24h_change?.toFixed(2)}%`,
-            up: cryptoData?.bitcoin?.usd_24h_change >= 0,
+            change: `${(cryptoData?.bitcoin?.usd_24h_change ?? 0) >= 0 ? "+" : ""}${(cryptoData?.bitcoin?.usd_24h_change ?? 0).toFixed(2)}%`,
+            up: (cryptoData?.bitcoin?.usd_24h_change ?? 0) >= 0,
           },
           {
             pair: "ETH/USD",
             price: cryptoData?.ethereum?.usd?.toLocaleString() || "3,512.88",
-            change: `${cryptoData?.ethereum?.usd_24h_change >= 0 ? "+" : ""}${cryptoData?.ethereum?.usd_24h_change?.toFixed(2)}%`,
-            up: cryptoData?.ethereum?.usd_24h_change >= 0,
+            change: `${(cryptoData?.ethereum?.usd_24h_change ?? 0) >= 0 ? "+" : ""}${(cryptoData?.ethereum?.usd_24h_change ?? 0).toFixed(2)}%`,
+            up: (cryptoData?.ethereum?.usd_24h_change ?? 0) >= 0,
           },
           {
             pair: "SOL/USD",
             price: cryptoData?.solana?.usd?.toLocaleString() || "172.30",
-            change: `${cryptoData?.solana?.usd_24h_change >= 0 ? "+" : ""}${cryptoData?.solana?.usd_24h_change?.toFixed(2)}%`,
-            up: cryptoData?.solana?.usd_24h_change >= 0,
+            change: `${(cryptoData?.solana?.usd_24h_change ?? 0) >= 0 ? "+" : ""}${(cryptoData?.solana?.usd_24h_change ?? 0).toFixed(2)}%`,
+            up: (cryptoData?.solana?.usd_24h_change ?? 0) >= 0,
           },
           { pair: "EUR/USD", price: "1.1045", change: "+0.12%", up: true },
           { pair: "GBP/USD", price: "1.2820", change: "+0.05%", up: true },
@@ -115,6 +115,7 @@ export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [servicesHovered, setServicesHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -161,16 +162,63 @@ export function SiteHeader() {
           </Link>
 
           <nav className="hidden items-center gap-1 rounded-full border border-border bg-card/60 px-2 py-1.5 text-sm text-muted-foreground backdrop-blur-md md:flex">
-            {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                activeOptions={{ exact: l.to === "/" }}
-                className="rounded-full px-4 py-1.5 transition-colors hover:text-foreground data-[status=active]:bg-secondary data-[status=active]:text-foreground"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {links.map((l) => {
+              if (l.label === "Services") {
+                return (
+                  <div 
+                    key={l.to} 
+                    className="relative"
+                    onMouseEnter={() => setServicesHovered(true)}
+                    onMouseLeave={() => setServicesHovered(false)}
+                  >
+                    <Link
+                      to={l.to}
+                      activeOptions={{ exact: l.to === "/" }}
+                      activeProps={{ className: "bg-secondary text-foreground" }}
+                      className="rounded-full px-4 py-1.5 transition-colors hover:text-foreground"
+                    >
+                      {l.label}
+                    </Link>
+                    <AnimatePresence>
+                      {servicesHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className="absolute left-1/2 top-full -translate-x-1/2 pt-2 z-50"
+                        >
+                          <div className="w-40 overflow-hidden rounded-2xl border border-border bg-background/90 p-1.5 shadow-2xl backdrop-blur-xl">
+                            <Link
+                              to="/contact"
+                              className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                            >
+                              Deposit
+                            </Link>
+                            <Link
+                              to="/contact"
+                              className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                            >
+                              Withdrawal
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  activeOptions={{ exact: l.to === "/" }}
+                  activeProps={{ className: "bg-secondary text-foreground" }}
+                  className="rounded-full px-4 py-1.5 transition-colors hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-4">
@@ -209,7 +257,8 @@ export function SiteHeader() {
                     to={l.to}
                     activeOptions={{ exact: l.to === "/" }}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground data-[status=active]:text-foreground"
+                    activeProps={{ className: "text-foreground" }}
+                    className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {l.label}
                   </Link>
@@ -228,7 +277,7 @@ export function SiteHeader() {
         </AnimatePresence>
       </motion.header>
 
-      <div className="h-[105px] w-full block pointer-events-none" />
+      <div className="h-[133px] w-full block pointer-events-none" />
 
       {/* WhatsApp Quick Chat */}
       <motion.a

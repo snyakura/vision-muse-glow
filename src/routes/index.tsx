@@ -1,3 +1,5 @@
+"use client";
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -75,7 +77,7 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={0.22}>
-          <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-12 flex flex-row items-center justify-center gap-3">
             <Link
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-primary-glow to-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-[1.02]"
@@ -99,6 +101,14 @@ function Hero() {
             <Pill icon={<Wallet className="h-3.5 w-3.5" />} label="Funding & Withdrawals" />
             <Pill icon={<ShieldCheck className="h-3.5 w-3.5" />} label="Secure Transactions" />
             <Pill icon={<Zap className="h-3.5 w-3.5" />} label="Instant Processing" />
+          </div>
+          
+          <div className="mt-12 flex justify-center overflow-hidden h-28 items-center pointer-events-none">
+            <img 
+              src="/TFM.png" 
+              alt="The Forex Mafia Branding" 
+              className="h-[280px] w-auto object-contain -my-[84px] block" 
+            />
           </div>
         </Reveal>
       </div>
@@ -190,32 +200,43 @@ function Pillars() {
   );
 }
 
+{/* Updated to focus on the WhatsApp Broadcast Channel */}
 function BridgeCTA() {
   return (
     <section className="mx-auto max-w-6xl px-6 pb-16">
       <Reveal>
         <div className="relative overflow-hidden rounded-[2rem] border border-border bg-gradient-to-br from-card/80 to-background p-10 md:p-16">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,oklch(0.55_0.22_250_/_0.4),transparent_60%)]" />
+          {/* Dope premium green radial glow instead of the old blue one */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,oklch(0.62_0.18_160_/_0.15),transparent_60%)]" />
+          
           <div className="relative grid gap-10 md:grid-cols-12 md:items-center">
             <div className="md:col-span-7">
-              <p className="text-xs uppercase tracking-[0.25em] text-primary-glow">ChainForge Bridge</p>
+              {/* Green text accent color */}
+              <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 font-semibold drop-shadow-[0_0_12px_rgba(52,211,153,0.3)]">
+                Instant Intelligence
+              </p>
               <h3 className="font-display mt-4 text-3xl md:text-5xl">
-                <span className="text-gradient">Institutional liquidity,</span>{" "}
-                <span className="text-accent-gradient italic">on demand.</span>
+                <span className="text-gradient">Join our WhatsApp</span>{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 italic">
+                  broadcast channel.
+                </span>
               </h3>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                Deposit USD to any global broker and withdraw profits back to your local
-                gateway — settled in minutes, never days.
+                Get real-time market updates, tier-1 trading setups, and exclusive platform releases sent straight to your phone as they happen.
               </p>
             </div>
+            
             <div className="md:col-span-5 md:justify-self-end">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-primary-glow to-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)]"
+              {/* WhatsApp branded gradient button with matching glow */}
+              <a
+                href="https://whatsapp.com/channel/YOUR_CHANNEL_ID"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-600 px-7 py-3.5 text-sm font-medium text-white shadow-[0_4px_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_4px_25px_rgba(16,185,129,0.45)]"
               >
-                Talk to the team
+                Enter the channel
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

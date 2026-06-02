@@ -3,7 +3,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Menu, X, MessageCircle } from "lucide-react";
+import { 
+  ArrowRight, 
+  Menu, 
+  X, 
+  MessageCircle, 
+  Instagram, 
+  Music
+} from "lucide-react";
 
 interface TickerItem {
   pair: string;
@@ -167,7 +174,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-4">
-            {/* "Get Started" button visible only on desktop */}
             <div className="hidden md:block">
               <Link
                 to="/contact"
@@ -196,7 +202,7 @@ export function SiteHeader() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden border-t border-border/60 bg-background md:hidden"
             >
-              <nav className="flex flex-col gap-4 p-6">
+              <nav className="flex flex-col items-center gap-4 p-6">
                 {links.map((l) => (
                   <Link
                     key={l.to}
@@ -208,7 +214,6 @@ export function SiteHeader() {
                     {l.label}
                   </Link>
                 ))}
-                {/* "Get Started" button moved into the mobile menu */}
                 <Link
                   to="/contact"
                   onClick={() => setMobileMenuOpen(false)}
@@ -223,7 +228,6 @@ export function SiteHeader() {
         </AnimatePresence>
       </motion.header>
 
-      {/* 40% reduction applied cleanly right here */}
       <div className="h-[105px] w-full block pointer-events-none" />
 
       {/* WhatsApp Quick Chat */}
@@ -246,75 +250,70 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative mt-32 border-t border-border bg-background/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-12">
-        <div className="md:col-span-5">
-          <div className="flex items-center">
-            <div className="h-48 w-auto relative">
-              <img 
-                src="/q.png" 
-                alt="ChainForge Logo" 
-                className="h-full w-full object-contain" 
-              />
-            </div>
-          </div>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Institutional-grade payment infrastructure and AI-driven trading intelligence
-            for the global forex and crypto community.
+    <footer className="relative mt-32 border-t border-border bg-background/60 font-['Montserrat']">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 grid-cols-1 md:grid-cols-3 items-start">
+        
+        {/* Column 1: Logo & Branding - Fixed Alignment */}
+        <div className="flex flex-col items-center md:items-start pt-1">
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/q.png" 
+              alt="ChainForge Logo" 
+              className="h-16 w-auto object-contain" 
+            />
+          </Link>
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground text-center md:text-left">
+            Institutional-grade payment infrastructure and AI-driven trading intelligence for the global forex and crypto community.
           </p>
         </div>
-        <FooterCol
-          title="Platform"
-          items={[
-            { label: "Services", to: "/services" },
-            { label: "AI Analyser", to: "/ai-analyser" },
-            { label: "Bridge", to: "/services" },
-          ]}
-        />
-        <FooterCol
-          title="Company"
-          items={[
-            { label: "About", to: "/about" },
-            { label: "Contact", to: "/contact" },
-          ]}
-        />
-        <FooterCol
-          title="Resources"
-          items={[
-            { label: "Signals", to: "/ai-analyser" },
-            { label: "Brokers", to: "/services" },
-          ]}
-        />
+
+        {/* Column 2: Social Community - WhatsApp, Instagram, TikTok */}
+        <div className="flex flex-col items-center text-center">
+          <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">
+            Join Our Social Community
+          </h4>
+          <div className="mt-8 flex items-center gap-7 text-foreground/90">
+            <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#25D366]" aria-label="WhatsApp">
+              <MessageCircle className="h-6 w-6 fill-current" strokeWidth={2.5} />
+            </a>
+            <a href="https://instagram.com/YOUR_USERNAME" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#E4405F]" aria-label="Instagram">
+              <Instagram className="h-6 w-6" strokeWidth={2.5} />
+            </a>
+            <a href="https://tiktok.com/@YOUR_USERNAME" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary-glow" aria-label="TikTok">
+              <Music className="h-6 w-6" strokeWidth={2.5} />
+            </a>
+          </div>
+        </div>
+
+        {/* Column 3: Contact */}
+        <div className="flex flex-col items-center md:items-end text-center md:text-right">
+          <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-foreground text-center md:text-right">
+            Let's Discuss What's Next
+          </h4>
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground text-center md:text-right">
+            Whether you are scaling a fund or moving personal capital, our desk is ready to bridge the gap.
+          </p>
+          <Link to="/contact" className="group mt-8 flex items-center text-xs font-semibold uppercase tracking-wider transition-colors hover:text-primary-glow">
+            Contact Us
+            <span className="ml-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-glow text-background">
+              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+        </div>
       </div>
+
       <div className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-6 py-6 text-xs text-muted-foreground md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} ChainForge. All rights reserved.</p>
-          <p>Trading involves risk. Not financial advice.</p>
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-muted-foreground md:flex-row md:items-center">
+          <div className="flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-6">
+            <p>© {new Date().getFullYear()} ChainForge. All rights reserved.</p>
+            <p className="hidden md:block opacity-30">|</p>
+            <p>Trading involves risk. Not financial advice.</p>
+          </div>
+          <Link to="/" className="md:ml-auto transition-colors hover:text-foreground">
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterCol({
-  title,
-  items,
-}: {
-  title: string;
-  items: { label: string; to: "/" | "/services" | "/ai-analyser" | "/about" | "/contact" }[];
-}) {
-  return (
-    <div className="md:col-span-2">
-      <p className="text-xs uppercase tracking-[0.2em] text-primary-glow">{title}</p>
-      <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-        {items.map((it) => (
-          <li key={it.label}>
-            <Link to={it.to} className="transition-colors hover:text-foreground">
-              {it.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

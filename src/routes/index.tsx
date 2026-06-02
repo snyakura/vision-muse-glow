@@ -79,14 +79,14 @@ function Hero() {
         <Reveal delay={0.22}>
           <div className="mt-12 flex flex-row items-center justify-center gap-3">
             <Link
-              to="/contact"
+              to="/deposit"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-primary-glow to-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-[1.02]"
             >
               Deposit
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
-              to="/contact"
+              to="/withdrawal"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-7 py-3.5 text-sm font-medium backdrop-blur-md transition-colors hover:bg-secondary"
             >
               <Wallet className="h-4 w-4" />

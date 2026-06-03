@@ -75,32 +75,32 @@ function AIAnalyser() {
             {/* LEFT SIDE: Typography & Copy Layout */}
             <div className="md:col-span-5 flex flex-col justify-between h-full py-4 space-y-12 md:space-y-0">
               <div>
-                <span className="text-xs font-semibold tracking-wider text-emerald-600 uppercase">
+                <span className="text-xs font-semibold tracking-wider text-black uppercase">
                   Multi-Timeframe Engine
                 </span>
-                <h1 className="mt-4 text-4xl font-light tracking-tight text-neutral-900 md:text-5xl leading-[1.15]">
+                <h1 className="mt-4 text-4xl font-light tracking-tight text-black md:text-5xl leading-[1.15]">
                   Accelerate your path to total <span className="font-semibold text-black">Market Intelligence</span>
                 </h1>
-                <p className="mt-6 text-sm leading-relaxed text-neutral-500 max-w-sm font-medium">
+                <p className="mt-6 text-sm leading-relaxed text-black max-w-sm font-medium">
                   ChainForge slides into your trading stack with zero infrastructure changes—just drop your chart, run the vision model, and execute with precision.
                 </p>
               </div>
 
               {/* Bottom Testimonial/Quote Block matching image layout */}
               <div className="pt-8 border-t border-neutral-100 relative">
-                <span className="absolute -top-3 left-0 text-4xl text-neutral-300 font-serif leading-none">“</span>
-                <p className="text-xs leading-relaxed text-neutral-600 font-medium pl-4">
+                <span className="absolute -top-3 left-0 text-4xl text-black font-serif leading-none">“</span>
+                <p className="text-xs leading-relaxed text-black font-medium pl-4">
                   With ChainForge, our desk runs on autopilot technical heuristics—scanned, cross-referenced, and calculated through advanced machine learning vision models.
                 </p>
                 <div className="mt-3 pl-4">
-                  <p className="text-[11px] font-bold text-neutral-800">ChainForge Intelligence</p>
-                  <p className="text-[10px] text-neutral-400 font-medium uppercase tracking-wider">Vision v4.0 Network Node</p>
+                  <p className="text-[11px] font-bold text-black">ChainForge Intelligence</p>
+                  <p className="text-[10px] text-black font-medium uppercase tracking-wider">Vision v4.0 Network Node</p>
                 </div>
               </div>
             </div>
 
             {/* RIGHT SIDE: The Dark Floating Application Screen */}
-            <div className="md:col-span-7 bg-[#0d0d0d] rounded-3xl border border-neutral-900 shadow-2xl p-6 md:p-8 flex flex-col justify-between min-h-[500px]">
+            <div className="md:col-span-7 bg-neutral-50 rounded-3xl border border-neutral-200 shadow-2xl p-6 md:p-8 flex flex-col justify-between min-h-[500px]">
               
               {/* Terminal Tab Bar Row */}
               <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
@@ -109,10 +109,10 @@ function AIAnalyser() {
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     <span>AI-Vision-Feed</span>
                   </div>
-                  <span className="text-[11px] font-medium text-neutral-600 hover:text-neutral-400 cursor-pointer hidden sm:inline transition-colors uppercase tracking-wider">
+                  <span className="text-[11px] font-medium text-black cursor-pointer hidden sm:inline transition-colors uppercase tracking-wider">
                     Macro Context
                   </span>
-                  <span className="text-[11px] font-medium text-neutral-600 hover:text-neutral-400 cursor-pointer hidden sm:inline transition-colors uppercase tracking-wider">
+                  <span className="text-[11px] font-medium text-black cursor-pointer hidden sm:inline transition-colors uppercase tracking-wider">
                     Backtest Log
                   </span>
                 </div>
@@ -136,10 +136,10 @@ function AIAnalyser() {
                         <Upload className="w-5 h-5 stroke-[1.5]" />
                       </div>
                       
-                      <p className="text-xs font-semibold uppercase tracking-widest text-neutral-300">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-black">
                         Upload Chart Snapshot
                       </p>
-                      <p className="mt-1.5 text-[11px] text-neutral-600 font-medium">
+                      <p className="mt-1.5 text-[11px] text-black font-medium">
                         Drag & drop or browse (PNG, JPG)
                       </p>
                     </label>
@@ -151,15 +151,15 @@ function AIAnalyser() {
                   <div className="flex flex-col items-center justify-center py-10 space-y-4">
                     <Loader2 className="h-7 w-7 text-neutral-400 animate-spin stroke-[1.5]" />
                     <div className="text-center space-y-1.5">
-                      <p className="text-xs text-neutral-300 tracking-widest uppercase font-semibold animate-pulse">Running Multi-TF Heuristics</p>
-                      <p className="text-[10px] text-neutral-600 font-medium">Parsing candlestick structure & patterns...</p>
+                      <p className="text-xs text-black tracking-widest uppercase font-semibold animate-pulse">Running Multi-TF Heuristics</p>
+                      <p className="text-[10px] text-black font-medium">Parsing candlestick structure & patterns...</p>
                     </div>
                   </div>
                 )}
 
                 {/* STATE 3: Real-Time Results Telemetry Stream */}
                 {analysisResult && (
-                  <div className="space-y-6 text-xs text-neutral-400 animate-fade-in">
+                  <div className="space-y-6 text-xs text-black animate-fade-in">
                     
                     {/* Upper Asset and Bias metadata block */}
                     <div className="flex justify-between items-center border-b border-neutral-900 pb-4">
@@ -167,33 +167,33 @@ function AIAnalyser() {
                         <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                         <span className="font-semibold text-neutral-200 tracking-widest uppercase">{analysisResult.asset}</span>
                       </div>
-                      <span className="text-[10px] px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold tracking-widest uppercase">
+                      <span className="text-[10px] px-2.5 py-0.5 rounded bg-neutral-200 border border-neutral-300 text-black font-bold tracking-widest uppercase">
                         {analysisResult.bias}
                       </span>
                     </div>
 
                     {/* Breakdown section styling closely resembling the code blocks */}
-                    <div className="bg-neutral-950 rounded-xl p-4 border border-neutral-900 space-y-2">
-                      <p className="text-[10px] text-neutral-600 uppercase tracking-widest font-semibold">Pattern Breakdown</p>
-                      <p className="text-base text-white font-medium tracking-tight font-sans">{analysisResult.pattern}</p>
-                      <p className="text-[11px] text-neutral-500 font-medium">
-                        Timeframe Confluence: <span className="text-neutral-300">{analysisResult.timeframe}</span>
+                    <div className="bg-neutral-100 rounded-xl p-4 border border-neutral-200 space-y-2">
+                      <p className="text-[10px] text-black uppercase tracking-widest font-semibold">Pattern Breakdown</p>
+                      <p className="text-base text-black font-medium tracking-tight font-sans">{analysisResult.pattern}</p>
+                      <p className="text-[11px] text-black font-medium">
+                        Timeframe Confluence: <span className="text-black">{analysisResult.timeframe}</span>
                       </p>
                     </div>
 
                     {/* Entry/SL/TP Structured Row */}
                     <div className="grid grid-cols-3 gap-4 border-t border-b border-neutral-900 py-4 text-center sm:text-left">
                       <div>
-                        <span className="text-[9px] uppercase tracking-widest text-neutral-600 font-semibold block">Entry Trigger</span>
-                        <span className="text-white font-semibold text-sm mt-1 block">{analysisResult.levels.entry}</span>
+                        <span className="text-[9px] uppercase tracking-widest text-black font-semibold block">Entry Trigger</span>
+                        <span className="text-black font-semibold text-sm mt-1 block">{analysisResult.levels.entry}</span>
                       </div>
                       <div>
-                        <span className="text-[9px] uppercase tracking-widest text-neutral-600 font-semibold block">Invalidation (SL)</span>
-                        <span className="text-rose-500 font-semibold text-sm mt-1 block">{analysisResult.levels.sl}</span>
+                        <span className="text-[9px] uppercase tracking-widest text-black font-semibold block">Invalidation (SL)</span>
+                        <span className="text-black font-semibold text-sm mt-1 block">{analysisResult.levels.sl}</span>
                       </div>
                       <div>
-                        <span className="text-[9px] uppercase tracking-widest text-neutral-600 font-semibold block">Target (TP)</span>
-                        <span className="text-emerald-400 font-semibold text-sm mt-1 block">{analysisResult.levels.tp}</span>
+                        <span className="text-[9px] uppercase tracking-widest text-black font-semibold block">Target (TP)</span>
+                        <span className="text-black font-semibold text-sm mt-1 block">{analysisResult.levels.tp}</span>
                       </div>
                     </div>
                   </div>
@@ -204,7 +204,7 @@ function AIAnalyser() {
               <div className="flex justify-between items-center border-t border-neutral-900 pt-4">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-medium">
+                  <span className="text-[10px] text-black uppercase tracking-widest font-medium">
                     {analysisResult ? `Confidence: ${analysisResult.confidence}` : "Model Terminal Ready"}
                   </span>
                 </div>
@@ -217,7 +217,7 @@ function AIAnalyser() {
                     Clear Input Feed →
                   </button>
                 ) : (
-                  <button className="opacity-40 cursor-not-allowed inline-flex items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 text-neutral-500 font-semibold tracking-wider uppercase text-[10px] px-5 py-2.5">
+                  <button className="opacity-40 cursor-not-allowed inline-flex items-center justify-center rounded-full bg-neutral-200 border border-neutral-300 text-black font-semibold tracking-wider uppercase text-[10px] px-5 py-2.5">
                     Awaiting Upload
                   </button>
                 )}
@@ -239,8 +239,8 @@ function AIAnalyser() {
           ].map((s, i) => (
             <Reveal key={s.l} delay={i * 0.06}>
               <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
-                <p className="text-3xl font-light tracking-tight text-neutral-900">{s.n}</p>
-                <p className="mt-2 text-[10px] uppercase tracking-widest text-neutral-400 font-semibold">{s.l}</p>
+                <p className="text-3xl font-light tracking-tight text-black">{s.n}</p>
+                <p className="mt-2 text-[10px] uppercase tracking-widest text-black font-semibold">{s.l}</p>
               </div>
             </Reveal>
           ))}
@@ -263,8 +263,8 @@ function AIAnalyser() {
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-neutral-50 text-neutral-700 border border-neutral-200/50">
                   {f.icon}
                 </div>
-                <p className="mt-5 font-semibold text-xs uppercase tracking-wider text-neutral-800">{f.t}</p>
-                <p className="mt-2 text-xs text-neutral-500 leading-relaxed font-medium">{f.d}</p>
+                <p className="mt-5 font-semibold text-xs uppercase tracking-wider text-black">{f.t}</p>
+                <p className="mt-2 text-xs text-black leading-relaxed font-medium">{f.d}</p>
               </div>
             </Reveal>
           ))}
@@ -276,10 +276,10 @@ function AIAnalyser() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[2rem] border border-neutral-200 bg-white p-10 md:p-14 text-center shadow-sm">
             <div className="relative">
-              <h3 className="text-3xl md:text-4xl font-light tracking-tight text-neutral-900">
+              <h3 className="text-3xl md:text-4xl font-light tracking-tight text-black">
                 Subscribe to the <span className="font-semibold text-black">signal feed.</span>
               </h3>
-              <p className="mx-auto mt-4 max-w-xl text-xs text-neutral-400 tracking-wide font-medium">
+              <p className="mx-auto mt-4 max-w-xl text-xs text-black tracking-wide font-medium">
                 Live alerts on Telegram, Discord and email — included with every ChainForge account.
               </p>
               <Link

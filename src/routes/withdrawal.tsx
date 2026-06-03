@@ -62,16 +62,16 @@ function WithdrawalPage() {
         <PageBackground variant="soft" />
         <div className="relative mx-auto max-w-5xl px-6 pt-24 pb-12 text-center">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.25em] text-primary-glow font-['Montserrat']">Capital Access</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-black font-['Montserrat']">Capital Access</p>
           </Reveal>
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-6xl font-['Montserrat']">
-              <span className="text-gradient">Withdraw</span>{" "}
-              <span className="text-accent-gradient italic">Profits.</span>
+              <span className="text-black">Withdraw</span>{" "}
+              <span className="text-black italic">Profits.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="mx-auto mt-6 max-w-2xl text-muted-foreground text-sm md:text-base">
+            <p className="mx-auto mt-6 max-w-2xl text-black text-sm md:text-base">
               Securely access your trading returns. Review your transaction protocol, structure your payout path, and finalize settlement details instantly.
             </p>
           </Reveal>
@@ -86,23 +86,23 @@ function WithdrawalPage() {
           <div className="lg:col-span-2 space-y-8">
             
             {/* Step Navigation Tabs */}
-            <div className="rounded-2xl border border-border bg-card/10 p-4 backdrop-blur-sm flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-              <span className={`px-3 py-1.5 rounded-lg transition-colors ${step === 1 ? "text-primary-glow bg-primary-glow/[0.05] font-bold" : ""}`}>1. Identification</span>
-              <span className="text-muted-foreground/40">•</span>
-              <span className={`px-3 py-1.5 rounded-lg transition-colors ${step === 2 ? "text-primary-glow bg-primary-glow/[0.05] font-bold" : ""}`}>2. Method & Allocation</span>
-              <span className="text-muted-foreground/40">•</span>
-              <span className={`px-3 py-1.5 rounded-lg transition-colors ${step === 3 ? "text-primary-glow bg-primary-glow/[0.05] font-bold" : ""}`}>3. Verification Protocol</span>
+            <div className="rounded-2xl border border-border bg-card/10 p-4 backdrop-blur-sm flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-black">
+              <span className={`px-3 py-1.5 rounded-lg transition-colors ${step === 1 ? "text-black bg-neutral-100 font-bold" : ""}`}>1. Identification</span>
+              <span className="text-black/40">•</span>
+              <span className={`px-3 py-1.5 rounded-lg transition-colors ${step === 2 ? "text-black bg-neutral-100 font-bold" : ""}`}>2. Method & Allocation</span>
+              <span className="text-black/40">•</span>
+              <span className={`px-3 py-1.5 rounded-lg transition-colors ${step === 3 ? "text-black bg-neutral-100 font-bold" : ""}`}>3. Verification Protocol</span>
             </div>
 
             {/* STEP 1: Client Identification */}
             {step === 1 && (
               <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm animate-fade-in">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
-                  <User className="h-4 w-4 text-primary-glow" /> Client Identification
+                <h3 className="text-sm font-bold uppercase tracking-wider text-black font-['Montserrat'] mb-6 flex items-center gap-2">
+                  <User className="h-4 w-4 text-black" /> Client Identification
                 </h3>
                 <form onSubmit={handleNextStep} className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block">Client ID / Account Number</label>
+                    <label className="text-[10px] font-mono uppercase tracking-widest text-black block">Client ID / Account Number</label>
                     <div className="relative flex items-center rounded-2xl border border-border bg-background/50 focus-within:border-primary-glow/60 transition-colors px-4 py-3">
                       <input
                         type="text"
@@ -110,13 +110,13 @@ function WithdrawalPage() {
                         placeholder="e.g., CF-98765"
                         value={clientId}
                         onChange={(e) => setClientId(e.target.value)}
-                        className="w-full bg-transparent text-sm font-medium outline-none border-none p-0 text-foreground"
+                        className="w-full bg-transparent text-sm font-medium outline-none border-none p-0 text-black"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block">Full Name</label>
+                    <label className="text-[10px] font-mono uppercase tracking-widest text-black block">Full Name</label>
                     <div className="relative flex items-center rounded-2xl border border-border bg-background/50 focus-within:border-primary-glow/60 transition-colors px-4 py-3">
                       <input
                         type="text"
@@ -124,7 +124,7 @@ function WithdrawalPage() {
                         placeholder="John Doe"
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
-                        className="w-full bg-transparent text-sm font-medium outline-none border-none p-0 text-foreground"
+                        className="w-full bg-transparent text-sm font-medium outline-none border-none p-0 text-black"
                       />
                     </div>
                   </div>
@@ -134,7 +134,7 @@ function WithdrawalPage() {
                     className="w-full group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-primary-glow to-primary px-6 py-4 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-[1.01]"
                   >
                     Continue to Financial Details
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-white" />
                   </button>
                 </form>
               </div>
@@ -144,7 +144,7 @@ function WithdrawalPage() {
             {step === 2 && (
               <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm animate-fade-in space-y-6">
                 <div>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-black font-['Montserrat'] mb-6">
                     Select Payout Method
                   </h3>
                   <div className="grid gap-4 sm:grid-cols-2">
@@ -160,23 +160,23 @@ function WithdrawalPage() {
                         onClick={() => setMethod(item.id as Method)}
                         className={`group relative text-left w-full rounded-2xl border p-5 transition-all outline-none ${
                           method === item.id
-                            ? "border-primary-glow bg-primary-glow/[0.04]"
+                            ? "border-black bg-neutral-50"
                             : "border-border bg-card/40 hover:border-border/80"
                         }`}
                       >
                         <div className="flex items-start gap-4">
                           <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl transition-colors ${
-                            method === item.id ? "bg-primary-glow/20 text-primary-glow" : "bg-muted/10 text-muted-foreground group-hover:text-foreground"
+                            method === item.id ? "bg-neutral-100 text-black" : "bg-muted/10 text-black group-hover:text-black"
                           }`}>
                             {item.icon}
                           </div>
                           <div>
-                            <h4 className="font-semibold text-sm tracking-tight text-foreground font-['Montserrat']">{item.label}</h4>
-                            <p className="text-xs text-muted-foreground mt-0.5">{item.d}</p>
+                            <h4 className="font-semibold text-sm tracking-tight text-black font-['Montserrat']">{item.label}</h4>
+                            <p className="text-xs text-black mt-0.5">{item.d}</p>
                           </div>
                         </div>
                         {method === item.id && (
-                          <CheckCircle2 className="absolute top-4 right-4 h-4 w-4 text-primary-glow" />
+                          <CheckCircle2 className="absolute top-4 right-4 h-4 w-4 text-black" />
                         )}
                       </button>
                     ))}
@@ -186,23 +186,23 @@ function WithdrawalPage() {
                 {method && (
                   <form onSubmit={handleNextStep} className="space-y-6 pt-4 border-t border-border/60">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block">Amount to Withdraw (USD)</label>
+                      <label className="text-[10px] font-mono uppercase tracking-widest text-black block">Amount to Withdraw (USD)</label>
                       <div className="relative flex items-center rounded-2xl border border-border bg-background/50 focus-within:border-primary-glow/60 transition-colors px-4 py-3">
-                        <span className="text-lg font-medium text-muted-foreground mr-2">$</span>
+                        <span className="text-lg font-medium text-black mr-2">$</span>
                         <input
                           type="number"
                           required
                           placeholder="0.00"
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
-                          className="w-full bg-transparent text-lg font-semibold text-foreground outline-none border-none p-0"
+                          className="w-full bg-transparent text-lg font-semibold text-black outline-none border-none p-0"
                         />
                       </div>
                     </div>
 
                     {method !== "cash" && (
                       <div className="space-y-2">
-                        <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block">
+                        <label className="text-[10px] font-mono uppercase tracking-widest text-black block">
                           {method === "fnb" ? "Bank Account Number" : "Registered Mobile Number"}
                         </label>
                         <div className="relative flex items-center rounded-2xl border border-border bg-background/50 focus-within:border-primary-glow/60 transition-colors px-4 py-3">
@@ -212,7 +212,7 @@ function WithdrawalPage() {
                             placeholder={method === "fnb" ? "e.g., 62000000000" : "e.g., 077XXXXXXX"}
                             value={accountNumber}
                             onChange={(e) => setAccountNumber(e.target.value)}
-                            className="w-full bg-transparent text-sm font-medium outline-none border-none p-0 text-foreground"
+                            className="w-full bg-transparent text-sm font-medium outline-none border-none p-0 text-black"
                           />
                         </div>
                       </div>
@@ -222,7 +222,7 @@ function WithdrawalPage() {
                       <button
                         type="button"
                         onClick={handlePrevStep}
-                        className="flex items-center gap-2 px-6 py-4 rounded-2xl border border-border text-sm font-semibold hover:bg-card/40 transition-colors"
+                        className="flex items-center gap-2 px-6 py-4 rounded-2xl border border-border text-sm font-semibold hover:bg-card/40 transition-colors text-black"
                       >
                         <ArrowLeft className="h-4 w-4" /> Back
                       </button>
@@ -232,7 +232,7 @@ function WithdrawalPage() {
                         className="flex-1 group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-primary-glow to-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] disabled:opacity-50 disabled:pointer-events-none transition-transform hover:scale-[1.01]"
                       >
                         Review Protocol
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-white" />
                       </button>
                     </div>
                   </form>
@@ -244,46 +244,46 @@ function WithdrawalPage() {
             {step === 3 && (
               <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm animate-fade-in space-y-8">
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary-glow font-['Montserrat'] capitalize">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-black font-['Montserrat'] capitalize">
                     {method === "fnb" ? "FNB EFT" : method} Verification Protocol
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-black leading-relaxed">
                     To finalize and receive your funds cleanly from the desk, run through these mandatory compliance steps:
                   </p>
                   
-                  <ol className="space-y-4 text-sm text-muted-foreground list-none pl-0">
+                  <ol className="space-y-4 text-sm text-black list-none pl-0">
                     <li className="flex gap-3">
-                      <span className="text-primary-glow font-mono font-bold">1.</span>
+                      <span className="text-black font-mono font-bold">1.</span>
                       <div>
-                        <strong className="text-foreground block text-xs uppercase tracking-wider font-['Montserrat']">Request Withdrawal</strong>
+                        <strong className="text-black block text-xs uppercase tracking-wider font-['Montserrat']">Request Withdrawal</strong>
                         <p className="text-xs mt-0.5">Initiate the specific extraction amount framework directly through your internal member portal dashboard.</p>
                       </div>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-primary-glow font-mono font-bold">2.</span>
+                      <span className="text-black font-mono font-bold">2.</span>
                       <div>
-                        <strong className="text-foreground block text-xs uppercase tracking-wider font-['Montserrat']">Provide Destination Details</strong>
+                        <strong className="text-black block text-xs uppercase tracking-wider font-['Montserrat']">Provide Destination Details</strong>
                         <p className="text-xs mt-0.5">Double check that your designated credentials (Account Name, Routing Number, or Wallet Node) match your system profile metrics perfectly.</p>
                       </div>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-primary-glow font-mono font-bold">3.</span>
+                      <span className="text-black font-mono font-bold">3.</span>
                       <div>
-                        <strong className="text-foreground block text-xs uppercase tracking-wider font-['Montserrat']">Wait for Processing</strong>
-                        <p className="text-xs mt-0.5">Our accounting desk will process the outbound wire from the <span className="text-foreground font-semibold">MAZ FX (PVT) LTD</span> corporate vault account (63051409861) straight to your receiver line.</p>
+                        <strong className="text-black block text-xs uppercase tracking-wider font-['Montserrat']">Wait for Processing</strong>
+                        <p className="text-xs mt-0.5">Our accounting desk will process the outbound wire from the <span className="text-black font-semibold">MAZ FX (PVT) LTD</span> corporate vault account (63051409861) straight to your receiver line.</p>
                       </div>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-primary-glow font-mono font-bold">4.</span>
+                      <span className="text-black font-mono font-bold">4.</span>
                       <div>
-                        <strong className="text-foreground block text-xs uppercase tracking-wider font-['Montserrat']">Confirm Receipt</strong>
+                        <strong className="text-black block text-xs uppercase tracking-wider font-['Montserrat']">Confirm Receipt</strong>
                         <p className="text-xs mt-0.5">Once the ledger logs your asset deployment state as "Complete", execute a check on your external personal dashboard app to see if balances updated.</p>
                       </div>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-primary-glow font-mono font-bold">5.</span>
+                      <span className="text-black font-mono font-bold">5.</span>
                       <div>
-                        <strong className="text-foreground block text-xs uppercase tracking-wider font-['Montserrat']">Record Keeping</strong>
+                        <strong className="text-black block text-xs uppercase tracking-wider font-['Montserrat']">Record Keeping</strong>
                         <p className="text-xs mt-0.5">Grab a pristine screenshot copy of the incoming balance receipt to verify the transaction finalized successfully.</p>
                       </div>
                     </li>
@@ -293,12 +293,12 @@ function WithdrawalPage() {
                 {/* Mad High-Visibility Pure Crimson Red Notice Block */}
                 <div className="border-2 border-red-500 bg-red-950/40 rounded-2xl p-5 shadow-[0_0_15px_rgba(239,68,68,0.25)] animate-pulse">
                   <div className="flex items-start gap-3">
-                    <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                    <AlertCircle className="h-5 w-5 text-black shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-black tracking-wide text-red-500 uppercase font-mono">
+                      <p className="text-sm font-black tracking-wide text-black uppercase font-mono">
                         IMPORTANT: Don't forget to attach your proof of transfer image once redirected to WhatsApp!
                       </p>
-                      <p className="text-xs text-red-400/80 mt-1 font-sans">
+                      <p className="text-xs text-black mt-1 font-sans">
                         Settlement desk clearing agents require this verification file before executing ledger balance approvals.
                       </p>
                     </div>
@@ -309,7 +309,7 @@ function WithdrawalPage() {
                   <button
                     type="button"
                     onClick={handlePrevStep}
-                    className="flex items-center gap-2 px-6 py-4 rounded-2xl border border-border text-sm font-semibold hover:bg-card/40 transition-colors"
+                    className="flex items-center gap-2 px-6 py-4 rounded-2xl border border-border text-sm font-semibold hover:bg-card/40 transition-colors text-black"
                   >
                     <ArrowLeft className="h-4 w-4" /> Back
                   </button>
@@ -317,7 +317,7 @@ function WithdrawalPage() {
                     href={`https://wa.me/YOUR_NUMBER?text=Hi,%20I'm%20confirming%20my%20withdrawal%20request%20for%20$${amount}%20via%20${method.toUpperCase()}.%20ID:%20${clientId}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-emerald-500 to-emerald-600 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-[1.01]"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-black px-8 py-4 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-[1.01]"
                   >
                     Redirect to WhatsApp
                     <CheckCircle2 className="h-4 w-4" />

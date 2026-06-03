@@ -27,16 +27,16 @@ function Contact() {
       <PageBackground />
       <div className="relative mx-auto max-w-5xl px-6 pt-24 pb-24 text-center">
         <Reveal>
-          <p className="text-xs uppercase tracking-[0.25em] text-primary-glow">Talk to the team</p>
+          <p className="text-xs uppercase tracking-[0.25em] text-black">Talk to the team</p>
         </Reveal>
         <Reveal delay={0.08}>
           <h1 className="font-display mt-5 text-5xl md:text-7xl">
-            <span className="text-gradient">Let's move</span>{" "}
-            <span className="text-accent-gradient italic">your capital.</span>
+            <span className="text-black">Let's move</span>{" "}
+            <span className="text-black italic">your capital.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.16}>
-          <p className="mx-auto mt-7 max-w-xl text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-7 max-w-xl text-black md:text-lg">
             Onboarding, deposit assistance, withdrawals and partnerships — pick the channel
             that suits you.
           </p>
@@ -70,7 +70,7 @@ function Contact() {
         </div>
 
         <Reveal delay={0.2}>
-          <p className="mt-10 text-xs text-muted-foreground">
+          <p className="mt-10 text-xs text-black">
             Median response time: under 60 minutes, 24/7.
           </p>
         </Reveal>
@@ -98,12 +98,12 @@ function Channel({
       className="group block rounded-2xl border border-border bg-card/40 p-6 text-left backdrop-blur-sm transition-colors hover:border-primary/40"
     >
       <div className="flex items-center gap-3">
-        <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary-glow/30 to-primary/20 text-primary-glow">
+        <div className="grid h-10 w-10 place-items-center rounded-xl bg-neutral-100 text-black">
           {icon}
         </div>
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-black">{label}</p>
       </div>
-      <p className="mt-5 text-base font-medium transition-colors group-hover:text-primary-glow">
+      <p className="mt-5 text-base font-medium transition-colors group-hover:text-black">
         {handle}
       </p>
     </a>

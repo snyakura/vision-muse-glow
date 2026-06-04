@@ -173,7 +173,7 @@ export function SiteHeader() {
                   >
                     <Link
                       to={l.to}
-                      activeOptions={{ exact: l.to === "/" }}
+                      activeOptions={{ exact: (l.to as string) === "/" }}
                       activeProps={{ className: "bg-secondary text-foreground" }}
                       className="rounded-full px-4 py-1.5 transition-colors hover:text-foreground"
                     >

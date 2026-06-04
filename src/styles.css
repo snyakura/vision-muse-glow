@@ -40,6 +40,14 @@
   /* Typography fine-tuned for geometric premium look */
   --font-sans: "Satoshi", "Geist", "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Satoshi", "Geist", "General Sans", sans-serif;
+
+  /* Tailwind v4 custom animation config */
+  --animate-infinite-scroll: infinite-scroll 25s linear infinite;
+
+  @keyframes infinite-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 :root {
@@ -86,8 +94,7 @@
   }
 
   html {
-    background: var(--gradient-linear-base);
-    background-attachment: fixed;
+    background-color: #030303;
     scroll-behavior: smooth;
     min-height: 100%;
   }
@@ -108,6 +115,11 @@
     pointer-events: none;
     animation: floatBackground 25s infinite ease-in-out;
     will-change: transform;
+  }
+  
+  @keyframes sheen {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
   }
 
   body {
@@ -226,24 +238,60 @@
 
   /* The clean White Pill Button style seen on "Get the app" */
   .premium-button {
-    position: relative;
-    background: #FFFFFF;
-    color: #000000;
-    font-weight: 600;
+    position: relative !important;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 45%, #FFFFFF 55%, #F8FAFC 100%) !important;
+    background-size: 200% 100%;
+    color: #000000 !important;
+    font-weight: 700;
     border-radius: 9999px;
-    padding: 0.75rem 1.75rem;
-    transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0.85rem 2.25rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: none;
     cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1), 0 0 25px rgba(139, 92, 246, 0.2);
+    animation: sheen 6s linear infinite;
+    z-index: 1;
+  }
+
+  .premium-button span, .premium-button svg, .premium-button div {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 3D Glassmorphic Gloss Layer */
+  .premium-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, transparent 50%, rgba(0, 0, 0, 0.05) 100%);
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 1;
+  }
+
+  /* Linear Light Streak (Speed/Luxury) */
+  .premium-button::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -150%;
+    width: 60px;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transform: rotate(35deg);
+    filter: blur(15px);
+    animation: shine 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    z-index: 1;
   }
 
   .premium-button:hover {
-    transform: translateY(-1px);
-    background: #F4F4F5;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2), 0 0 50px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.05);
   }
 
   .premium-button:active {
@@ -252,23 +300,51 @@
 
   /* The Outline Pill Button seen on "Learn More" */
   .secondary-glass-button {
-    background: rgba(255, 255, 255, 0.04);
+    position: relative !important;
+    background: rgba(255, 255, 255, 0.03) !important;
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #FFFFFF;
-    font-weight: 500;
-    padding: 0.75rem 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+    padding: 0.85rem 2.25rem;
     border-radius: 9999px;
-    transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .secondary-glass-button span, .secondary-glass-button svg, .secondary-glass-button div {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Hidden Neon Flare Background */
+  .secondary-glass-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, #8B5CF6 0%, #D946EF 100%);
+    opacity: 0;
+    transform: scale(0.4);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+    filter: blur(20px);
   }
 
   .secondary-glass-button:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .secondary-glass-button:hover::before {
+    opacity: 0.5;
+    transform: scale(1.2);
   }
 
   /* Starfield and Background Utilities remain intact */
@@ -300,5 +376,10 @@
   @keyframes ticker {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+  }
+
+  /* Infinite scroll wrapper utility */
+  .animate-infinite-scroll {
+    animation: var(--animate-infinite-scroll);
   }
 }

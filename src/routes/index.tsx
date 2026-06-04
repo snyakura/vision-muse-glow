@@ -56,7 +56,7 @@ function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            Premium Trading Signals Available
+            <span>Premium Trading Signals Available</span>
           </div>
         </Reveal>
 
@@ -80,17 +80,17 @@ function Hero() {
           <div className="mt-12 flex flex-row items-center justify-center gap-3">
             <Link
               to="/contact"
-              className="group inline-flex items-center gap-2 rounded-full btn-lively px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-[1.02]"
+              className="premium-button group"
             >
-              Deposit
+              <span>Deposit</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-7 py-3.5 text-sm font-medium backdrop-blur-md transition-colors hover:bg-secondary"
+              className="secondary-glass-button"
             >
               <Wallet className="h-4 w-4" />
-              Withdrawal
+              <span>Withdrawal</span>
             </Link>
           </div>
         </Reveal>
@@ -126,19 +126,64 @@ function Pill({ icon, label }: { icon: React.ReactNode; label: string }) {
 }
 
 function Brokers() {
-  const brokers = ["DERIV", "WELTRADE", "BINANCE", "BYBIT", "MT5", "cTRADER", "COINBASE"];
+  // Using direct premium web URLs so they display instantly without missing files
+  const brokerLogos = [
+    { 
+      src: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Binance_Logo.svg", 
+      alt: "Binance" 
+    },
+    { 
+      src: "https://images.ctfassets.net/7985732m7v09/48wOAtbBvD6Fv6gM5H6Zl2/9b618cf2e4d9b4bfa856e7e83df92d4d/deriv-logo.png", 
+      alt: "Deriv" 
+    },
+    { 
+      src: "https://upload.wikimedia.org/wikipedia/commons/4/4f/MetaTrader_4_logo.svg", 
+      alt: "MetaTrader 4" 
+    },
+    { 
+      src: "https://upload.wikimedia.org/wikipedia/commons/8/8c/MetaTrader_5_logo.svg", 
+      alt: "MetaTrader 5" 
+    },
+    { 
+      src: "https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Weltrade_logo.png/revision/latest?cb=20211119154432", 
+      alt: "Weltrade" 
+    },
+    { 
+      src: "https://justmarkets.com/assets/images/logo/justmarkets-logo-white.svg", 
+      alt: "Just Markets" 
+    },
+  ];
+
+  // Duplicating the array for a seamless, unbroken scrolling loop track
+  const marqueeItems = [...brokerLogos, ...brokerLogos, ...brokerLogos];
+
   return (
-    <section className="relative border-y border-border bg-background/40">
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
+    <section className="relative border-y border-border bg-background/40 py-12 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-6">
+        <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground mb-10">
           Trusted across leading brokers & exchanges
         </p>
-        <div className="mask-fade-edges mt-7 flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-sm font-semibold tracking-[0.18em] text-muted-foreground/70">
-          {brokers.map((b) => (
-            <span key={b} className="transition-opacity hover:opacity-100">
-              {b}
-            </span>
-          ))}
+        
+        {/* Container with fading gradient masks on left & right sides */}
+        <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
+          <div className="flex w-max animate-infinite-scroll gap-6 py-2">
+            {marqueeItems.map((broker, index) => (
+              <div
+                key={index}
+                className="flex h-16 w-32 items-center justify-center rounded-xl border border-border bg-card/40 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:bg-card/60"
+              >
+                <img
+                  src={broker.src}
+                  alt={broker.alt}
+                  className="max-h-full max-w-full object-contain opacity-70 transition-opacity duration-300 hover:opacity-100 invert-0 brightness-100"
+                  onError={(e) => {
+                    // Fallback to prevent layout breaking if a URL goes down
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -200,18 +245,15 @@ function Pillars() {
   );
 }
 
-{/* Updated to focus on the WhatsApp Broadcast Channel */}
 function BridgeCTA() {
   return (
     <section className="mx-auto max-w-6xl px-6 pb-16">
       <Reveal>
         <div className="relative overflow-hidden rounded-[2rem] border border-border bg-gradient-to-br from-card/80 to-background p-10 md:p-16">
-          {/* Dope premium green radial glow instead of the old blue one */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,oklch(0.62_0.18_160_/_0.15),transparent_60%)]" />
           
           <div className="relative grid gap-10 md:grid-cols-12 md:items-center">
             <div className="md:col-span-7">
-              {/* Green text accent color */}
               <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 font-semibold drop-shadow-[0_0_12px_rgba(52,211,153,0.3)]">
                 Instant Intelligence
               </p>
@@ -227,7 +269,6 @@ function BridgeCTA() {
             </div>
             
             <div className="md:col-span-5 md:justify-self-end">
-              {/* WhatsApp branded gradient button with matching glow */}
               <a
                 href="https://whatsapp.com/channel/YOUR_CHANNEL_ID"
                 target="_blank"

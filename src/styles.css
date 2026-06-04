@@ -12,65 +12,72 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-success: var(--success);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  
+  /* Synced to the Pulsar Image Palette */
+  --color-background: #030303;
+  --color-foreground: #FFFFFF;
+  --color-card: rgba(255, 255, 255, 0.03);
+  --color-card-foreground: #FFFFFF;
+  --color-popover: #0A0A0A;
+  --color-popover-foreground: #FFFFFF;
+  --color-primary: #6366F1;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #A855F7;
+  --color-secondary-foreground: rgba(255, 255, 255, 0.7);
+  --color-muted: #141414;
+  --color-muted-foreground: rgba(255, 255, 255, 0.6);
+  --color-accent: #7C3AED;
+  --color-accent-foreground: #FFFFFF;
+  --color-indigo: #6366F1;
+  --color-magenta: #C084FC;
+  --color-destructive: oklch(0.6 0.2 25);
+  --color-destructive-foreground: #FFFFFF;
+  --color-success: #10B981;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-input: rgba(255, 255, 255, 0.04);
+  --color-ring: #8B5CF6;
+  
+  /* Typography fine-tuned for geometric premium look */
+  --font-sans: "Satoshi", "Geist", "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Satoshi", "Geist", "General Sans", sans-serif;
 }
 
 :root {
   --radius: 1rem;
-  /* Deep black with violet undertone */
-  --background: oklch(0.11 0.03 295);
-  --foreground: oklch(0.98 0.005 295);
-  --card: oklch(0.16 0.04 295);
-  --card-foreground: oklch(0.98 0.005 295);
-  --popover: oklch(0.16 0.04 295);
-  --popover-foreground: oklch(0.98 0.005 295);
-  /* Vibrant violet primary */
-  --primary: oklch(0.62 0.27 295);
-  --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.78 0.2 305);
-  --secondary: oklch(0.22 0.05 295);
-  --secondary-foreground: oklch(0.96 0.005 295);
-  --muted: oklch(0.2 0.04 295);
-  --muted-foreground: oklch(0.72 0.03 295);
-  --accent: oklch(0.7 0.25 330);
-  --accent-foreground: oklch(0.99 0 0);
+  
+  /* Exact Premium Dark Mode Colors */
+  --background: #030303;
+  --surface: #080808;
+  --foreground: #FFFFFF;
+  --foreground-secondary: rgba(255, 255, 255, 0.6);
+  --card: rgba(255, 255, 255, 0.03);
+  --card-foreground: #FFFFFF;
+  --popover: #0A0A0A;
+  --popover-foreground: #FFFFFF;
+  
+  /* Vibrant brand colors matching the interface/orbs */
+  --primary: #6366F1;
+  --primary-foreground: #FFFFFF;
+  --primary-glow: rgba(99, 102, 241, 0.35);
+  --secondary: #A855F7;
+  --secondary-foreground: #FFFFFF;
+  --muted: #141414;
+  --muted-foreground: rgba(255, 255, 255, 0.6);
+  --accent: #7C3AED;
+  --accent-foreground: #FFFFFF;
   --destructive: oklch(0.65 0.25 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --success: oklch(0.74 0.18 155);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.62 0.27 295);
+  --destructive-foreground: #FFFFFF;
+  --success: #10B981;
+  --border: rgba(255, 255, 255, 0.06);
+  --input: rgba(255, 255, 255, 0.04);
+  --ring: #8B5CF6;
 
-  /* Lively multi-stop background gradient */
-  --gradient-hero: radial-gradient(ellipse 60% 50% at 20% 0%, oklch(0.55 0.28 295 / 0.7), transparent 60%),
-                   radial-gradient(ellipse 55% 45% at 80% 10%, oklch(0.6 0.26 330 / 0.55), transparent 65%),
-                   radial-gradient(ellipse 70% 55% at 50% 100%, oklch(0.5 0.25 270 / 0.5), transparent 70%);
-  --gradient-text: linear-gradient(180deg, oklch(0.99 0 0) 40%, oklch(0.78 0.05 295) 100%);
-  --gradient-accent: linear-gradient(135deg, oklch(0.82 0.18 330), oklch(0.6 0.27 285));
-  --gradient-button: linear-gradient(180deg, oklch(0.78 0.22 300) 0%, oklch(0.62 0.28 295) 50%, oklch(0.48 0.26 285) 100%);
-  --shadow-glow: 0 10px 40px -8px oklch(0.62 0.28 295 / 0.65), 0 0 0 1px oklch(0.78 0.22 305 / 0.35) inset;
-  --shadow-soft: 0 10px 40px -10px oklch(0 0 0 / 0.6);
+  /* Ambient Blur Gradients from the Image */
+  --gradient-linear-base: linear-gradient(135deg, #030303 0%, #080511 40%, #030303 100%);
+  --gradient-text: linear-gradient(180deg, #FFFFFF 50%, rgba(255, 255, 255, 0.65) 100%);
+  --gradient-button: linear-gradient(135deg, #FFFFFF 0%, #F4F4F5 100%);
+  --shadow-glow: 0 10px 40px -8px rgba(168, 85, 247, 0.4);
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
 }
 
 @layer base {
@@ -79,141 +86,219 @@
   }
 
   html {
-    background-color: oklch(0.08 0.03 285);
+    background: var(--gradient-linear-base);
+    background-attachment: fixed;
     scroll-behavior: smooth;
+    min-height: 100%;
+  }
+
+  /* Center Deep Glow */
+  html::before {
+    content: "";
+    position: fixed;
+    top: 25%;
+    left: 30%;
+    width: 600px;
+    height: 600px;
+    background: #6366F1;
+    filter: blur(150px);
+    opacity: 0.08;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatBackground 25s infinite ease-in-out;
+    will-change: transform;
   }
 
   body {
-    color: var(--color-foreground);
+    color: #FFFFFF;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: "ss01", "cv11";
-    background-color: oklch(0.09 0.03 290);
-    background-image:
-      radial-gradient(ellipse 45% 32% at 10% 6%, oklch(0.6 0.28 295 / 0.55), transparent 60%),
-      radial-gradient(ellipse 38% 28% at 90% 18%, oklch(0.65 0.27 330 / 0.5), transparent 65%),
-      radial-gradient(ellipse 50% 32% at 6% 55%, oklch(0.55 0.26 250 / 0.45), transparent 65%),
-      radial-gradient(ellipse 42% 30% at 95% 62%, oklch(0.62 0.25 200 / 0.4), transparent 65%),
-      radial-gradient(ellipse 55% 38% at 50% 98%, oklch(0.58 0.27 310 / 0.5), transparent 70%),
-      linear-gradient(180deg, oklch(0.1 0.03 290), oklch(0.08 0.04 280));
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
+    /* Tight tracking and smooth rendering seen in modern typography */
+    font-feature-settings: "ss01", "cv11", "kern";
+    letter-spacing: -0.02em;
+    background-color: transparent;
     position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
   }
 
+  /* Bottom-Left Ambient Purple Glow */
   body::before {
     content: "";
     position: fixed;
-    inset: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
+    filter: blur(120px);
+    bottom: -15%;
+    left: -15%;
     pointer-events: none;
-    z-index: 0;
-    background:
-      conic-gradient(from 220deg at 30% 30%, oklch(0.6 0.28 295 / 0.28), transparent 35%, oklch(0.6 0.26 330 / 0.22) 65%, transparent),
-      conic-gradient(from 40deg at 75% 75%, oklch(0.55 0.26 220 / 0.22), transparent 40%, oklch(0.6 0.27 310 / 0.22) 70%, transparent);
-    mix-blend-mode: screen;
-    filter: blur(60px);
-    animation: aurora 22s ease-in-out infinite alternate;
+    z-index: -1;
+    will-change: transform;
+    animation: floatBackground 20s infinite alternate ease-in-out;
   }
 
-  @keyframes aurora {
-    0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
-    50%  { transform: translate3d(-3%, 2%, 0) scale(1.08); opacity: 1; }
-    100% { transform: translate3d(2%, -2%, 0) scale(1.04); opacity: 0.92; }
+  /* Top-Right Ambient Electric Purple Glow */
+  body::after {
+    content: "";
+    position: fixed;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 70%);
+    filter: blur(130px);
+    top: -10%;
+    right: -10%;
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform;
+    animation: floatBackground 18s infinite alternate-reverse ease-in-out;
+  }
+
+  @keyframes floatBackground {
+    0% { transform: translate(0px, 0px) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.05); }
+    100% { transform: translate(-15px, 15px) scale(0.98); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.2); }
+  }
+
+  @keyframes drift {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-80px); }
+  }
+
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
   }
 
   ::selection {
-    background-color: oklch(0.62 0.27 295 / 0.45);
-    color: oklch(0.99 0 0);
+    background-color: rgba(168, 85, 247, 0.3);
+    color: #FFFFFF;
   }
 
+  /* Custom header styling matching "Bank, Invest, and Pay. All in One App." */
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    line-height: 1.1;
   }
 }
 
 @layer utilities {
+  .bg-black, .bg-background, .bg-zinc-950, .bg-neutral-950, .bg-slate-950 {
+    background-color: transparent !important;
+  }
+
   .bg-grid {
     background-image:
-      linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
-    background-size: 88px 88px;
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
   }
 
-  .bg-hero-glow {
-    background: var(--gradient-hero);
-  }
-
-  .text-gradient {
+  .gradient-text {
     background: var(--gradient-text);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .text-accent-gradient {
-    background: linear-gradient(135deg, oklch(0.85 0.16 320), oklch(0.6 0.28 285) 60%, oklch(0.7 0.22 250));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* Ultra sleek glass container */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Lively gradient button — fundednext-style: vivid violet with sheen + glow */
-  .btn-lively {
+  .glass-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6), 0 0 40px rgba(168, 85, 247, 0.05);
+  }
+
+  /* The clean White Pill Button style seen on "Get the app" */
+  .premium-button {
     position: relative;
-    background: var(--gradient-button);
-    color: var(--color-primary-foreground);
-    box-shadow: var(--shadow-glow);
-    transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.2s ease;
-    isolation: isolate;
+    background: #FFFFFF;
+    color: #000000;
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 0.75rem 1.75rem;
+    transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+  }
+
+  .premium-button:hover {
+    transform: translateY(-1px);
+    background: #F4F4F5;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+
+  .premium-button:active {
+    transform: scale(0.98);
+  }
+
+  /* The Outline Pill Button seen on "Learn More" */
+  .secondary-glass-button {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    font-weight: 500;
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+    transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .secondary-glass-button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Starfield and Background Utilities remain intact */
+  .starfield-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     overflow: hidden;
   }
-  .btn-lively::before {
-    content: "";
+
+  .star-base {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, oklch(1 0 0 / 0.35), transparent 45%);
-    pointer-events: none;
-  }
-  .btn-lively::after {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, oklch(0.85 0.2 330 / 0.7), transparent 40%, oklch(0.6 0.28 270 / 0.7));
-    z-index: -1;
-    filter: blur(14px);
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-  .btn-lively:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.08);
-  }
-  .btn-lively:hover::after {
-    opacity: 1;
+    border-radius: 50%;
+    will-change: transform, opacity;
   }
 
-  .mask-fade-edges {
-    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  .star-small { width: 1px; height: 1px; background: rgba(255, 255, 255, 0.8); }
+  .star-medium { width: 2px; height: 2px; background: rgba(255, 255, 255, 0.6); }
+  
+  .animate-twinkle {
+    animation: twinkle var(--twinkle-duration, 4s) ease-in-out infinite;
+    animation-delay: var(--twinkle-delay, 0s);
   }
 
-  .ticker-track {
-    animation: ticker 60s linear infinite;
-  }
+  .animate-drift { animation: drift var(--drift-duration, 60s) linear infinite; }
+  .ticker-track { animation: ticker 60s linear infinite; }
 
   @keyframes ticker {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
-  }
-
-  .pulse-dot {
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
   }
 }

@@ -226,7 +226,7 @@ function AIAnalyser() {
                   <button
                     onClick={analyse}
                     disabled={!preview || loading}
-                    className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-primary-glow to-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+                    className="group inline-flex items-center gap-2 rounded-full btn-lively px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {loading ? (
                       <>

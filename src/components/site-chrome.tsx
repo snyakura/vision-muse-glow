@@ -195,7 +195,7 @@ export function SiteHeader() {
                               Deposit
                             </Link>
                             <Link
-                              to="/contact"
+                              to="/withdrawal"
                               className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                             >
                               Withdrawal

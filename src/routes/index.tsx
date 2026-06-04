@@ -79,14 +79,14 @@ function Hero() {
         <Reveal delay={0.22}>
           <div className="mt-12 flex flex-row items-center justify-center gap-3">
             <Link
-              to="/contact"
+              to="/deposit"
               className="premium-button group"
             >
               <span>Deposit</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
-              to="/contact"
+              to="/withdrawal"
               className="secondary-glass-button"
             >
               <Wallet className="h-4 w-4" />

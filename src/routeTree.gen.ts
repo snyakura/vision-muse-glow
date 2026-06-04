@@ -9,27 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WithdrawalRouteImport } from './routes/withdrawal'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AiAnalyserRouteImport } from './routes/ai-analyser'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
-const WithdrawalRoute = WithdrawalRouteImport.update({
-  id: '/withdrawal',
-  path: '/withdrawal',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DepositRoute = DepositRouteImport.update({
-  id: '/deposit',
-  path: '/deposit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -58,18 +46,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
   '/contact': typeof ContactRoute
-  '/deposit': typeof DepositRoute
   '/services': typeof ServicesRoute
-  '/withdrawal': typeof WithdrawalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
   '/contact': typeof ContactRoute
-  '/deposit': typeof DepositRoute
   '/services': typeof ServicesRoute
-  '/withdrawal': typeof WithdrawalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,38 +61,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
   '/contact': typeof ContactRoute
-  '/deposit': typeof DepositRoute
   '/services': typeof ServicesRoute
-  '/withdrawal': typeof WithdrawalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/ai-analyser'
-    | '/contact'
-    | '/deposit'
-    | '/services'
-    | '/withdrawal'
+  fullPaths: '/' | '/about' | '/ai-analyser' | '/contact' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/ai-analyser'
-    | '/contact'
-    | '/deposit'
-    | '/services'
-    | '/withdrawal'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/ai-analyser'
-    | '/contact'
-    | '/deposit'
-    | '/services'
-    | '/withdrawal'
+  to: '/' | '/about' | '/ai-analyser' | '/contact' | '/services'
+  id: '__root__' | '/' | '/about' | '/ai-analyser' | '/contact' | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,32 +76,16 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AiAnalyserRoute: typeof AiAnalyserRoute
   ContactRoute: typeof ContactRoute
-  DepositRoute: typeof DepositRoute
   ServicesRoute: typeof ServicesRoute
-  WithdrawalRoute: typeof WithdrawalRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/withdrawal': {
-      id: '/withdrawal'
-      path: '/withdrawal'
-      fullPath: '/withdrawal'
-      preLoaderRoute: typeof WithdrawalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/services': {
       id: '/services'
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/deposit': {
-      id: '/deposit'
-      path: '/deposit'
-      fullPath: '/deposit'
-      preLoaderRoute: typeof DepositRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -180,9 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AiAnalyserRoute: AiAnalyserRoute,
   ContactRoute: ContactRoute,
-  DepositRoute: DepositRoute,
   ServicesRoute: ServicesRoute,
-  WithdrawalRoute: WithdrawalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -189,13 +189,13 @@ export function SiteHeader() {
                         >
                           <div className="w-40 overflow-hidden rounded-2xl border border-border bg-background/90 p-1.5 shadow-2xl backdrop-blur-xl">
                             <Link
-                              to="/deposit"
+                              to="/contact"
                               className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                             >
                               Deposit
                             </Link>
                             <Link
-                              to="/withdrawal"
+                              to="/contact"
                               className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                             >
                               Withdrawal

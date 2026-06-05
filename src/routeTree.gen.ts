@@ -13,6 +13,7 @@ import { Route as WithdrawalRouteImport } from './routes/withdrawal'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AiAnalyserRouteImport } from './routes/ai-analyser'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -37,6 +38,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AiAnalyserRoute = AiAnalyserRouteImport.update({
   id: '/ai-analyser',
   path: '/ai-analyser',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
+  '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
   '/services': typeof ServicesRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
+  '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
   '/services': typeof ServicesRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
+  '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
   '/services': typeof ServicesRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ai-analyser'
+    | '/blog'
     | '/contact'
     | '/deposit'
     | '/services'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ai-analyser'
+    | '/blog'
     | '/contact'
     | '/deposit'
     | '/services'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ai-analyser'
+    | '/blog'
     | '/contact'
     | '/deposit'
     | '/services'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AiAnalyserRoute: typeof AiAnalyserRoute
+  BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   DepositRoute: typeof DepositRoute
   ServicesRoute: typeof ServicesRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ai-analyser': {
       id: '/ai-analyser'
       path: '/ai-analyser'
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AiAnalyserRoute: AiAnalyserRoute,
+  BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   DepositRoute: DepositRoute,
   ServicesRoute: ServicesRoute,
@@ -187,3 +208,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

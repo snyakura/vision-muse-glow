@@ -11,10 +11,7 @@ import {
   Briefcase, 
   Smartphone,
   CheckCircle2,
-  AlertCircle,
-  Banknote,
-  Clock,
-  TrendingUp
+  Clock
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { PageBackground } from "@/components/page-background";

@@ -348,13 +348,13 @@ function DepositPage() {
               <button
                 type="submit"
                 disabled={!isFormValid}
-                className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-all ${
+                className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
                   isFormValid 
-                    ? "bg-gradient-to-b from-primary-glow to-primary hover:scale-[1.01] cursor-pointer" 
+                    ? "premium-button hover:scale-[1.01]" 
                     : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
                 }`}
               >
-                Initiate Transaction Desk
+                <span>Initiate Transaction</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
 

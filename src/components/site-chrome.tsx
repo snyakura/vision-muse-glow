@@ -282,7 +282,7 @@ export function SiteHeader() {
       </motion.header>
 
       {/* Main layout push spacer layout element */}
-      <div className="h-[133px] w-full block pointer-events-none" />
+      <div className="h-[149px] w-full block pointer-events-none" />
 
       {/* WhatsApp Quick Floating Action Button */}
       <motion.a

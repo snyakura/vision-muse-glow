@@ -6,13 +6,15 @@ import {
   ArrowRight, 
   ShieldCheck, 
   User, 
-  Mail, 
+  Mail,
   Phone, 
   Briefcase, 
   Smartphone,
   CheckCircle2,
   AlertCircle,
-  Banknote
+  Banknote,
+  Clock,
+  TrendingUp
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { PageBackground } from "@/components/page-background";
@@ -113,6 +115,20 @@ function WithdrawalPage() {
                       placeholder="Doe"
                       value={formData.lastName}
                       onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">Email Address</label>
+                  <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
+                    <Mail className="h-4 w-4 text-muted-foreground mr-2.5" />
+                    <input 
+                      type="email" 
+                      placeholder="johndoe@example.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
                       className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
                     />
                   </div>
@@ -245,14 +261,32 @@ function WithdrawalPage() {
                   <span>Source Broker</span>
                   <span className="font-semibold text-foreground capitalize">{selectedBroker}</span>
                 </div>
+                {selectedBroker === "deriv" && crNumber && (
+                  <div className="flex justify-between items-center text-muted-foreground">
+                    <span>Account ID</span>
+                    <span className="font-mono text-foreground uppercase">{crNumber}</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center text-muted-foreground">
                   <span>Payout Via</span>
                   <span className="font-semibold text-foreground uppercase">{selectedMethod.replace('_', ' ')}</span>
                 </div>
+                <div className="flex justify-between items-center text-muted-foreground">
+                  <span>Gross Withdraw</span>
+                  <span className="font-mono text-foreground">${Number(amount || 0).toLocaleString()}.00</span>
+                </div>
+                <div className="flex justify-between items-center text-muted-foreground">
+                  <span>Desk Fee</span>
+                  <span className="font-mono text-foreground">$1.50</span>
+                </div>
+                <div className="flex justify-between items-center text-muted-foreground">
+                  <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" /> ETA</span>
+                  <span className="font-mono text-foreground">~15 min</span>
+                </div>
                 <div className="pt-3 flex justify-between items-baseline">
                   <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Net Payout</span>
                   <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
-                    ${Number(amount || 0).toLocaleString()}.00
+                    ${Math.max(0, Number(amount || 0) - 1.5).toLocaleString()}
                   </span>
                 </div>
               </div>

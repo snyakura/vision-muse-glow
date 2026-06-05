@@ -99,24 +99,43 @@
     min-height: 100%;
   }
 
-  /* Center Deep Glow */
+  /* Center Deep Glow - animated indigo orb */
   html::before {
     content: "";
     position: fixed;
-    top: 25%;
-    left: 30%;
-    width: 600px;
-    height: 600px;
-    background: #6366F1;
-    filter: blur(150px);
-    opacity: 0.08;
+    top: 18%;
+    left: 25%;
+    width: 720px;
+    height: 720px;
+    background: radial-gradient(circle, #6366F1 0%, rgba(99,102,241,0.35) 40%, transparent 70%);
+    filter: blur(140px);
+    opacity: 0.55;
     z-index: -1;
     border-radius: 50%;
     pointer-events: none;
-    animation: floatBackground 25s infinite ease-in-out;
-    will-change: transform;
+    animation: orbDrift1 22s infinite ease-in-out alternate;
+    will-change: transform, opacity;
+    mix-blend-mode: screen;
   }
-  
+
+  /* Extra roaming orbs via html::after */
+  html::after {
+    content: "";
+    position: fixed;
+    top: 45%;
+    left: 55%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(217, 70, 239, 0.55) 0%, rgba(124, 58, 237, 0.25) 45%, transparent 70%);
+    filter: blur(150px);
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: orbDrift4 28s infinite ease-in-out alternate;
+    will-change: transform, opacity;
+    mix-blend-mode: screen;
+  }
+
   @keyframes sheen {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
@@ -126,7 +145,6 @@
     color: #FFFFFF;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    /* Tight tracking and smooth rendering seen in modern typography */
     font-feature-settings: "ss01", "cv11", "kern";
     letter-spacing: -0.02em;
     background-color: transparent;
@@ -135,36 +153,63 @@
     min-height: 100vh;
   }
 
-  /* Bottom-Left Ambient Purple Glow */
+  /* Bottom-Left Ambient Purple Glow - animated */
   body::before {
+    content: "";
+    position: fixed;
+    width: 780px;
+    height: 780px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.55) 0%, rgba(168, 85, 247, 0.25) 40%, transparent 70%);
+    filter: blur(130px);
+    bottom: -20%;
+    left: -18%;
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform, opacity;
+    animation: orbDrift2 18s infinite ease-in-out alternate;
+    mix-blend-mode: screen;
+  }
+
+  /* Top-Right Ambient Electric Purple Glow - animated */
+  body::after {
     content: "";
     position: fixed;
     width: 700px;
     height: 700px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
-    filter: blur(120px);
-    bottom: -15%;
-    left: -15%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.55) 0%, rgba(99, 102, 241, 0.3) 45%, transparent 70%);
+    filter: blur(140px);
+    top: -12%;
+    right: -12%;
     pointer-events: none;
     z-index: -1;
-    will-change: transform;
-    animation: floatBackground 20s infinite alternate ease-in-out;
+    will-change: transform, opacity;
+    animation: orbDrift3 24s infinite ease-in-out alternate;
+    mix-blend-mode: screen;
   }
 
-  /* Top-Right Ambient Electric Purple Glow */
-  body::after {
-    content: "";
-    position: fixed;
-    width: 650px;
-    height: 650px;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 70%);
-    filter: blur(130px);
-    top: -10%;
-    right: -10%;
-    pointer-events: none;
-    z-index: -1;
-    will-change: transform;
-    animation: floatBackground 18s infinite alternate-reverse ease-in-out;
+  @keyframes orbDrift1 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.45; }
+    33%  { transform: translate(180px, 140px) scale(1.18); opacity: 0.7; }
+    66%  { transform: translate(-160px, 240px) scale(0.95); opacity: 0.55; }
+    100% { transform: translate(260px, -100px) scale(1.1); opacity: 0.6; }
+  }
+
+  @keyframes orbDrift2 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.55; }
+    50%  { transform: translate(280px, -200px) scale(1.22); opacity: 0.85; }
+    100% { transform: translate(-100px, -280px) scale(1.05); opacity: 0.6; }
+  }
+
+  @keyframes orbDrift3 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.5; }
+    50%  { transform: translate(-260px, 220px) scale(1.2); opacity: 0.8; }
+    100% { transform: translate(-360px, 100px) scale(0.95); opacity: 0.55; }
+  }
+
+  @keyframes orbDrift4 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.45; }
+    50%  { transform: translate(-300px, -180px) scale(1.25); opacity: 0.75; }
+    100% { transform: translate(220px, 240px) scale(1.05); opacity: 0.55; }
   }
 
   @keyframes floatBackground {
@@ -172,6 +217,7 @@
     50% { transform: translate(30px, -20px) scale(1.05); }
     100% { transform: translate(-15px, 15px) scale(0.98); }
   }
+
 
   @keyframes pulseGlow {
     0%, 100% { opacity: 0.3; transform: scale(1); }

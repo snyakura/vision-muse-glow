@@ -111,6 +111,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/ai-analyser", label: "AI Analyser" },
+  { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
 ] as const;
 
@@ -149,17 +150,17 @@ export function SiteHeader() {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-[37px] left-0 right-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-6xl h-24 items-center justify-between px-6 py-0">
+        <div className="mx-auto flex max-w-6xl h-28 items-center justify-between px-6 py-0">
           
           <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
             <motion.div 
-              whileHover={{ scale: 1.02 }}
-              className="flex h-24 items-center justify-center relative"
+              whileHover={{ scale: 1.04 }}
+              className="flex h-28 items-center justify-center relative"
             >
               <img 
                 src="/q.png" 
                 alt="ChainForge Logo" 
-                className="h-12 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]" 
+                className="h-20 w-auto object-contain filter drop-shadow-[0_0_24px_rgba(139,92,246,0.35)]" 
               />
             </motion.div>
           </Link>
@@ -281,7 +282,7 @@ export function SiteHeader() {
       </motion.header>
 
       {/* Main layout push spacer layout element */}
-      <div className="h-[133px] w-full block pointer-events-none" />
+      <div className="h-[149px] w-full block pointer-events-none" />
 
       {/* WhatsApp Quick Floating Action Button */}
       <motion.a
@@ -321,7 +322,7 @@ export function SiteFooter() {
             <img 
               src="/q.png" 
               alt="ChainForge Logo" 
-              className="h-36 w-auto object-contain filter drop-shadow-[0_0_20px_rgba(255,255,255,0.12)] md:-ml-2" 
+              className="h-52 w-auto object-contain filter drop-shadow-[0_0_30px_rgba(139,92,246,0.35)] md:-ml-2" 
             />
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground text-center md:text-left">

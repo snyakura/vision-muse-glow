@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, Ticker } from "../components/site-chrome";
+import { AnimatedBackground } from "../components/animated-background";
 
 function NotFoundComponent() {
   return (
@@ -124,6 +125,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AnimatedBackground />
       <div className="relative min-h-screen text-foreground">
         <Ticker />
         <SiteHeader />

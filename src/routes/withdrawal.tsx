@@ -8,7 +8,6 @@ import {
   User, 
   Mail,
   Phone, 
-  Briefcase, 
   Smartphone,
   CheckCircle2,
   Clock

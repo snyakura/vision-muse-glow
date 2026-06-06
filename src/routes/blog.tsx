@@ -63,7 +63,7 @@ function BlogPage() {
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-6xl font-['Montserrat']">
               <span className="text-gradient">Forex News</span>{" "}
-              <span className="text-accent-gradient italic">& Analysis.</span>
+              <span className="text-accent-gradient">& Analysis.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>

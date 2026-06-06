@@ -64,7 +64,7 @@ function Hero() {
           <h1 className="font-display mt-8 text-6xl leading-[1.0] md:text-8xl">
             <span className="text-gradient">Forge your wealth</span>
             <br />
-            <span className="text-accent-gradient italic">with The Forex Mafia.</span>
+            <span className="text-accent-gradient">with The Forex Mafia.</span>
           </h1>
         </Reveal>
 
@@ -126,35 +126,17 @@ function Pill({ icon, label }: { icon: React.ReactNode; label: string }) {
 }
 
 function Brokers() {
-  // Using direct premium web URLs so they display instantly without missing files
   const brokerLogos = [
-    { 
-      src: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Binance_Logo.svg", 
-      alt: "Binance" 
-    },
-    { 
-      src: "https://images.ctfassets.net/7985732m7v09/48wOAtbBvD6Fv6gM5H6Zl2/9b618cf2e4d9b4bfa856e7e83df92d4d/deriv-logo.png", 
-      alt: "Deriv" 
-    },
-    { 
-      src: "https://upload.wikimedia.org/wikipedia/commons/4/4f/MetaTrader_4_logo.svg", 
-      alt: "MetaTrader 4" 
-    },
-    { 
-      src: "https://upload.wikimedia.org/wikipedia/commons/8/8c/MetaTrader_5_logo.svg", 
-      alt: "MetaTrader 5" 
-    },
-    { 
-      src: "https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Weltrade_logo.png/revision/latest?cb=20211119154432", 
-      alt: "Weltrade" 
-    },
-    { 
-      src: "https://justmarkets.com/assets/images/logo/justmarkets-logo-white.svg", 
-      alt: "Just Markets" 
-    },
+    { name: "Binance", url: "https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=040" },
+    { name: "Deriv", url: "https://logo.clearbit.com/deriv.com" },
+    { name: "Weltrade", url: "https://logo.clearbit.com/weltrade.com" },
+    { name: "MetaTrader 5", url: "https://logo.clearbit.com/metatrader5.com" },
+    { name: "MetaTrader 4", url: "https://logo.clearbit.com/metatrader4.com" },
+    { name: "JustMarkets", url: "https://logo.clearbit.com/justmarkets.com" },
+    { name: "Bybit", url: "https://logo.clearbit.com/bybit.com" },
+    { name: "Coinbase", url: "https://logo.clearbit.com/coinbase.com" },
   ];
 
-  // Duplicating the array for a seamless, unbroken scrolling loop track
   const marqueeItems = [...brokerLogos, ...brokerLogos, ...brokerLogos];
 
   return (
@@ -163,24 +145,22 @@ function Brokers() {
         <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground mb-10">
           Trusted across leading brokers & exchanges
         </p>
-        
-        {/* Container with fading gradient masks on left & right sides */}
         <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
           <div className="flex w-max animate-infinite-scroll gap-6 py-2">
-            {marqueeItems.map((broker, index) => (
+            {marqueeItems.map((b, i) => (
               <div
-                key={index}
-                className="flex h-16 w-32 items-center justify-center rounded-xl border border-border bg-card/40 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:bg-card/60"
+                key={i}
+                className="flex h-20 w-40 items-center justify-center gap-2 rounded-xl border border-border bg-card/40 px-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-card/60"
               >
                 <img
-                  src={broker.src}
-                  alt={broker.alt}
-                  className="max-h-full max-w-full object-contain opacity-70 transition-opacity duration-300 hover:opacity-100 invert-0 brightness-100"
-                  onError={(e) => {
-                    // Fallback to prevent layout breaking if a URL goes down
-                    e.currentTarget.style.display = 'none';
-                  }}
+                  src={b.url}
+                  alt={b.name}
+                  className="h-8 w-8 object-contain opacity-90"
+                  onError={(e) => { e.currentTarget.style.display = "none"; }}
                 />
+                <span className="text-sm font-semibold tracking-tight text-foreground/80">
+                  {b.name}
+                </span>
               </div>
             ))}
           </div>
@@ -219,7 +199,7 @@ function Pillars() {
           <p className="text-xs uppercase tracking-[0.25em] text-primary-glow">The Forge</p>
           <h2 className="font-display mt-4 text-4xl md:text-6xl">
             <span className="text-gradient">A trading desk,</span>{" "}
-            <span className="text-accent-gradient italic">re-engineered.</span>
+            <span className="text-accent-gradient">re-engineered.</span>
           </h2>
         </Reveal>
       </div>
@@ -259,7 +239,7 @@ function BridgeCTA() {
               </p>
               <h3 className="font-display mt-4 text-3xl md:text-5xl">
                 <span className="text-gradient">Join our WhatsApp</span>{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 italic">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">
                   broadcast channel.
                 </span>
               </h3>
@@ -270,7 +250,7 @@ function BridgeCTA() {
             
             <div className="md:col-span-5 md:justify-self-end">
               <a
-                href="https://whatsapp.com/channel/YOUR_CHANNEL_ID"
+                href="https://whatsapp.com/channel/0029VaVnVETC6ZvgsD8foc3E"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-600 px-7 py-3.5 text-sm font-medium text-white shadow-[0_4px_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_4px_25px_rgba(16,185,129,0.45)]"

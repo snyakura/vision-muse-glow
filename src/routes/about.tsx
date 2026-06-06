@@ -35,7 +35,7 @@ function About() {
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-7xl">
               <span className="text-gradient">We are</span>{" "}
-              <span className="text-accent-gradient italic">the Forex Mafia.</span>
+              <span className="text-accent-gradient">the Forex Mafia.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
@@ -54,7 +54,7 @@ function About() {
               <p className="text-xs uppercase tracking-[0.2em] text-primary-glow">Vision</p>
               <p className="font-display mt-4 text-2xl md:text-3xl">
                 <span className="text-gradient">The world's most trusted</span>{" "}
-                <span className="text-accent-gradient italic">payment gateway</span>{" "}
+                <span className="text-accent-gradient">payment gateway</span>{" "}
                 <span className="text-gradient">for the global trading community.</span>
               </p>
             </div>
@@ -64,7 +64,7 @@ function About() {
               <p className="text-xs uppercase tracking-[0.2em] text-primary-glow">Mission</p>
               <p className="font-display mt-4 text-2xl md:text-3xl">
                 <span className="text-gradient">Frictionless, secure, rapid</span>{" "}
-                <span className="text-accent-gradient italic">financial infrastructure</span>{" "}
+                <span className="text-accent-gradient">financial infrastructure</span>{" "}
                 <span className="text-gradient">— so traders execute with precision, 24/7.</span>
               </p>
             </div>
@@ -112,7 +112,7 @@ function About() {
           <div className="flex flex-col items-start justify-between gap-6 rounded-[2rem] border border-border bg-gradient-to-br from-card/80 to-background p-10 md:flex-row md:items-center md:p-14">
             <h3 className="font-display text-3xl md:text-4xl">
               <span className="text-gradient">Join the</span>{" "}
-              <span className="text-accent-gradient italic">family.</span>
+              <span className="text-accent-gradient">family.</span>
             </h3>
             <Link
               to="/contact"

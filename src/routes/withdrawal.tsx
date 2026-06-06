@@ -8,7 +8,6 @@ import {
   User, 
   Mail,
   Phone, 
-  Briefcase, 
   Smartphone,
   CheckCircle2,
   Clock
@@ -65,7 +64,7 @@ function WithdrawalPage() {
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-6xl font-['Montserrat']">
               <span className="text-gradient">Withdraw</span>{" "}
-              <span className="text-accent-gradient italic">Earnings.</span>
+              <span className="text-accent-gradient">Earnings.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
@@ -82,7 +81,7 @@ function WithdrawalPage() {
           <div className="lg:col-span-2 space-y-6">
             
             {/* 1. Identity Form */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">1</span>
                 Personal Details
@@ -148,26 +147,34 @@ function WithdrawalPage() {
             </div>
 
             {/* 2. Source Broker */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">2</span>
                 Select Source Broker
               </h3>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                {(["weltrade", "deriv", "other"] as BrokerType[]).map((broker) => (
+                {([
+                  { id: "weltrade", label: "Weltrade", logo: "https://logo.clearbit.com/weltrade.com" },
+                  { id: "deriv", label: "Deriv", logo: "https://logo.clearbit.com/deriv.com" },
+                  { id: "other", label: "Other", logo: "https://logo.clearbit.com/metatrader5.com" },
+                ] as { id: BrokerType; label: string; logo: string }[]).map((broker) => (
                   <button
-                    key={broker}
-                    onClick={() => setSelectedBroker(broker)}
-                    className={`flex flex-col items-center justify-center p-4 rounded-xl border capitalize font-['Montserrat'] font-medium text-sm transition-all relative ${
-                      selectedBroker === broker
-                        ? "border-primary-glow bg-primary-glow/[0.04] text-foreground"
-                        : "border-border bg-card/40 text-muted-foreground hover:border-muted-foreground/40"
+                    key={broker.id}
+                    onClick={() => setSelectedBroker(broker.id)}
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border font-['Montserrat'] font-medium text-sm transition-all relative ${
+                      selectedBroker === broker.id
+                        ? "border-primary-glow bg-primary-glow/[0.08] text-foreground shadow-[0_0_25px_rgba(139,92,246,0.25)]"
+                        : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <Briefcase className="h-4 w-4 mb-2 opacity-70" />
-                    {broker}
-                    {selectedBroker === broker && (
+                    <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-background/60 border border-border p-1">
+                      <img src={broker.logo} alt={broker.label}
+                        className="h-full w-full object-contain"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                    </div>
+                    {broker.label}
+                    {selectedBroker === broker.id && (
                       <CheckCircle2 className="absolute top-2 right-2 h-3.5 w-3.5 text-primary-glow" />
                     )}
                   </button>
@@ -195,28 +202,38 @@ function WithdrawalPage() {
             </div>
 
             {/* 3. Payout Method */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">3</span>
                 Receiving Payout Method
               </h3>
 
               <div className="grid gap-4 sm:grid-cols-3">
-                {[
-                  { id: "ecocash" as PayoutMethodType, label: "EcoCash" },
-                  { id: "innbucks" as PayoutMethodType, label: "InnBucks" },
-                  { id: "fnb_eft" as PayoutMethodType, label: "FNB EFT" }
-                ].map((method) => (
+                {([
+                  { id: "ecocash", label: "EcoCash", logo: "https://logo.clearbit.com/ecocash.co.zw" },
+                  { id: "innbucks", label: "InnBucks", logo: "https://logo.clearbit.com/innbucks.co.zw" },
+                  { id: "fnb_eft", label: "FNB EFT", logo: "https://logo.clearbit.com/fnb.co.za" },
+                ] as { id: PayoutMethodType; label: string; logo: string }[]).map((method) => (
                   <button
                     key={method.id}
                     onClick={() => setSelectedMethod(method.id)}
-                    className={`flex flex-col items-center justify-center p-4 rounded-xl border font-medium text-sm transition-all relative ${
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border font-medium text-sm transition-all relative ${
                       selectedMethod === method.id
-                        ? "border-primary-glow bg-primary-glow/[0.04] text-foreground"
-                        : "border-border bg-card/40 text-muted-foreground hover:border-muted-foreground/40"
+                        ? "border-primary-glow bg-primary-glow/[0.08] text-foreground shadow-[0_0_25px_rgba(139,92,246,0.25)]"
+                        : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <Smartphone className="h-4 w-4 mb-2 opacity-70" />
+                    <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-white/95 p-1">
+                      <img src={method.logo} alt={method.label}
+                        className="h-full w-full object-contain"
+                        onError={(e) => {
+                          const t = e.currentTarget as HTMLImageElement;
+                          t.style.display = "none";
+                          const fb = t.parentElement?.querySelector('.fb') as HTMLElement | null;
+                          if (fb) fb.style.display = "flex";
+                        }} />
+                      <Smartphone className="fb h-5 w-5 text-primary-glow hidden" />
+                    </div>
                     {method.label}
                     {selectedMethod === method.id && (
                       <CheckCircle2 className="absolute top-2 right-2 h-3.5 w-3.5 text-primary-glow" />
@@ -227,7 +244,7 @@ function WithdrawalPage() {
             </div>
 
             {/* 4. Amount */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-4">
                 Withdrawal Amount
               </h3>
@@ -245,7 +262,7 @@ function WithdrawalPage() {
           </div>
 
           <div className="space-y-6 lg:sticky lg:top-36">
-            <div className="rounded-3xl border border-border bg-card/30 p-6 backdrop-blur-sm shadow-xl">
+            <div className="card-animated rounded-3xl p-6 shadow-xl">
               <div className="flex items-center justify-between border-b border-border/60 pb-4 mb-5">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat']">Request Summary</h3>
                 <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-emerald-500 uppercase">
@@ -273,17 +290,13 @@ function WithdrawalPage() {
                   <span className="font-mono text-foreground">${Number(amount || 0).toLocaleString()}.00</span>
                 </div>
                 <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Desk Fee</span>
-                  <span className="font-mono text-foreground">$1.50</span>
-                </div>
-                <div className="flex justify-between items-center text-muted-foreground">
                   <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" /> ETA</span>
                   <span className="font-mono text-foreground">~15 min</span>
                 </div>
                 <div className="pt-3 flex justify-between items-baseline">
                   <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Net Payout</span>
                   <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
-                    ${Math.max(0, Number(amount || 0) - 1.5).toLocaleString()}
+                    ${Number(amount || 0).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -298,17 +311,37 @@ function WithdrawalPage() {
                 </ul>
               </div>
 
-              <button
-                disabled={!isFormValid}
-                className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
-                  isFormValid 
-                    ? "premium-button hover:scale-[1.01]" 
-                    : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
-                }`}
-              >
-                <span>Request Liquidation</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+              {(() => {
+                const msg = encodeURIComponent(
+                  `*NEW WITHDRAWAL REQUEST — ChainForge*\n\n` +
+                  `Name: ${formData.firstName} ${formData.lastName}\n` +
+                  `Email: ${formData.email}\n` +
+                  `WhatsApp: ${formData.whatsapp}\n\n` +
+                  `Source Broker: ${selectedBroker}` +
+                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") + `\n` +
+                  `Payout Method: ${selectedMethod.replace("_", " ").toUpperCase()}\n` +
+                  `Amount: $${Number(amount || 0).toLocaleString()}\n\n` +
+                  `Ready to liquidate — please confirm next steps.`
+                );
+                const href = `https://wa.me/263710554856?text=${msg}`;
+                return (
+                  <a
+                    href={isFormValid ? href : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-disabled={!isFormValid}
+                    onClick={(e) => { if (!isFormValid) e.preventDefault(); }}
+                    className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
+                      isFormValid
+                        ? "premium-button hover:scale-[1.01]"
+                        : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
+                    }`}
+                  >
+                    <span>Request Liquidation</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                );
+              })()}
             </div>
           </div>
         </div>

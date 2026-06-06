@@ -291,17 +291,13 @@ function WithdrawalPage() {
                   <span className="font-mono text-foreground">${Number(amount || 0).toLocaleString()}.00</span>
                 </div>
                 <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Desk Fee</span>
-                  <span className="font-mono text-foreground">$1.50</span>
-                </div>
-                <div className="flex justify-between items-center text-muted-foreground">
                   <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" /> ETA</span>
                   <span className="font-mono text-foreground">~15 min</span>
                 </div>
                 <div className="pt-3 flex justify-between items-baseline">
                   <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Net Payout</span>
                   <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
-                    ${Math.max(0, Number(amount || 0) - 1.5).toLocaleString()}
+                    ${Number(amount || 0).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -316,17 +312,37 @@ function WithdrawalPage() {
                 </ul>
               </div>
 
-              <button
-                disabled={!isFormValid}
-                className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
-                  isFormValid 
-                    ? "premium-button hover:scale-[1.01]" 
-                    : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
-                }`}
-              >
-                <span>Request Liquidation</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+              {(() => {
+                const msg = encodeURIComponent(
+                  `*NEW WITHDRAWAL REQUEST — ChainForge*\n\n` +
+                  `Name: ${formData.firstName} ${formData.lastName}\n` +
+                  `Email: ${formData.email}\n` +
+                  `WhatsApp: ${formData.whatsapp}\n\n` +
+                  `Source Broker: ${selectedBroker}` +
+                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") + `\n` +
+                  `Payout Method: ${selectedMethod.replace("_", " ").toUpperCase()}\n` +
+                  `Amount: $${Number(amount || 0).toLocaleString()}\n\n` +
+                  `Ready to liquidate — please confirm next steps.`
+                );
+                const href = `https://wa.me/263710554856?text=${msg}`;
+                return (
+                  <a
+                    href={isFormValid ? href : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-disabled={!isFormValid}
+                    onClick={(e) => { if (!isFormValid) e.preventDefault(); }}
+                    className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
+                      isFormValid
+                        ? "premium-button hover:scale-[1.01]"
+                        : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
+                    }`}
+                  >
+                    <span>Request Liquidation</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                );
+              })()}
             </div>
           </div>
         </div>

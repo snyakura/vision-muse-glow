@@ -85,8 +85,8 @@ function DepositPage() {
           {/* Left Block: Client Operations & Configuration Panels */}
           <div className="lg:col-span-2 space-y-6">
             
-            {/* 1. Client Personal Details Identity Form Box */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            {/* 1. Personal Details */}
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">1</span>
                 Personal Details
@@ -97,89 +97,77 @@ function DepositPage() {
                   <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">First Name</label>
                   <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
                     <User className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input 
-                      type="text" 
-                      placeholder="John"
-                      value={formData.firstName}
+                    <input type="text" placeholder="John" value={formData.firstName}
                       onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
-                    />
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
                   </div>
                 </div>
-
                 <div>
                   <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">Surname</label>
                   <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
                     <User className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input 
-                      type="text" 
-                      placeholder="Doe"
-                      value={formData.lastName}
+                    <input type="text" placeholder="Doe" value={formData.lastName}
                       onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
-                    />
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
                   </div>
                 </div>
-
                 <div className="sm:col-span-2">
                   <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">Email Address</label>
                   <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
                     <Mail className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input 
-                      type="email" 
-                      placeholder="johndoe@example.com"
-                      value={formData.email}
+                    <input type="email" placeholder="johndoe@example.com" value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
-                    />
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
                   </div>
                 </div>
-
                 <div className="sm:col-span-2">
                   <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">WhatsApp Number</label>
                   <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
                     <Phone className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input 
-                      type="tel" 
-                      placeholder="+263 7xx xxx xxx"
-                      value={formData.whatsapp}
+                    <input type="tel" placeholder="+263 7xx xxx xxx" value={formData.whatsapp}
                       onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
-                    />
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 2. Broker Allocation Selection Matrix */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            {/* 2. Broker */}
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">2</span>
                 Select Destination Broker
               </h3>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                {(["weltrade", "deriv", "other"] as BrokerType[]).map((broker) => (
+                {([
+                  { id: "weltrade", label: "Weltrade", logo: "https://logo.clearbit.com/weltrade.com" },
+                  { id: "deriv", label: "Deriv", logo: "https://logo.clearbit.com/deriv.com" },
+                  { id: "other", label: "Other", logo: "https://logo.clearbit.com/metatrader5.com" },
+                ] as { id: BrokerType; label: string; logo: string }[]).map((broker) => (
                   <button
-                    key={broker}
+                    key={broker.id}
                     type="button"
-                    onClick={() => setSelectedBroker(broker)}
-                    className={`flex flex-col items-center justify-center p-4 rounded-xl border capitalize font-['Montserrat'] font-medium text-sm transition-all relative ${
-                      selectedBroker === broker
-                        ? "border-primary-glow bg-primary-glow/[0.04] text-foreground"
-                        : "border-border bg-card/40 text-muted-foreground hover:border-muted-foreground/40"
+                    onClick={() => setSelectedBroker(broker.id)}
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border font-['Montserrat'] font-medium text-sm transition-all relative ${
+                      selectedBroker === broker.id
+                        ? "border-primary-glow bg-primary-glow/[0.08] text-foreground shadow-[0_0_25px_rgba(139,92,246,0.25)]"
+                        : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <Briefcase className="h-4 w-4 mb-2 opacity-70" />
-                    {broker}
-                    {selectedBroker === broker && (
+                    <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-background/60 border border-border p-1">
+                      <img src={broker.logo} alt={broker.label}
+                        className="h-full w-full object-contain"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                    </div>
+                    {broker.label}
+                    {selectedBroker === broker.id && (
                       <CheckCircle2 className="absolute top-2 right-2 h-3.5 w-3.5 text-primary-glow" />
                     )}
                   </button>
                 ))}
               </div>
 
-              {/* Conditional Rendering UI: Deriv Account CR Validation Form Box */}
               {selectedBroker === "deriv" && (
                 <div className="mt-5 pt-4 border-t border-border/50">
                   <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-2">
@@ -188,48 +176,54 @@ function DepositPage() {
                   <div className={`flex items-center rounded-xl border px-3 py-2.5 bg-background/40 transition-colors ${
                     isCrInvalid ? "border-rose-500/80 focus-within:border-rose-500" : "border-border focus-within:border-primary-glow/50"
                   }`}>
-                    <input 
-                      type="text" 
-                      placeholder="CR123456"
-                      value={crNumber}
+                    <input type="text" placeholder="CR123456" value={crNumber}
                       onChange={(e) => setCrNumber(e.target.value)}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0 font-mono uppercase tracking-wide"
-                    />
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0 font-mono uppercase tracking-wide" />
                   </div>
                   {isCrInvalid && (
                     <p className="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-2">
                       <AlertCircle className="h-3.5 w-3.5" />
-                      CR Number must begin explicitly with "CR" credentials
+                      CR Number must begin with "CR"
                     </p>
                   )}
                 </div>
               )}
             </div>
 
-            {/* 3. Transaction Gateways Selection Matrix */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            {/* 3. Payment Method */}
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">3</span>
                 Payment Method
               </h3>
 
               <div className="grid gap-4 sm:grid-cols-3">
-                {[
-                  { id: "ecocash" as PaymentMethodType, label: "EcoCash" },
-                  { id: "innbucks" as PaymentMethodType, label: "InnBucks" },
-                  { id: "fnb_eft" as PaymentMethodType, label: "FNB EFT" }
-                ].map((method) => (
+                {([
+                  { id: "ecocash", label: "EcoCash", logo: "https://logo.clearbit.com/ecocash.co.zw" },
+                  { id: "innbucks", label: "InnBucks", logo: "https://logo.clearbit.com/innbucks.co.zw" },
+                  { id: "fnb_eft", label: "FNB EFT", logo: "https://logo.clearbit.com/fnb.co.za" },
+                ] as { id: PaymentMethodType; label: string; logo: string }[]).map((method) => (
                   <button
                     key={method.id}
                     type="button"
                     onClick={() => setSelectedMethod(method.id)}
-                    className={`flex flex-col items-center justify-center p-4 rounded-xl border font-medium text-sm transition-all relative ${
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border font-medium text-sm transition-all relative ${
                       selectedMethod === method.id
-                        ? "border-primary-glow bg-primary-glow/[0.04] text-foreground"
-                        : "border-border bg-card/40 text-muted-foreground hover:border-muted-foreground/40"
+                        ? "border-primary-glow bg-primary-glow/[0.08] text-foreground shadow-[0_0_25px_rgba(139,92,246,0.25)]"
+                        : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <Smartphone className="h-4 w-4 mb-2 opacity-70" />
+                    <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-white/95 p-1">
+                      <img src={method.logo} alt={method.label}
+                        className="h-full w-full object-contain"
+                        onError={(e) => {
+                          const t = e.currentTarget as HTMLImageElement;
+                          t.style.display = "none";
+                          const fb = t.parentElement?.querySelector('.fb') as HTMLElement | null;
+                          if (fb) fb.style.display = "flex";
+                        }} />
+                      <Smartphone className="fb h-5 w-5 text-primary-glow hidden" />
+                    </div>
                     {method.label}
                     <span className="text-[9px] font-mono text-muted-foreground/60 mt-1">10% DESK FEE</span>
                     {selectedMethod === method.id && (
@@ -240,8 +234,8 @@ function DepositPage() {
               </div>
             </div>
 
-            {/* 4. Capital Pricing Input Allocation Component */}
-            <div className="rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm">
+            {/* 4. Amount */}
+            <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-4">
                 Amount Setting
               </h3>
@@ -259,9 +253,9 @@ function DepositPage() {
 
           </div>
 
-          {/* Right Block: Dynamic Summary & Payment Instruction Terminal Output */}
+          {/* Right summary */}
           <div className="space-y-6 lg:sticky lg:top-36">
-            <div className="rounded-3xl border border-border bg-card/30 p-6 backdrop-blur-sm shadow-xl">
+            <div className="card-animated rounded-3xl p-6 shadow-xl">
               
               <div className="flex items-center justify-between border-b border-border/60 pb-4 mb-5">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat']">

@@ -218,7 +218,7 @@ function Services() {
                 </p>
               </div>
               <Link
-                to="/contact"
+                to="/open-account"
                 className="secondary-glass-button group gap-2 text-sm font-medium tracking-wide shadow-glow"
               >
                 Open an account

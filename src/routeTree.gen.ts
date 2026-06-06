@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WithdrawalRouteImport } from './routes/withdrawal'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as OpenAccountRouteImport } from './routes/open-account'
 import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -26,6 +27,11 @@ const WithdrawalRoute = WithdrawalRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpenAccountRoute = OpenAccountRouteImport.update({
+  id: '/open-account',
+  path: '/open-account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DepositRoute = DepositRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
+  '/open-account': typeof OpenAccountRoute
   '/services': typeof ServicesRoute
   '/withdrawal': typeof WithdrawalRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
+  '/open-account': typeof OpenAccountRoute
   '/services': typeof ServicesRoute
   '/withdrawal': typeof WithdrawalRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
+  '/open-account': typeof OpenAccountRoute
   '/services': typeof ServicesRoute
   '/withdrawal': typeof WithdrawalRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/deposit'
+    | '/open-account'
     | '/services'
     | '/withdrawal'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/deposit'
+    | '/open-account'
     | '/services'
     | '/withdrawal'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/deposit'
+    | '/open-account'
     | '/services'
     | '/withdrawal'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   DepositRoute: typeof DepositRoute
+  OpenAccountRoute: typeof OpenAccountRoute
   ServicesRoute: typeof ServicesRoute
   WithdrawalRoute: typeof WithdrawalRoute
 }
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/open-account': {
+      id: '/open-account'
+      path: '/open-account'
+      fullPath: '/open-account'
+      preLoaderRoute: typeof OpenAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deposit': {
@@ -202,9 +222,20 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   DepositRoute: DepositRoute,
+  OpenAccountRoute: OpenAccountRoute,
   ServicesRoute: ServicesRoute,
   WithdrawalRoute: WithdrawalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

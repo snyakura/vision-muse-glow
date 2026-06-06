@@ -191,19 +191,10 @@ export function SiteHeader() {
                           exit={{ opacity: 0, y: 10 }}
                           className="absolute left-1/2 top-full -translate-x-1/2 pt-2 z-50"
                         >
-                          <div className="w-40 overflow-hidden rounded-2xl border border-border bg-background/90 p-1.5 shadow-2xl backdrop-blur-xl">
-                            <Link
-                              to="/deposit"
-                              className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                            >
-                              Deposit
-                            </Link>
-                            <Link
-                              to="/withdrawal"
-                              className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                            >
-                              Withdrawal
-                            </Link>
+                          <div className="w-48 overflow-hidden rounded-2xl border border-border bg-background/90 p-1.5 shadow-2xl backdrop-blur-xl">
+                            <Link to="/deposit" className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">Deposit</Link>
+                            <Link to="/withdrawal" className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">Withdrawal</Link>
+                            <Link to="/open-account" className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">Open Account</Link>
                           </div>
                         </motion.div>
                       )}
@@ -227,13 +218,15 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-4">
             <div className="hidden md:block">
-              <Link
-                to="/contact"
+              <a
+                href="https://wa.me/263710554856"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
               >
                 Get Started
                 <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              </a>
             </div>
 
             <button
@@ -267,14 +260,19 @@ export function SiteHeader() {
                     {l.label}
                   </Link>
                 ))}
-                <Link
-                  to="/contact"
+                <Link to="/deposit" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Deposit</Link>
+                <Link to="/withdrawal" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Withdrawal</Link>
+                <Link to="/open-account" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Open Account</Link>
+                <a
+                  href="https://wa.me/263710554856"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-lg font-medium text-background transition-transform hover:scale-[1.02] mt-4"
                 >
                   Get Started
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </a>
               </nav>
             </motion.div>
           )}
@@ -286,7 +284,7 @@ export function SiteHeader() {
 
       {/* WhatsApp Quick Floating Action Button */}
       <motion.a
-        href="https://wa.me/YOUR_PHONE_NUMBER"
+        href="https://wa.me/263710554856"
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -338,11 +336,11 @@ export function SiteFooter() {
           <div className="mt-6 flex items-center gap-10">
             {/* WhatsApp Brand Icon */}
             <a 
-              href="https://wa.me/YOUR_PHONE_NUMBER" 
+              href="https://whatsapp.com/channel/0029VaVnVETC6ZvgsD8foc3E" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="group p-4 rounded-full bg-secondary/50 text-muted-foreground transition-all duration-300 hover:text-[#25D366] hover:bg-[#25D366]/10 hover:scale-110"
-              aria-label="WhatsApp"
+              aria-label="WhatsApp Channel"
             >
               <svg 
                 viewBox="0 0 24 24" 
@@ -355,7 +353,7 @@ export function SiteFooter() {
             
             {/* TikTok Brand Icon */}
             <a 
-              href="https://tiktok.com/@YOUR_USERNAME" 
+              href="https://vt.tiktok.com/ZSxA1XaRD/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="group p-4 rounded-full bg-secondary/50 text-muted-foreground transition-all duration-300 hover:text-[#00f2fe] hover:bg-[#00f2fe]/10 hover:scale-110"

@@ -65,7 +65,7 @@ function WithdrawalPage() {
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-6xl font-['Montserrat']">
               <span className="text-gradient">Withdraw</span>{" "}
-              <span className="text-accent-gradient italic">Earnings.</span>
+              <span className="text-accent-gradient">Earnings.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>

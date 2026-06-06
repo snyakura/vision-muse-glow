@@ -37,7 +37,7 @@ function Services() {
             <h1 className="font-display mt-5 text-5xl md:text-7xl">
               <span className="text-gradient">Institutional grade</span>{" "}
               <br />
-              <span className="text-accent-gradient italic">financial rails.</span>
+              <span className="text-accent-gradient">financial rails.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
@@ -211,7 +211,7 @@ function Services() {
               <div>
                 <h3 className="font-display text-3xl md:text-4xl">
                   <span className="text-gradient">Ready to bridge</span>{" "}
-                  <span className="text-accent-gradient italic">your capital?</span>
+                  <span className="text-accent-gradient">your capital?</span>
                 </h3>
                 <p className="mt-3 max-w-xl text-sm text-muted-foreground">
                   Onboard in minutes with a dedicated account manager.

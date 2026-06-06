@@ -67,7 +67,7 @@ function DepositPage() {
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-6xl font-['Montserrat']">
               <span className="text-gradient">Deposit</span>{" "}
-              <span className="text-accent-gradient italic">Capital.</span>
+              <span className="text-accent-gradient">Capital.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>

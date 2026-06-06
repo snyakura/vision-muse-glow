@@ -86,7 +86,7 @@ function AIAnalyser() {
           <Reveal delay={0.08}>
             <h1 className="font-display mt-7 text-5xl leading-[1.05] md:text-7xl">
               <span className="text-gradient">Upload a chart.</span>{" "}
-              <span className="text-accent-gradient italic">Get the read.</span>
+              <span className="text-accent-gradient">Get the read.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>

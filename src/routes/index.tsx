@@ -64,7 +64,7 @@ function Hero() {
           <h1 className="font-display mt-8 text-6xl leading-[1.0] md:text-8xl">
             <span className="text-gradient">Forge your wealth</span>
             <br />
-            <span className="text-accent-gradient italic">with The Forex Mafia.</span>
+            <span className="text-accent-gradient">with The Forex Mafia.</span>
           </h1>
         </Reveal>
 
@@ -219,7 +219,7 @@ function Pillars() {
           <p className="text-xs uppercase tracking-[0.25em] text-primary-glow">The Forge</p>
           <h2 className="font-display mt-4 text-4xl md:text-6xl">
             <span className="text-gradient">A trading desk,</span>{" "}
-            <span className="text-accent-gradient italic">re-engineered.</span>
+            <span className="text-accent-gradient">re-engineered.</span>
           </h2>
         </Reveal>
       </div>
@@ -259,7 +259,7 @@ function BridgeCTA() {
               </p>
               <h3 className="font-display mt-4 text-3xl md:text-5xl">
                 <span className="text-gradient">Join our WhatsApp</span>{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 italic">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">
                   broadcast channel.
                 </span>
               </h3>

@@ -32,7 +32,7 @@ function Contact() {
         <Reveal delay={0.08}>
           <h1 className="font-display mt-5 text-5xl md:text-7xl">
             <span className="text-gradient">Let's move</span>{" "}
-            <span className="text-accent-gradient italic">your capital.</span>
+            <span className="text-accent-gradient">your capital.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.16}>

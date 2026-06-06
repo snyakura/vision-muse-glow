@@ -150,17 +150,17 @@ export function SiteHeader() {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-[37px] left-0 right-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-6xl h-28 items-center justify-between px-6 py-0">
+        <div className="mx-auto flex max-w-6xl h-36 items-center justify-between px-6 py-0">
           
           <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
             <motion.div 
               whileHover={{ scale: 1.04 }}
-              className="flex h-28 items-center justify-center relative"
+              className="flex h-36 items-center justify-center relative"
             >
               <img 
                 src="/q.png" 
                 alt="ChainForge Logo" 
-                className="h-20 w-auto object-contain filter drop-shadow-[0_0_24px_rgba(139,92,246,0.35)]" 
+                className="h-32 md:h-36 w-auto object-contain filter drop-shadow-[0_0_28px_rgba(139,92,246,0.45)]" 
               />
             </motion.div>
           </Link>
@@ -282,7 +282,7 @@ export function SiteHeader() {
       </motion.header>
 
       {/* Main layout push spacer layout element */}
-      <div className="h-[149px] w-full block pointer-events-none" />
+      <div className="h-[181px] w-full block pointer-events-none" />
 
       {/* WhatsApp Quick Floating Action Button */}
       <motion.a
@@ -366,7 +366,7 @@ export function SiteFooter() {
                 className="h-6 w-6 fill-current transition-transform group-hover:-rotate-6"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.03 1.6 4.25.91. graphics 1.05 2.19 1.76 3.58 2.02v3.74c-1.32-.3-2.52-1.01-3.42-2.02-.07 2.66-.04 5.32-.06 7.98-.12 3.14-2.12 6.05-5.18 6.84-2.99.85-6.42-.45-7.74-3.21-1.51-2.95-.44-6.93 2.45-8.54 1.34-.78 2.94-.96 4.46-.57.02 1.34.01 2.68.01 4.02-1-.27-2.11-.08-2.93.59-.97.74-1.29 2.11-.8 3.24.43 1.13 1.66 1.88 2.87 1.67 1.25-.13 2.29-1.22 2.38-2.48.05-4.49.02-8.99.03-13.49-.01-1.34-.01-2.68-.01-4.02z"/>
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/>
               </svg>
             </a>
           </div>

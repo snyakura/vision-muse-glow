@@ -231,7 +231,7 @@ function DepositPage() {
                   >
                     <Smartphone className="h-4 w-4 mb-2 opacity-70" />
                     {method.label}
-                    <span className="text-[9px] font-mono text-muted-foreground/60 mt-1">FEE: $1.00</span>
+                    <span className="text-[9px] font-mono text-muted-foreground/60 mt-1">10% DESK FEE</span>
                     {selectedMethod === method.id && (
                       <CheckCircle2 className="absolute top-2 right-2 h-3.5 w-3.5 text-primary-glow" />
                     )}
@@ -290,18 +290,18 @@ function DepositPage() {
                   <span className="font-semibold text-foreground uppercase">{selectedMethod.replace('_', ' ')}</span>
                 </div>
                 <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Gross Funds</span>
+                  <span>Deposit Amount</span>
                   <span className="font-mono text-foreground">${Number(amount || 0).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Service Fee</span>
-                  <span className="font-mono text-foreground">$1.00</span>
+                  <span>Desk Fee (10%)</span>
+                  <span className="font-mono text-rose-400">- ${(Number(amount || 0) * 0.1).toFixed(2)}</span>
                 </div>
-                
+
                 <div className="pt-3 flex justify-between items-baseline">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Total Due</span>
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Net Credited to Broker</span>
                   <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
-                    ${(Number(amount || 0) + 1).toLocaleString()}.00
+                    ${(Number(amount || 0) * 0.9).toFixed(2)}
                   </span>
                 </div>
               </div>

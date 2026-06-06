@@ -107,29 +107,43 @@ function BlogPage() {
                 href={it.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex flex-col rounded-3xl border border-border bg-card/20 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary-glow/50 hover:bg-card/40 hover:shadow-[0_20px_60px_-20px_rgba(139,92,246,0.4)]"
+                className="card-animated group relative flex flex-col rounded-3xl overflow-hidden"
               >
-                <div className="mb-3 flex items-center justify-between text-[10px] uppercase tracking-widest text-muted-foreground/70 font-mono">
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="h-3 w-3" />
-                    {formatDate(it.pubDate)}
-                  </span>
-                  {it.category && (
-                    <span className="rounded-full bg-primary-glow/10 px-2 py-0.5 text-[9px] text-primary-glow">
-                      {it.category}
-                    </span>
-                  )}
-                </div>
-                <h2 className="font-['Montserrat'] text-base font-semibold leading-snug text-foreground line-clamp-3 group-hover:text-primary-glow">
-                  {it.title}
-                </h2>
-                {it.description && (
-                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground line-clamp-3">
-                    {it.description}
-                  </p>
+                {it.image && (
+                  <div className="relative h-40 w-full overflow-hidden bg-black/40">
+                    <img
+                      src={it.image}
+                      alt={it.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => ((e.currentTarget.style.display = "none"))}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  </div>
                 )}
-                <div className="mt-auto pt-4 flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-primary-glow opacity-0 transition-opacity group-hover:opacity-100">
-                  Read on FXStreet <ExternalLink className="h-3 w-3" />
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="mb-3 flex items-center justify-between text-[10px] uppercase tracking-widest text-muted-foreground/70 font-mono">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="h-3 w-3" />
+                      {formatDate(it.pubDate)}
+                    </span>
+                    {it.category && (
+                      <span className="rounded-full bg-primary-glow/10 px-2 py-0.5 text-[9px] text-primary-glow">
+                        {it.category}
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="font-['Montserrat'] text-base font-semibold leading-snug text-foreground line-clamp-3 group-hover:text-primary-glow">
+                    {it.title}
+                  </h2>
+                  {it.description && (
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground line-clamp-3">
+                      {it.description}
+                    </p>
+                  )}
+                  <div className="mt-auto pt-4 flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-primary-glow opacity-0 transition-opacity group-hover:opacity-100">
+                    Read on FXStreet <ExternalLink className="h-3 w-3" />
+                  </div>
                 </div>
               </a>
             ))}

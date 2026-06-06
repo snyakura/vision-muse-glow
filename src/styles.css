@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -16,7 +17,7 @@
   /* Synced to the Pulsar Image Palette */
   --color-background: #030303;
   --color-foreground: #FFFFFF;
-  --color-card: rgba(255, 255, 255, 0.03);
+  --color-card: rgba(8, 6, 18, 0.65);
   --color-card-foreground: #FFFFFF;
   --color-popover: #0A0A0A;
   --color-popover-foreground: #FFFFFF;
@@ -38,8 +39,8 @@
   --color-ring: #8B5CF6;
   
   /* Typography fine-tuned for geometric premium look */
-  --font-sans: "Satoshi", "Geist", "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Satoshi", "Geist", "General Sans", sans-serif;
+  --font-sans: "Montserrat", "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", "Satoshi", "General Sans", sans-serif;
 
   /* Tailwind v4 custom animation config */
   --animate-infinite-scroll: infinite-scroll 25s linear infinite;
@@ -58,7 +59,7 @@
   --surface: #080808;
   --foreground: #FFFFFF;
   --foreground-secondary: rgba(255, 255, 255, 0.6);
-  --card: rgba(255, 255, 255, 0.03);
+  --card: rgba(8, 6, 18, 0.65);
   --card-foreground: #FFFFFF;
   --popover: #0A0A0A;
   --popover-foreground: #FFFFFF;
@@ -427,5 +428,68 @@
   /* Infinite scroll wrapper utility */
   .animate-infinite-scroll {
     animation: var(--animate-infinite-scroll);
+  }
+
+  /* Darker, animated card surface */
+  .card-animated {
+    position: relative;
+    background:
+      linear-gradient(160deg, rgba(12, 8, 28, 0.85) 0%, rgba(4, 2, 12, 0.92) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    backdrop-filter: blur(18px);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+  }
+  .card-animated::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--card-angle, 0deg),
+      transparent 0deg,
+      rgba(139, 92, 246, 0.55) 60deg,
+      rgba(34, 211, 238, 0.45) 140deg,
+      transparent 220deg,
+      transparent 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0.6;
+    animation: cardBorderSpin 9s linear infinite;
+    pointer-events: none;
+  }
+  .card-animated::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      600px circle at var(--mx, 50%) var(--my, 0%),
+      rgba(139, 92, 246, 0.10),
+      transparent 45%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .card-animated:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168, 85, 247, 0.45);
+    box-shadow: 0 30px 60px -20px rgba(139, 92, 246, 0.35),
+                0 0 0 1px rgba(168, 85, 247, 0.15);
+  }
+  .card-animated:hover::after { opacity: 1; }
+
+  @property --card-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes cardBorderSpin {
+    to { --card-angle: 360deg; }
   }
 }

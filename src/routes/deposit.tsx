@@ -338,19 +338,40 @@ function DepositPage() {
                 </ol>
               </div>
 
-              {/* Action Processing Controller Button Trigger Wrapper */}
-              <button
-                type="submit"
-                disabled={!isFormValid}
-                className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
-                  isFormValid 
-                    ? "premium-button hover:scale-[1.01]" 
-                    : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
-                }`}
-              >
-                <span>Initiate Transaction</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+              {(() => {
+                const net = (Number(amount || 0) * 0.9).toFixed(2);
+                const msg = encodeURIComponent(
+                  `*NEW DEPOSIT REQUEST — ChainForge*\n\n` +
+                  `Name: ${formData.firstName} ${formData.lastName}\n` +
+                  `Email: ${formData.email}\n` +
+                  `WhatsApp: ${formData.whatsapp}\n\n` +
+                  `Broker: ${selectedBroker}` +
+                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") + `\n` +
+                  `Payment Method: ${selectedMethod.replace("_", " ").toUpperCase()}\n` +
+                  `Deposit Amount: $${Number(amount || 0).toLocaleString()}\n` +
+                  `Desk Fee (10%): $${(Number(amount || 0) * 0.1).toFixed(2)}\n` +
+                  `Net to Broker: $${net}\n\n` +
+                  `Ready to send funds — please confirm next steps.`
+                );
+                const href = `https://wa.me/263710554856?text=${msg}`;
+                return (
+                  <a
+                    href={isFormValid ? href : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-disabled={!isFormValid}
+                    onClick={(e) => { if (!isFormValid) e.preventDefault(); }}
+                    className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
+                      isFormValid
+                        ? "premium-button hover:scale-[1.01]"
+                        : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
+                    }`}
+                  >
+                    <span>Initiate Transaction</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                );
+              })()}
 
             </div>
           </div>

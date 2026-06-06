@@ -3,17 +3,15 @@
 import { useEffect, useMemo, useState } from "react";
 
 /**
- * Lively, minimal animated background:
- * - Drifting starfield (CSS keyframes)
- * - Two slow-moving SVG line-chart paths (forex feel)
- * - Soft scanline grid
- * Rendered fixed behind the entire app; pointer-events disabled.
+ * Infinite, seamless animated background:
+ *  - Twinkling starfield that drifts upward forever
+ *  - Two parallel forex-style line charts that scroll endlessly (no easing pauses)
+ *  - Soft grid overlay
  */
 export function AnimatedBackground() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // Stable seeded stars (deterministic for SSR/CSR parity)
   const stars = useMemo(() => {
     const out: { x: number; y: number; s: number; d: number; o: number }[] = [];
     let seed = 7;
@@ -21,7 +19,7 @@ export function AnimatedBackground() {
       seed = (seed * 9301 + 49297) % 233280;
       return seed / 233280;
     };
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 110; i++) {
       out.push({
         x: rand() * 100,
         y: rand() * 100,
@@ -33,10 +31,22 @@ export function AnimatedBackground() {
     return out;
   }, []);
 
+  // Reusable chart path — designed so that placing two copies side-by-side
+  // (offset by viewBox width) creates a seamless infinite loop.
+  const chartPath =
+    "M0,260 C100,220 180,300 260,250 C340,200 420,180 520,210 C620,240 700,290 800,240 C900,190 1000,160 1100,200 L1200,260";
+  const chartFill =
+    "M0,260 C100,220 180,300 260,250 C340,200 420,180 520,210 C620,240 700,290 800,240 C900,190 1000,160 1100,200 L1200,260 L1200,400 L0,400 Z";
+
+  const chartPathB =
+    "M0,320 C120,300 220,340 320,310 C420,280 520,260 640,290 C760,320 860,350 980,310 C1080,280 1160,260 1200,320";
+  const chartFillB =
+    "M0,320 C120,300 220,340 320,310 C420,280 520,260 640,290 C760,320 860,350 980,310 C1080,280 1160,260 1200,320 L1200,400 L0,400 Z";
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      {/* Stars layer */}
-      <div className="absolute inset-0">
+      {/* Stars layer with continuous upward drift */}
+      <div className="absolute inset-0 stars-drift">
         {mounted &&
           stars.map((st, i) => (
             <span
@@ -56,61 +66,55 @@ export function AnimatedBackground() {
           ))}
       </div>
 
-      {/* Moving line chart SVG — two layered drifting paths */}
-      <svg
-        className="absolute inset-x-0 bottom-0 h-[60vh] w-full opacity-[0.22]"
-        viewBox="0 0 1200 400"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="chartA" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="chartB" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="lineA" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0%" stopColor="#A855F7" stopOpacity="0.1" />
-            <stop offset="50%" stopColor="#A855F7" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#A855F7" stopOpacity="0.1" />
-          </linearGradient>
-          <linearGradient id="lineB" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.1" />
-            <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.1" />
-          </linearGradient>
-        </defs>
+      {/* Chart A — infinite scroll */}
+      <div className="absolute inset-x-0 bottom-0 h-[60vh] w-[200%] opacity-[0.22] chart-scroll-a">
+        <svg viewBox="0 0 2400 400" preserveAspectRatio="none" className="h-full w-full">
+          <defs>
+            <linearGradient id="chartA" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="lineA" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stopColor="#A855F7" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#A855F7" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#A855F7" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+          <g>
+            <path d={chartFill} fill="url(#chartA)" />
+            <path d={chartPath} fill="none" stroke="url(#lineA)" strokeWidth="2" />
+          </g>
+          <g transform="translate(1200,0)">
+            <path d={chartFill} fill="url(#chartA)" />
+            <path d={chartPath} fill="none" stroke="url(#lineA)" strokeWidth="2" />
+          </g>
+        </svg>
+      </div>
 
-        {/* Chart A (slow drift) */}
-        <g className="chart-drift-a">
-          <path
-            d="M0,260 C100,220 180,300 260,250 C340,200 420,180 520,210 C620,240 700,290 800,240 C900,190 1000,160 1100,200 L1200,180 L1200,400 L0,400 Z"
-            fill="url(#chartA)"
-          />
-          <path
-            d="M0,260 C100,220 180,300 260,250 C340,200 420,180 520,210 C620,240 700,290 800,240 C900,190 1000,160 1100,200 L1200,180"
-            fill="none"
-            stroke="url(#lineA)"
-            strokeWidth="2"
-          />
-        </g>
-
-        {/* Chart B (counter drift) */}
-        <g className="chart-drift-b">
-          <path
-            d="M0,320 C120,300 220,340 320,310 C420,280 520,260 640,290 C760,320 860,350 980,310 C1080,280 1160,260 1200,270 L1200,400 L0,400 Z"
-            fill="url(#chartB)"
-          />
-          <path
-            d="M0,320 C120,300 220,340 320,310 C420,280 520,260 640,290 C760,320 860,350 980,310 C1080,280 1160,260 1200,270"
-            fill="none"
-            stroke="url(#lineB)"
-            strokeWidth="2"
-          />
-        </g>
-      </svg>
+      {/* Chart B — counter scroll */}
+      <div className="absolute inset-x-0 bottom-0 h-[60vh] w-[200%] opacity-[0.18] chart-scroll-b">
+        <svg viewBox="0 0 2400 400" preserveAspectRatio="none" className="h-full w-full">
+          <defs>
+            <linearGradient id="chartB" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="lineB" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+          <g>
+            <path d={chartFillB} fill="url(#chartB)" />
+            <path d={chartPathB} fill="none" stroke="url(#lineB)" strokeWidth="2" />
+          </g>
+          <g transform="translate(1200,0)">
+            <path d={chartFillB} fill="url(#chartB)" />
+            <path d={chartPathB} fill="none" stroke="url(#lineB)" strokeWidth="2" />
+          </g>
+        </svg>
+      </div>
 
       {/* Subtle grid */}
       <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
@@ -125,18 +129,23 @@ export function AnimatedBackground() {
           animation-iteration-count: infinite;
           animation-timing-function: ease-in-out;
         }
-        @keyframes chartDriftA {
-          0%   { transform: translate3d(0,0,0); }
-          50%  { transform: translate3d(-60px,-12px,0); }
-          100% { transform: translate3d(0,0,0); }
+        @keyframes starsDrift {
+          0%   { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(0, -120px, 0); }
         }
-        @keyframes chartDriftB {
-          0%   { transform: translate3d(0,0,0); }
-          50%  { transform: translate3d(80px,8px,0); }
-          100% { transform: translate3d(0,0,0); }
+        .stars-drift {
+          animation: starsDrift 90s linear infinite;
         }
-        .chart-drift-a { animation: chartDriftA 22s ease-in-out infinite; transform-origin: center; }
-        .chart-drift-b { animation: chartDriftB 28s ease-in-out infinite; transform-origin: center; }
+        @keyframes scrollChartA {
+          0%   { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        @keyframes scrollChartB {
+          0%   { transform: translate3d(-50%, 0, 0); }
+          100% { transform: translate3d(0, 0, 0); }
+        }
+        .chart-scroll-a { animation: scrollChartA 60s linear infinite; }
+        .chart-scroll-b { animation: scrollChartB 80s linear infinite; }
       `}</style>
     </div>
   );

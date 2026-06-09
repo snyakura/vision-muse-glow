@@ -31,13 +31,13 @@ type BrokerCard = {
 
 const BROKERS: BrokerCard[] = [
   {
-    name: "ChainForge Partner Broker",
-    logo: "https://logo.clearbit.com/clickto.trade",
+    name: "Elev8",
+    logo: "/elev8.png",
     tag: "Recommended",
     blurb:
-      "Our flagship partner. Get verified, fund as little as $50 and we add you to our private trading groups. Use promo code FOREXMAFIA for a 100% deposit bonus.",
+      "Our flagship partner. Get verified, fund as little as $50 and we'll add you to our private trading groups. Use promo code FOREXMAFIA for a 100% deposit bonus.",
     steps: [
-      "Click the link below to register.",
+      "Click the button below to register.",
       "Verify your identity and email.",
       "Fund a minimum of $50.",
       "Apply promo code: FOREXMAFIA",
@@ -48,12 +48,12 @@ const BROKERS: BrokerCard[] = [
   },
   {
     name: "Weltrade",
-    logo: "https://logo.clearbit.com/weltrade.com",
+    logo: "/weltrade.png",
     tag: "Synthetics",
     blurb:
-      "Trade synthetic indices with 1:10,000 leverage. Open a Weltrade account, complete verification, and we'll plug you straight into our synthetic signals desk.",
+      "Trade synthetic indices with high leverage. Open a Weltrade account, complete verification, and we'll plug you straight into our synthetic signals desk.",
     steps: [
-      "Click the link below and complete the form.",
+      "Click the button below and complete the form.",
       "Verify your email and ID.",
       "Choose USD currency, fund and start trading.",
       "Send us your account screenshot to be added.",
@@ -63,12 +63,12 @@ const BROKERS: BrokerCard[] = [
   },
   {
     name: "Deriv",
-    logo: "https://logo.clearbit.com/deriv.com",
+    logo: "/deriv.png",
     tag: "Forex & Synthetics",
     blurb:
       "The Deriv setup runs through a short two-step onboarding. Follow the steps carefully and screenshot every confirmation page.",
     steps: [
-      "Click the link below and enter your details.",
+      "Click the button below and enter your details.",
       "Open Gmail → click 'verify my email' from Deriv.",
       "Choose country Zimbabwe, set a password, screenshot it.",
       "Log in → top-left menu → Trader's Hub → switch Demo → Real.",
@@ -129,6 +129,55 @@ function OpenAccountPage() {
             </div>
           </Reveal>
         </div>
+      </section>
+
+      {/* Featured promo: video + CTA */}
+      <section className="mx-auto max-w-6xl px-6 pb-10">
+        <Reveal>
+          <div className="card-animated rounded-3xl p-6 md:p-8 grid gap-6 md:grid-cols-2 items-center">
+            <div className="rounded-2xl overflow-hidden bg-black border border-border">
+              <video
+                src="/vid.mp4"
+                controls
+                playsInline
+                muted
+                loop
+                className="w-full h-full object-cover aspect-video"
+              />
+            </div>
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-widest text-primary-glow mb-2">
+                Featured Broker — Elev8
+              </p>
+              <h3 className="font-display text-2xl md:text-3xl leading-tight">
+                Let's all create accounts with the best broker. New money is
+                about to be made!!!!
+              </h3>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                Signals and mentorship will be{" "}
+                <span className="text-foreground font-semibold">free</span>.
+                Register with the link below, get verified, fund as little as{" "}
+                <span className="text-foreground font-semibold">$50</span> and
+                we'll add you to our groups. Use our promo code{" "}
+                <span className="font-mono text-primary-glow">"FOREXMAFIA"</span>{" "}
+                and get a{" "}
+                <span className="text-emerald-400 font-semibold">
+                  100% deposit bonus
+                </span>
+                .
+              </p>
+              <a
+                href="https://clickto.trade/b3Qzko9VnDa?ib=12067344"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="premium-button group mt-6"
+              >
+                <span>Register with Elev8</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-24 space-y-6">

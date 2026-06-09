@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { 
-  ArrowRight, 
-  ShieldCheck, 
-  User, 
-  Mail, 
-  Phone, 
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  ShieldCheck,
+  User,
+  Mail,
+  Phone,
   Smartphone,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Zap,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { PageBackground } from "@/components/page-background";
@@ -21,7 +22,8 @@ export const Route = createFileRoute("/deposit")({
       { title: "Deposit Capital — ChainForge" },
       {
         name: "description",
-        content: "Instant and secure funding for your trading accounts across major brokers.",
+        content:
+          "Instant and secure funding for your trading accounts across major brokers.",
       },
     ],
   }),
@@ -31,8 +33,9 @@ export const Route = createFileRoute("/deposit")({
 type BrokerType = "weltrade" | "deriv" | "other";
 type PaymentMethodType = "ecocash" | "innbucks" | "fnb_eft";
 
+const MIN_DEPOSIT = 10;
+
 function DepositPage() {
-  // Step 1: User Profile Details
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -40,20 +43,30 @@ function DepositPage() {
     whatsapp: "",
   });
 
-  // Step 2 & 3: Selection Handlers
   const [selectedBroker, setSelectedBroker] = useState<BrokerType>("weltrade");
   const [crNumber, setCrNumber] = useState<string>("");
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>("ecocash");
-  const [amount, setAmount] = useState<string>("1000");
+  const [selectedMethod, setSelectedMethod] =
+    useState<PaymentMethodType>("ecocash");
+  const [amount, setAmount] = useState<string>("100");
 
-  // Form Validation Flags
-  const isCrInvalid = selectedBroker === "deriv" && crNumber.trim().length > 0 && !crNumber.toLowerCase().startsWith("cr");
-  const isFormValid = 
+  const amountNum = Number(amount || 0);
+  const fee = +(amountNum * 0.1).toFixed(2);
+  const net = +(amountNum * 0.9).toFixed(2);
+
+  const isCrInvalid =
+    selectedBroker === "deriv" &&
+    crNumber.trim().length > 0 &&
+    !crNumber.toLowerCase().startsWith("cr");
+  const isAmountInvalid = amountNum < MIN_DEPOSIT;
+
+  const isFormValid =
     formData.firstName.trim() !== "" &&
     formData.lastName.trim() !== "" &&
     formData.email.trim() !== "" &&
     formData.whatsapp.trim() !== "" &&
-    (selectedBroker !== "deriv" || (crNumber.toLowerCase().startsWith("cr") && crNumber.trim().length > 2));
+    !isAmountInvalid &&
+    (selectedBroker !== "deriv" ||
+      (crNumber.toLowerCase().startsWith("cr") && crNumber.trim().length > 2));
 
   return (
     <>
@@ -61,7 +74,9 @@ function DepositPage() {
         <PageBackground variant="soft" />
         <div className="relative mx-auto max-w-5xl px-6 pt-24 pb-12 text-center">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.25em] text-primary-glow font-['Montserrat']">Account Funding</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-primary-glow font-['Montserrat']">
+              Account Funding
+            </p>
           </Reveal>
           <Reveal delay={0.08}>
             <h1 className="font-display mt-5 text-5xl md:text-6xl font-['Montserrat']">
@@ -71,62 +86,62 @@ function DepositPage() {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="mx-auto mt-6 max-w-2xl text-muted-foreground text-sm md:text-base">
-              Move your capital onto the desk with zero friction. We bridge your funds to your trading dashboard instantly.
+              Move your capital onto the desk with zero friction. Minimum
+              deposit{" "}
+              <span className="text-foreground font-semibold">${MIN_DEPOSIT}</span>.
+              A flat <span className="text-foreground font-semibold">10% desk fee</span>{" "}
+              is deducted from your deposit.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Responsive Two-Column Layout Syncing Frame with image_2c9ca8.jpg */}
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="grid gap-8 lg:grid-cols-3 items-start">
-          
-          {/* Left Block: Client Operations & Configuration Panels */}
           <div className="lg:col-span-2 space-y-6">
-            
             {/* 1. Personal Details */}
             <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">1</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">
+                  1
+                </span>
                 Personal Details
               </h3>
-              
+
               <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">First Name</label>
-                  <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
-                    <User className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input type="text" placeholder="John" value={formData.firstName}
-                      onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">Surname</label>
-                  <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
-                    <User className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input type="text" placeholder="Doe" value={formData.lastName}
-                      onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
-                  </div>
+                <Field
+                  label="First Name"
+                  icon={<User className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                  value={formData.firstName}
+                  placeholder="John"
+                  onChange={(v) => setFormData({ ...formData, firstName: v })}
+                />
+                <Field
+                  label="Surname"
+                  icon={<User className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                  value={formData.lastName}
+                  placeholder="Doe"
+                  onChange={(v) => setFormData({ ...formData, lastName: v })}
+                />
+                <div className="sm:col-span-2">
+                  <Field
+                    label="Email Address"
+                    type="email"
+                    icon={<Mail className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                    value={formData.email}
+                    placeholder="johndoe@example.com"
+                    onChange={(v) => setFormData({ ...formData, email: v })}
+                  />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">Email Address</label>
-                  <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
-                    <Mail className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input type="email" placeholder="johndoe@example.com" value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
-                  </div>
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">WhatsApp Number</label>
-                  <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
-                    <Phone className="h-4 w-4 text-muted-foreground mr-2.5" />
-                    <input type="tel" placeholder="+263 7xx xxx xxx" value={formData.whatsapp}
-                      onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0" />
-                  </div>
+                  <Field
+                    label="WhatsApp Number"
+                    type="tel"
+                    icon={<Phone className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                    value={formData.whatsapp}
+                    placeholder="+263 7xx xxx xxx"
+                    onChange={(v) => setFormData({ ...formData, whatsapp: v })}
+                  />
                 </div>
               </div>
             </div>
@@ -134,16 +149,20 @@ function DepositPage() {
             {/* 2. Broker */}
             <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">2</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">
+                  2
+                </span>
                 Select Destination Broker
               </h3>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                {([
-                  { id: "weltrade", label: "Weltrade", logo: "https://logo.clearbit.com/weltrade.com" },
-                  { id: "deriv", label: "Deriv", logo: "https://logo.clearbit.com/deriv.com" },
-                  { id: "other", label: "Other", logo: "https://logo.clearbit.com/metatrader5.com" },
-                ] as { id: BrokerType; label: string; logo: string }[]).map((broker) => (
+                {(
+                  [
+                    { id: "weltrade", label: "Weltrade", logo: "/weltrade.png" },
+                    { id: "deriv", label: "Deriv", logo: "/deriv.png" },
+                    { id: "other", label: "Other", logo: "/octa.png" },
+                  ] as { id: BrokerType; label: string; logo: string }[]
+                ).map((broker) => (
                   <button
                     key={broker.id}
                     type="button"
@@ -154,10 +173,16 @@ function DepositPage() {
                         : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-background/60 border border-border p-1">
-                      <img src={broker.logo} alt={broker.label}
+                    <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/95 p-1">
+                      <img
+                        src={broker.logo}
+                        alt={broker.label}
                         className="h-full w-full object-contain"
-                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).style.display =
+                            "none";
+                        }}
+                      />
                     </div>
                     {broker.label}
                     {selectedBroker === broker.id && (
@@ -172,12 +197,20 @@ function DepositPage() {
                   <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-2">
                     Deriv CR Number
                   </label>
-                  <div className={`flex items-center rounded-xl border px-3 py-2.5 bg-background/40 transition-colors ${
-                    isCrInvalid ? "border-rose-500/80 focus-within:border-rose-500" : "border-border focus-within:border-primary-glow/50"
-                  }`}>
-                    <input type="text" placeholder="CR123456" value={crNumber}
+                  <div
+                    className={`flex items-center rounded-xl border px-3 py-2.5 bg-background/40 transition-colors ${
+                      isCrInvalid
+                        ? "border-rose-500/80 focus-within:border-rose-500"
+                        : "border-border focus-within:border-primary-glow/50"
+                    }`}
+                  >
+                    <input
+                      type="text"
+                      placeholder="CR123456"
+                      value={crNumber}
                       onChange={(e) => setCrNumber(e.target.value)}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0 font-mono uppercase tracking-wide" />
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0 font-mono uppercase tracking-wide"
+                    />
                   </div>
                   {isCrInvalid && (
                     <p className="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-2">
@@ -192,16 +225,20 @@ function DepositPage() {
             {/* 3. Payment Method */}
             <div className="card-animated rounded-3xl p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-6 flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">3</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow text-[10px]">
+                  3
+                </span>
                 Payment Method
               </h3>
 
               <div className="grid gap-4 sm:grid-cols-3">
-                {([
-                  { id: "ecocash", label: "EcoCash", logo: "https://logo.clearbit.com/ecocash.co.zw" },
-                  { id: "innbucks", label: "InnBucks", logo: "https://logo.clearbit.com/innbucks.co.zw" },
-                  { id: "fnb_eft", label: "FNB EFT", logo: "https://logo.clearbit.com/fnb.co.za" },
-                ] as { id: PaymentMethodType; label: string; logo: string }[]).map((method) => (
+                {(
+                  [
+                    { id: "ecocash", label: "EcoCash", logo: "/ecocash.jpg" },
+                    { id: "innbucks", label: "InnBucks", logo: "/innbucks.png" },
+                    { id: "fnb_eft", label: "FNB EFT", logo: "/fnb.png" },
+                  ] as { id: PaymentMethodType; label: string; logo: string }[]
+                ).map((method) => (
                   <button
                     key={method.id}
                     type="button"
@@ -212,19 +249,26 @@ function DepositPage() {
                         : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-white/95 p-1">
-                      <img src={method.logo} alt={method.label}
+                    <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/95 p-1">
+                      <img
+                        src={method.logo}
+                        alt={method.label}
                         className="h-full w-full object-contain"
                         onError={(e) => {
                           const t = e.currentTarget as HTMLImageElement;
                           t.style.display = "none";
-                          const fb = t.parentElement?.querySelector('.fb') as HTMLElement | null;
+                          const fb = t.parentElement?.querySelector(
+                            ".fb"
+                          ) as HTMLElement | null;
                           if (fb) fb.style.display = "flex";
-                        }} />
+                        }}
+                      />
                       <Smartphone className="fb h-5 w-5 text-primary-glow hidden" />
                     </div>
                     {method.label}
-                    <span className="text-[9px] font-mono text-muted-foreground/60 mt-1">10% DESK FEE</span>
+                    <span className="text-[9px] font-mono text-muted-foreground/60 mt-1">
+                      10% DESK FEE
+                    </span>
                     {selectedMethod === method.id && (
                       <CheckCircle2 className="absolute top-2 right-2 h-3.5 w-3.5 text-primary-glow" />
                     )}
@@ -238,24 +282,37 @@ function DepositPage() {
               <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat'] mb-4">
                 Amount Setting
               </h3>
-              <div className="relative flex items-center rounded-xl border border-border bg-background/50 focus-within:border-primary-glow/60 transition-colors px-4 py-2.5">
-                <span className="text-sm font-medium text-muted-foreground mr-1.5">$</span>
+              <div
+                className={`relative flex items-center rounded-xl border bg-background/50 transition-colors px-4 py-2.5 ${
+                  isAmountInvalid && amount !== ""
+                    ? "border-rose-500/80"
+                    : "border-border focus-within:border-primary-glow/60"
+                }`}
+              >
+                <span className="text-sm font-medium text-muted-foreground mr-1.5">
+                  $
+                </span>
                 <input
                   type="number"
+                  min={MIN_DEPOSIT}
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="w-full bg-transparent text-base font-semibold text-foreground placeholder-muted-foreground/40 outline-none border-none p-0"
-                  placeholder="0"
+                  placeholder={`${MIN_DEPOSIT}`}
                 />
               </div>
+              {isAmountInvalid && (
+                <p className="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-2">
+                  <AlertCircle className="h-3.5 w-3.5" />
+                  Minimum deposit is ${MIN_DEPOSIT}.
+                </p>
+              )}
             </div>
-
           </div>
 
           {/* Right summary */}
           <div className="space-y-6 lg:sticky lg:top-36">
             <div className="card-animated rounded-3xl p-6 shadow-xl">
-              
               <div className="flex items-center justify-between border-b border-border/60 pb-4 mb-5">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-foreground font-['Montserrat']">
                   Summary
@@ -266,91 +323,79 @@ function DepositPage() {
                 </div>
               </div>
 
-              {/* Layout Info List */}
               <div className="space-y-3.5 text-xs border-b border-border/60 pb-5">
-                <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Target Broker</span>
-                  <span className="font-semibold text-foreground capitalize">{selectedBroker}</span>
-                </div>
+                <Row label="Target Broker" value={selectedBroker} capitalize />
                 {selectedBroker === "deriv" && crNumber && (
-                  <div className="flex justify-between items-center text-muted-foreground">
-                    <span>Account ID</span>
-                    <span className="font-mono text-foreground uppercase">{crNumber}</span>
-                  </div>
+                  <Row label="Account ID" value={crNumber} mono uppercase />
                 )}
-                <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Method Gateway</span>
-                  <span className="font-semibold text-foreground uppercase">{selectedMethod.replace('_', ' ')}</span>
-                </div>
-                <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Deposit Amount</span>
-                  <span className="font-mono text-foreground">${Number(amount || 0).toLocaleString()}</span>
-                </div>
+                <Row
+                  label="Method"
+                  value={selectedMethod.replace("_", " ")}
+                  uppercase
+                />
+                <Row
+                  label="Deposit Amount"
+                  value={`$${amountNum.toLocaleString()}`}
+                  mono
+                />
                 <div className="flex justify-between items-center text-muted-foreground">
                   <span>Desk Fee (10%)</span>
-                  <span className="font-mono text-rose-400">- ${(Number(amount || 0) * 0.1).toFixed(2)}</span>
+                  <span className="font-mono text-rose-400">
+                    - ${fee.toFixed(2)}
+                  </span>
                 </div>
-
                 <div className="pt-3 flex justify-between items-baseline">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Net Credited to Broker</span>
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">
+                    Net Credited to Broker
+                  </span>
                   <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
-                    ${(Number(amount || 0) * 0.9).toFixed(2)}
+                    ${net.toFixed(2)}
                   </span>
                 </div>
               </div>
 
-              {/* Dynamic Real-Time Compliance Form Instructions Component Box */}
-              <div className="mt-5 p-4 rounded-2xl bg-background/50 border border-border/80 text-xs">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-primary-glow font-['Montserrat'] mb-3">
-                  Verification Protocol
+              {/* Per-method protocol — flashing so it can't be missed */}
+              <div className="mt-5 p-4 rounded-2xl protocol-flash text-xs">
+                <p className="text-[10px] font-bold uppercase tracking-wider font-['Montserrat'] mb-3 flex items-center gap-1.5 protocol-flash-title">
+                  <Zap className="h-3.5 w-3.5" />
+                  Deposit Instructions
                 </p>
-                <p className="font-bold text-foreground mb-3 text-xs uppercase tracking-wide">
-                  Payment Instructions
-                </p>
-                
-                <ol className="space-y-3 text-muted-foreground list-decimal pl-3.5">
-                  <li>
-                    <span className="font-semibold text-foreground">SEND FUNDS:</span> Send to <span className="font-mono text-foreground font-bold">078 429 3089</span>.
-                    {selectedMethod === "ecocash" && (
-                      <span className="block text-[11px] mt-1 bg-secondary/30 text-foreground p-1.5 rounded-lg font-mono">
-                        • EcoCash: *151# Send Money 078 429 3089
-                      </span>
-                    )}
-                    {selectedMethod === "innbucks" && (
-                      <span className="block text-[11px] mt-1 bg-secondary/30 text-foreground p-1.5 rounded-lg font-mono">
-                        • InnBucks: Send Money to 078 429 3089
-                      </span>
-                    )}
-                  </li>
-                  <li>
-                    <span className="font-semibold text-foreground">RECIPIENT:</span> Confirm name is <span className="font-bold text-foreground">MARC A ZHOU</span>.
-                  </li>
-                  <li>
-                    <span className="font-semibold text-foreground">RECEIPT:</span> Save your transaction screenshot.
-                  </li>
-                  {/* Conditional Logic Rule 4: Removed Binance QR Code requirements if target platform is set to Deriv */}
-                  {selectedBroker !== "deriv" && (
-                    <li>
-                      <span className="font-semibold text-foreground">QR CODE:</span> Save a screenshot of your binance QR code for verification.
-                    </li>
-                  )}
-                </ol>
+
+                {selectedMethod === "fnb_eft" ? (
+                  <FnbDepositInstructions />
+                ) : (
+                  <MobileDepositInstructions
+                    method={selectedMethod}
+                    showQrStep={selectedBroker !== "deriv"}
+                  />
+                )}
               </div>
 
               {(() => {
-                const net = (Number(amount || 0) * 0.9).toFixed(2);
+                const qrLine =
+                  selectedBroker !== "deriv"
+                    ? `\n*Reminder:* attach (1) proof of transaction AND (2) your Binance QR screenshot.`
+                    : `\n*Reminder:* attach your proof of transaction.`;
+
                 const msg = encodeURIComponent(
-                  `*NEW DEPOSIT REQUEST — ChainForge*\n\n` +
-                  `Name: ${formData.firstName} ${formData.lastName}\n` +
-                  `Email: ${formData.email}\n` +
-                  `WhatsApp: ${formData.whatsapp}\n\n` +
-                  `Broker: ${selectedBroker}` +
-                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") + `\n` +
-                  `Payment Method: ${selectedMethod.replace("_", " ").toUpperCase()}\n` +
-                  `Deposit Amount: $${Number(amount || 0).toLocaleString()}\n` +
-                  `Desk Fee (10%): $${(Number(amount || 0) * 0.1).toFixed(2)}\n` +
-                  `Net to Broker: $${net}\n\n` +
-                  `Ready to send funds — please confirm next steps.`
+                  `*NEW DEPOSIT REQUEST — ChainForge*\n` +
+                    `─────────────────────\n` +
+                    `*Client:* ${formData.firstName} ${formData.lastName}\n` +
+                    `*Email:* ${formData.email}\n` +
+                    `*WhatsApp:* ${formData.whatsapp}\n` +
+                    `─────────────────────\n` +
+                    `*Broker:* ${selectedBroker.toUpperCase()}` +
+                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
+                    `\n` +
+                    `*Payment Method:* ${selectedMethod
+                      .replace("_", " ")
+                      .toUpperCase()}\n` +
+                    `─────────────────────\n` +
+                    `*Deposit Amount:* $${amountNum.toLocaleString()}\n` +
+                    `*Desk Fee (10%):* -$${fee.toFixed(2)}\n` +
+                    `*Net to Broker:* $${net.toFixed(2)}\n` +
+                    `─────────────────────` +
+                    qrLine
                 );
                 const href = `https://wa.me/263710554856?text=${msg}`;
                 return (
@@ -359,7 +404,9 @@ function DepositPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-disabled={!isFormValid}
-                    onClick={(e) => { if (!isFormValid) e.preventDefault(); }}
+                    onClick={(e) => {
+                      if (!isFormValid) e.preventDefault();
+                    }}
                     className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
                       isFormValid
                         ? "premium-button hover:scale-[1.01]"
@@ -371,12 +418,157 @@ function DepositPage() {
                   </a>
                 );
               })()}
-
             </div>
           </div>
-
         </div>
       </section>
     </>
+  );
+}
+
+/* ---------- Small helpers ---------- */
+
+function Field({
+  label,
+  icon,
+  value,
+  placeholder,
+  onChange,
+  type = "text",
+}: {
+  label: string;
+  icon: React.ReactNode;
+  value: string;
+  placeholder: string;
+  onChange: (v: string) => void;
+  type?: string;
+}) {
+  return (
+    <div>
+      <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-1.5">
+        {label}
+      </label>
+      <div className="flex items-center rounded-xl border border-border bg-background/40 px-3 py-2.5 focus-within:border-primary-glow/50 transition-colors">
+        {icon}
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0"
+        />
+      </div>
+    </div>
+  );
+}
+
+function Row({
+  label,
+  value,
+  mono,
+  uppercase,
+  capitalize,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+  uppercase?: boolean;
+  capitalize?: boolean;
+}) {
+  return (
+    <div className="flex justify-between items-center text-muted-foreground">
+      <span>{label}</span>
+      <span
+        className={[
+          "text-foreground font-semibold",
+          mono ? "font-mono" : "",
+          uppercase ? "uppercase" : "",
+          capitalize ? "capitalize" : "",
+        ].join(" ")}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function MobileDepositInstructions({
+  method,
+  showQrStep,
+}: {
+  method: "ecocash" | "innbucks";
+  showQrStep: boolean;
+}) {
+  return (
+    <ol className="space-y-3 text-amber-100/90 list-decimal pl-3.5">
+      <li>
+        <span className="font-semibold text-white">SEND FUNDS</span> to{" "}
+        <span className="font-mono text-white font-bold">078 429 3089</span>.
+        <span className="block text-[11px] mt-1 bg-black/40 text-white p-1.5 rounded-lg font-mono">
+          {method === "ecocash"
+            ? "EcoCash: *151# → Send Money → 078 429 3089"
+            : "InnBucks: Send Money → 078 429 3089"}
+        </span>
+      </li>
+      <li>
+        <span className="font-semibold text-white">RECIPIENT:</span> confirm
+        name is <span className="font-bold text-white">MARC A ZHOU</span>.
+      </li>
+      <li>
+        <span className="font-semibold text-white">SCREENSHOT</span> the
+        successful transaction.
+      </li>
+      {showQrStep && (
+        <li>
+          <span className="font-semibold text-white">BINANCE QR:</span> save a
+          screenshot of your Binance deposit QR code.
+        </li>
+      )}
+      <li>
+        <span className="font-semibold text-white">SEND</span> all screenshots
+        on WhatsApp when redirected.
+      </li>
+    </ol>
+  );
+}
+
+function FnbDepositInstructions() {
+  return (
+    <div className="space-y-3 text-amber-100/90">
+      <p>
+        Please follow these steps to fund your account. Make sure banking
+        details are entered correctly to avoid transaction errors.
+      </p>
+      <ol className="space-y-3 list-decimal pl-3.5">
+        <li>
+          <span className="font-semibold text-white">Log in</span> to your FNB
+          App or online banking portal.
+        </li>
+        <li>
+          <span className="font-semibold text-white">Make a payment</span> to:
+          <div className="mt-1.5 grid gap-1 rounded-lg bg-black/40 p-2 font-mono text-[11px] text-white">
+            <span>Account Name: MAZ FX (PVT) LTD</span>
+            <span>Account Number: 63051409861</span>
+            <span>Account Type: FNB Business Account</span>
+          </div>
+        </li>
+        <li>
+          <span className="font-semibold text-white">Reference:</span> use your
+          Full Name or Trading ID.
+        </li>
+        <li>
+          <span className="font-semibold text-white">Capture proof:</span>
+          screenshot the successful transaction or save the PDF receipt.
+        </li>
+        <li>
+          <span className="font-semibold text-white">Verification:</span> upload
+          your Proof of Payment on WhatsApp once redirected.
+        </li>
+      </ol>
+      <p className="mt-2 rounded-lg bg-amber-500/15 border border-amber-400/40 p-2 text-white">
+        IMPORTANT: don't forget to attach your proof of payment image and QR
+        code screenshot once redirected to WhatsApp.
+      </p>
+    </div>
   );
 }

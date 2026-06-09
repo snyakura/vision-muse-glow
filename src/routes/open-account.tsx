@@ -131,6 +131,55 @@ function OpenAccountPage() {
         </div>
       </section>
 
+      {/* Featured promo: video + CTA */}
+      <section className="mx-auto max-w-6xl px-6 pb-10">
+        <Reveal>
+          <div className="card-animated rounded-3xl p-6 md:p-8 grid gap-6 md:grid-cols-2 items-center">
+            <div className="rounded-2xl overflow-hidden bg-black border border-border">
+              <video
+                src="/vid.mp4"
+                controls
+                playsInline
+                muted
+                loop
+                className="w-full h-full object-cover aspect-video"
+              />
+            </div>
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-widest text-primary-glow mb-2">
+                Featured Broker — Elev8
+              </p>
+              <h3 className="font-display text-2xl md:text-3xl leading-tight">
+                Let's all create accounts with the best broker. New money is
+                about to be made!!!!
+              </h3>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                Signals and mentorship will be{" "}
+                <span className="text-foreground font-semibold">free</span>.
+                Register with the link below, get verified, fund as little as{" "}
+                <span className="text-foreground font-semibold">$50</span> and
+                we'll add you to our groups. Use our promo code{" "}
+                <span className="font-mono text-primary-glow">"FOREXMAFIA"</span>{" "}
+                and get a{" "}
+                <span className="text-emerald-400 font-semibold">
+                  100% deposit bonus
+                </span>
+                .
+              </p>
+              <a
+                href="https://clickto.trade/b3Qzko9VnDa?ib=12067344"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="premium-button group mt-6"
+              >
+                <span>Register with Elev8</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       <section className="mx-auto max-w-6xl px-6 pb-24 space-y-6">
         {BROKERS.map((b, i) => (
           <Reveal key={b.name} delay={i * 0.06}>

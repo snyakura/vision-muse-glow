@@ -24,6 +24,12 @@ export const Route = createFileRoute("/blog")({
       },
     ],
   }),
+  loader: async ({ context: { queryClient } }) => {
+    return queryClient.ensureQueryData({
+      queryKey: ["forex-news"],
+      queryFn: () => getForexNews(),
+    });
+  },
   component: BlogPage,
 });
 

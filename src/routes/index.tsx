@@ -15,6 +15,7 @@ import { Reveal } from "@/components/reveal";
 import { PageBackground } from "@/components/page-background";
 import { BrandLogo } from "@/components/brand-logo";
 
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -130,18 +131,14 @@ function Brokers() {
   // Local, guaranteed assets (live in /public). Marked `needsEnhanced` when
   // a higher-quality vector replacement is recommended.
   const brokerLogos = [
-    { name: "Binance", src: "/binance.png" },
     { name: "Deriv", src: "/deriv.png" },
     { name: "Weltrade", src: "/weltrade.png" },
     { name: "JustMarkets", src: "/justmarkets.png" },
     { name: "Octa", src: "/octa.png" },
     { name: "Elev8", src: "/elev8.png" },
-    { name: "FNB", src: "/fnb.png" },
-    { name: "EcoCash", src: "/ecocash.jpg" },
-    { name: "InnBucks", src: "/innbucks.png" },
   ];
 
-  const marqueeItems = [...brokerLogos, ...brokerLogos];
+  const marqueeItems = [...brokerLogos, ...brokerLogos, ...brokerLogos];
 
   return (
     <section className="relative border-y border-border bg-background/40 py-14 overflow-hidden">
@@ -152,11 +149,16 @@ function Brokers() {
         <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_8%,_black_92%,transparent_100%)]">
           <div className="flex w-max animate-infinite-scroll gap-5 py-2 will-change-transform">
             {marqueeItems.map((b, i) => (
-              <div key={`${b.name}-${i}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-all duration-300 hover:border-primary-glow/40 hover:bg-white/[0.06] hover:shadow-[0_0_28px_-8px_rgba(139,92,246,0.5)]">
-                <BrandLogo src={b.src} alt={b.name} size="sm" variant="bare" className="h-10 w-10" />
-                <span className="text-sm font-semibold tracking-tight text-foreground/90 whitespace-nowrap font-['Montserrat']">
-                  {b.name}
-                </span>
+              <div key={`${b.name}-${i}`} className="flex items-center rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-all duration-300 hover:border-primary-glow/40 hover:bg-white/[0.06] hover:shadow-[0_0_28px_-8px_rgba(139,92,246,0.5)]">
+                <div className={["Deriv", "Weltrade", "Octa"].includes(b.name) ? "h-16 w-16" : "h-10 w-10"}>
+                  <BrandLogo 
+                    src={b.src} 
+                    alt={b.name} 
+                    size="sm" 
+                    variant="bare" 
+                    className="h-full w-full opacity-90 transition-opacity group-hover:opacity-100" 
+                  />
+                </div>
               </div>
             ))}
           </div>

@@ -114,7 +114,35 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        {/* Immediate Splash Screen (renders before JS) */}
+        <div id="cf-initial-loader" style={{
+          position: 'fixed',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#000',
+          zIndex: 99999,
+          transition: 'opacity 0.6s ease-out'
+        }}>
+          <style>{`
+            @keyframes logo-glow {
+              from { filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3)); transform: scale(0.98); }
+              to { filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.8)); transform: scale(1.02); }
+            }
+            .initial-logo {
+              width: 120px;
+              height: auto;
+              animation: logo-glow 2s ease-in-out infinite alternate;
+            }
+            .loader-fade-out { opacity: 0; pointer-events: none; }
+          `}</style>
+          <img src="/q.png" className="initial-logo" alt="ChainForge" />
+        </div>
+
+        <div id="app-content">
+          {children}
+        </div>
         <Scripts />
       </body>
     </html>
@@ -122,11 +150,32 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
+  const { queryClient } = Route.useRouteContext()
+  const router = useRouter()
+
+  useEffect(() => {
+    const bootstrap = async () => {
+      // 1. Aggressively preload all navigable routes to eliminate navigation lag
+      const routes = Object.values(router.routesByPath)
+      await Promise.all(
+        routes.map((route) =>
+          router.preloadRoute({ to: route.fullPath as any }).catch(() => {})
+        )
+      )
+
+      // 2. Remove the initial splash once the site is fully "loaded up"
+      const loader = document.getElementById('cf-initial-loader')
+      if (loader) {
+        loader.classList.add('loader-fade-out')
+        setTimeout(() => loader.remove(), 600)
+      }
+    }
+
+    bootstrap()
+  }, [router])
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SplashScreen />
       <AnimatedBackground />
       <div className="relative min-h-screen text-foreground">
         <Ticker />

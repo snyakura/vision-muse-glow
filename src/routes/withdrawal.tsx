@@ -52,8 +52,15 @@ function WithdrawalPage() {
   const [walletNumber, setWalletNumber] = useState<string>("");
   const [walletName, setWalletName] = useState<string>("");
 
+  // EFT bank payout details (FNB EFT or other South-African bank)
+  const [bankName, setBankName] = useState<string>("");
+  const [bankAccountName, setBankAccountName] = useState<string>("");
+  const [bankAccountNumber, setBankAccountNumber] = useState<string>("");
+  const [bankBranchCode, setBankBranchCode] = useState<string>("");
+
   const requiresWalletDetails =
     selectedMethod === "ecocash" || selectedMethod === "innbucks";
+  const requiresBankDetails = selectedMethod === "fnb_eft";
   const requiresBinanceQr =
     selectedBroker === "weltrade" || selectedBroker === "other";
 
@@ -72,7 +79,11 @@ function WithdrawalPage() {
         crNumber.trim().length > 2)) &&
     Number(amount) > 0 &&
     (!requiresWalletDetails ||
-      (walletNumber.trim() !== "" && walletName.trim() !== ""));
+      (walletNumber.trim() !== "" && walletName.trim() !== "")) &&
+    (!requiresBankDetails ||
+      (bankName.trim() !== "" &&
+        bankAccountName.trim() !== "" &&
+        bankAccountNumber.trim() !== ""));
 
   return (
     <>

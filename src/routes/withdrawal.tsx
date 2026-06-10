@@ -342,6 +342,39 @@ function WithdrawalPage() {
                   />
                 </div>
               )}
+
+              {requiresBankDetails && (
+                <div className="mt-5 pt-5 border-t border-border/50 grid gap-4 sm:grid-cols-2">
+                  <Field
+                    label="Bank Name"
+                    icon={<ShieldCheck className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                    value={bankName}
+                    placeholder="e.g. FNB, Standard Bank, ABSA"
+                    onChange={setBankName}
+                  />
+                  <Field
+                    label="Account Holder Name"
+                    icon={<User className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                    value={bankAccountName}
+                    placeholder="Full name as on account"
+                    onChange={setBankAccountName}
+                  />
+                  <Field
+                    label="Account Number"
+                    icon={<Smartphone className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                    value={bankAccountNumber}
+                    placeholder="e.g. 62512345678"
+                    onChange={setBankAccountNumber}
+                  />
+                  <Field
+                    label="Branch Code (optional)"
+                    icon={<ShieldCheck className="h-4 w-4 text-muted-foreground mr-2.5" />}
+                    value={bankBranchCode}
+                    placeholder="Universal code accepted"
+                    onChange={setBankBranchCode}
+                  />
+                </div>
+              )}
             </div>
 
             {/* 5. Amount */}

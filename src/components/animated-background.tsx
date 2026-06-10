@@ -10,16 +10,30 @@ import { useEffect, useMemo, useState } from "react";
  */
 export function AnimatedBackground() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [lite, setLite] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window === "undefined") return;
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const narrow = window.innerWidth < 768;
+    const lowMem =
+      typeof navigator !== "undefined" &&
+      // @ts-expect-error non-standard but widely available
+      ((navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
+    setLite(isCoarse || reduced || narrow || Boolean(lowMem));
+  }, []);
 
   const stars = useMemo(() => {
+    const count = lite ? 38 : 90;
     const out: { x: number; y: number; s: number; d: number; o: number }[] = [];
     let seed = 7;
     const rand = () => {
       seed = (seed * 9301 + 49297) % 233280;
       return seed / 233280;
     };
-    for (let i = 0; i < 110; i++) {
+    for (let i = 0; i < count; i++) {
       out.push({
         x: rand() * 100,
         y: rand() * 100,
@@ -29,7 +43,7 @@ export function AnimatedBackground() {
       });
     }
     return out;
-  }, []);
+  }, [lite]);
 
   // Reusable chart path — designed so that placing two copies side-by-side
   // (offset by viewBox width) creates a seamless infinite loop.

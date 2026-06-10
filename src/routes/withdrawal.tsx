@@ -457,6 +457,9 @@ function WithdrawalPage() {
                 const walletLine = requiresWalletDetails
                   ? `*Wallet Number:* ${walletNumber}\n*Name on Account:* ${walletName}\n`
                   : "";
+                const bankLine = requiresBankDetails
+                  ? `*Bank:* ${bankName}\n*Account Holder:* ${bankAccountName}\n*Account #:* ${bankAccountNumber}\n${bankBranchCode ? `*Branch Code:* ${bankBranchCode}\n` : ""}`
+                  : "";
                 const reminder =
                   selectedBroker === "deriv"
                     ? `*Reminder:* attach your Deriv withdrawal POP screenshot.`
@@ -476,6 +479,7 @@ function WithdrawalPage() {
                       .replace("_", " ")
                       .toUpperCase()}\n` +
                     walletLine +
+                    bankLine +
                     `*Amount:* $${Number(amount || 0).toLocaleString()}\n` +
                     `─────────────────────\n` +
                     reminder

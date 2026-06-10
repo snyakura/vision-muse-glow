@@ -134,15 +134,18 @@ function OpenAccountPage() {
       {/* Featured promo: video + CTA */}
       <section className="mx-auto max-w-6xl px-6 pb-10">
         <Reveal>
-          <div className="card-animated rounded-3xl p-6 md:p-8 grid gap-6 md:grid-cols-2 items-center">
-            <div className="rounded-2xl overflow-hidden bg-black border border-border">
+          <div className="card-animated rounded-3xl p-6 md:p-8 grid gap-6 md:grid-cols-[minmax(0,360px)_1fr] items-center">
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_60px_-20px_rgba(139,92,246,0.45)] bg-gradient-to-br from-[#0b0820] via-[#050310] to-[#0b0820]">
+              {/* Ambient stock-market glow behind the player */}
+              <div className="pointer-events-none absolute -inset-10 bg-[radial-gradient(circle_at_30%_20%,rgba(139,92,246,0.35),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(34,211,238,0.25),transparent_60%)]" />
               <video
                 src="/vid.mp4"
                 controls
                 playsInline
                 muted
                 loop
-                className="w-full h-full object-cover aspect-video"
+                preload="metadata"
+                className="relative w-full h-auto aspect-[4/5] object-contain bg-black"
               />
             </div>
             <div>

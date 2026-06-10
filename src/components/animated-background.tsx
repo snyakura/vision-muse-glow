@@ -10,16 +10,30 @@ import { useEffect, useMemo, useState } from "react";
  */
 export function AnimatedBackground() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [lite, setLite] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window === "undefined") return;
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const narrow = window.innerWidth < 768;
+    const lowMem =
+      typeof navigator !== "undefined" &&
+      // @ts-expect-error non-standard but widely available
+      ((navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4));
+    setLite(isCoarse || reduced || narrow || Boolean(lowMem));
+  }, []);
 
   const stars = useMemo(() => {
+    const count = lite ? 38 : 90;
     const out: { x: number; y: number; s: number; d: number; o: number }[] = [];
     let seed = 7;
     const rand = () => {
       seed = (seed * 9301 + 49297) % 233280;
       return seed / 233280;
     };
-    for (let i = 0; i < 110; i++) {
+    for (let i = 0; i < count; i++) {
       out.push({
         x: rand() * 100,
         y: rand() * 100,
@@ -29,7 +43,7 @@ export function AnimatedBackground() {
       });
     }
     return out;
-  }, []);
+  }, [lite]);
 
   // Reusable chart path — designed so that placing two copies side-by-side
   // (offset by viewBox width) creates a seamless infinite loop.
@@ -91,30 +105,32 @@ export function AnimatedBackground() {
         </svg>
       </div>
 
-      {/* Chart B — counter scroll */}
-      <div className="absolute inset-x-0 bottom-0 h-[60vh] w-[200%] opacity-[0.18] chart-scroll-b">
-        <svg viewBox="0 0 2400 400" preserveAspectRatio="none" className="h-full w-full">
-          <defs>
-            <linearGradient id="chartB" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="lineB" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-          <g>
-            <path d={chartFillB} fill="url(#chartB)" />
-            <path d={chartPathB} fill="none" stroke="url(#lineB)" strokeWidth="2" />
-          </g>
-          <g transform="translate(1200,0)">
-            <path d={chartFillB} fill="url(#chartB)" />
-            <path d={chartPathB} fill="none" stroke="url(#lineB)" strokeWidth="2" />
-          </g>
-        </svg>
-      </div>
+      {/* Chart B — counter scroll (skipped on low-power devices) */}
+      {!lite && (
+        <div className="absolute inset-x-0 bottom-0 h-[60vh] w-[200%] opacity-[0.18] chart-scroll-b">
+          <svg viewBox="0 0 2400 400" preserveAspectRatio="none" className="h-full w-full">
+            <defs>
+              <linearGradient id="chartB" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#22D3EE" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="lineB" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#22D3EE" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#22D3EE" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
+            <g>
+              <path d={chartFillB} fill="url(#chartB)" />
+              <path d={chartPathB} fill="none" stroke="url(#lineB)" strokeWidth="2" />
+            </g>
+            <g transform="translate(1200,0)">
+              <path d={chartFillB} fill="url(#chartB)" />
+              <path d={chartPathB} fill="none" stroke="url(#lineB)" strokeWidth="2" />
+            </g>
+          </svg>
+        </div>
+      )}
 
       {/* Subtle grid */}
       <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />

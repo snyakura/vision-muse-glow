@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WithdrawalRouteImport } from './routes/withdrawal'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as OpenAccountRouteImport } from './routes/open-account'
+import { Route as MarketRouteImport } from './routes/market'
 import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -32,6 +33,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const OpenAccountRoute = OpenAccountRouteImport.update({
   id: '/open-account',
   path: '/open-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketRoute = MarketRouteImport.update({
+  id: '/market',
+  path: '/market',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DepositRoute = DepositRouteImport.update({
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
+  '/market': typeof MarketRoute
   '/open-account': typeof OpenAccountRoute
   '/services': typeof ServicesRoute
   '/withdrawal': typeof WithdrawalRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
+  '/market': typeof MarketRoute
   '/open-account': typeof OpenAccountRoute
   '/services': typeof ServicesRoute
   '/withdrawal': typeof WithdrawalRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
+  '/market': typeof MarketRoute
   '/open-account': typeof OpenAccountRoute
   '/services': typeof ServicesRoute
   '/withdrawal': typeof WithdrawalRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/deposit'
+    | '/market'
     | '/open-account'
     | '/services'
     | '/withdrawal'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/deposit'
+    | '/market'
     | '/open-account'
     | '/services'
     | '/withdrawal'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/deposit'
+    | '/market'
     | '/open-account'
     | '/services'
     | '/withdrawal'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   DepositRoute: typeof DepositRoute
+  MarketRoute: typeof MarketRoute
   OpenAccountRoute: typeof OpenAccountRoute
   ServicesRoute: typeof ServicesRoute
   WithdrawalRoute: typeof WithdrawalRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/open-account'
       fullPath: '/open-account'
       preLoaderRoute: typeof OpenAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market': {
+      id: '/market'
+      path: '/market'
+      fullPath: '/market'
+      preLoaderRoute: typeof MarketRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deposit': {
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   DepositRoute: DepositRoute,
+  MarketRoute: MarketRoute,
   OpenAccountRoute: OpenAccountRoute,
   ServicesRoute: ServicesRoute,
   WithdrawalRoute: WithdrawalRoute,

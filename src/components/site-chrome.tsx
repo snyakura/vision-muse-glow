@@ -111,6 +111,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/ai-analyser", label: "AI Analyser" },
+  { to: "/market", label: "Market" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
 ] as const;

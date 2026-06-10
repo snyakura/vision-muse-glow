@@ -522,3 +522,32 @@
     50% { color: rgb(253, 224, 71); text-shadow: 0 0 16px rgba(253, 224, 71, 0.9); }
   }
 }
+
+/* ============================================================
+   PERFORMANCE TUNING — keep the site silky on phones & tablets
+   ============================================================ */
+@media (max-width: 900px) {
+  html::before, html::after,
+  body::before, body::after {
+    /* shrink + soften the heavy fixed orbs that cause jank when scrolling */
+    width: 380px !important;
+    height: 380px !important;
+    filter: blur(90px) !important;
+    opacity: 0.35 !important;
+    animation-duration: 40s !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html::before, html::after,
+  body::before, body::after {
+    animation: none !important;
+    opacity: 0.25 !important;
+  }
+}

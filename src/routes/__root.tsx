@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, Ticker } from "../components/site-chrome";
 import { AnimatedBackground } from "../components/animated-background";
+import { SplashScreen } from "../components/splash-screen";
 
 function NotFoundComponent() {
   return (
@@ -125,6 +126,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SplashScreen />
       <AnimatedBackground />
       <div className="relative min-h-screen text-foreground">
         <Ticker />

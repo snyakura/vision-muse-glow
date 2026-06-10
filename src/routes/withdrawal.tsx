@@ -173,9 +173,9 @@ function WithdrawalPage() {
               <div className="grid gap-3 sm:grid-cols-3">
                 {(
                   [
-                    { id: "weltrade", label: "Weltrade", logo: "/weltrade.png" },
-                    { id: "deriv", label: "Deriv", logo: "/deriv.png" },
-                    { id: "other", label: "Other", logo: "/octa.png" },
+                    { id: "weltrade", label: "Weltrade", logo: "/wel.png" },
+                    { id: "deriv", label: "Deriv", logo: "/der.png" },
+                    { id: "other", label: "Other", logo: "/bin.png" },
                   ] as { id: BrokerType; label: string; logo: string }[]
                 ).map((broker) => (
                   <button
@@ -187,7 +187,7 @@ function WithdrawalPage() {
                         : "border-border bg-background/40 text-muted-foreground hover:border-muted-foreground/40"
                     }`}
                   >
-                    <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/95 p-1">
+                    <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-white/95 p-1.5">
                       <img
                         src={broker.logo}
                         alt={broker.label}

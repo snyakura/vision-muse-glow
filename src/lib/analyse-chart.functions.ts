@@ -1,16 +1,48 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { generateText } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 
+const MAX_IMAGE_BYTES = 6 * 1024 * 1024; // ~6 MB decoded cap
+
 const Input = z.object({
-  imageDataUrl: z.string().startsWith("data:image/"),
+  imageDataUrl: z
+    .string()
+    .startsWith("data:image/")
+    .max(Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 100, "Image payload too large"),
   notes: z.string().max(500).optional(),
 });
+
+// Restrict the AI endpoint to first-party origins so third-party sites cannot
+// drain LOVABLE_API_KEY credits by calling our handler from their pages.
+function assertTrustedOrigin() {
+  let origin = "";
+  try {
+    const req = getRequest();
+    origin = req.headers.get("origin") || req.headers.get("referer") || "";
+  } catch {
+    return; // SSR-internal invocation — no request context, allow.
+  }
+  if (!origin) return;
+  let host = "";
+  try {
+    host = new URL(origin).hostname;
+  } catch {
+    throw new Error("Forbidden origin");
+  }
+  const allowed =
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    host.endsWith(".lovable.app") ||
+    host.endsWith(".lovable.dev");
+  if (!allowed) throw new Error("Forbidden origin");
+}
 
 export const analyseChart = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }) => {
+    assertTrustedOrigin();
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
     const gateway = createLovableAiGatewayProvider(key);

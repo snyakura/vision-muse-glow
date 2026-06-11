@@ -231,15 +231,13 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-4">
             <div className="hidden md:block">
-              <a
-                href="https://wa.me/263782048523"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/services"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
               >
                 Get Started
                 <ArrowRight className="h-3.5 w-3.5" />
-              </a>
+              </Link>
             </div>
 
             <button
@@ -276,21 +274,71 @@ export function SiteHeader() {
                 <Link to="/deposit" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Deposit</Link>
                 <Link to="/withdrawal" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Withdrawal</Link>
                 <Link to="/open-account" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Open Account</Link>
-                <a
-                  href="https://wa.me/263782048523"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/services"
                   onClick={() => setMobileMenuOpen(false)}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-lg font-medium text-background transition-transform hover:scale-[1.02] mt-4"
                 >
                   Get Started
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </Link>
               </nav>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.header>
+
+      {/* Logo-click celebration overlay */}
+      <AnimatePresence>
+        {logoBurst && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[60] pointer-events-none flex items-center justify-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-cyan-500/10 backdrop-blur-[2px]" />
+            <motion.div
+              initial={{ scale: 0.4, opacity: 0, rotate: -20 }}
+              animate={{ scale: [0.4, 1.15, 1], opacity: [0, 1, 1], rotate: [-20, 0, 0] }}
+              exit={{ scale: 1.4, opacity: 0 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex flex-col items-center gap-3"
+            >
+              <motion.img
+                src="/q.png"
+                alt="ChainForge"
+                className="h-44 w-auto drop-shadow-[0_0_80px_rgba(139,92,246,0.9)]"
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+              />
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="font-['Montserrat'] text-sm tracking-[0.4em] uppercase text-primary-glow"
+              >
+                Forge your wealth
+              </motion.p>
+              {/* Radiating sparkles */}
+              {[...Array(8)].map((_, i) => (
+                <motion.span
+                  key={i}
+                  className="absolute h-2 w-2 rounded-full bg-primary-glow shadow-[0_0_18px_rgba(139,92,246,0.9)]"
+                  initial={{ x: 0, y: 0, opacity: 0 }}
+                  animate={{
+                    x: Math.cos((i / 8) * Math.PI * 2) * 160,
+                    y: Math.sin((i / 8) * Math.PI * 2) * 160,
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{ duration: 1.1, ease: "easeOut", delay: 0.1 }}
+                />
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main layout push spacer layout element */}
       <div className="h-[181px] w-full block pointer-events-none" />

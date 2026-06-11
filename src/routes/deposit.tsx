@@ -379,36 +379,43 @@ function DepositPage() {
                     ? `\n*Reminder:* attach (1) proof of transaction AND (2) your Binance QR screenshot.`
                     : `\n*Reminder:* attach your proof of transaction.`;
 
-                const msg = encodeURIComponent(
-                  `*NEW DEPOSIT REQUEST — ChainForge*\n` +
-                    `─────────────────────\n` +
-                    `*Client:* ${formData.firstName} ${formData.lastName}\n` +
-                    `*Email:* ${formData.email}\n` +
-                    `*WhatsApp:* ${formData.whatsapp}\n` +
-                    `─────────────────────\n` +
-                    `*Broker:* ${selectedBroker.toUpperCase()}` +
-                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
-                    `\n` +
-                    `*Payment Method:* ${selectedMethod
-                      .replace("_", " ")
-                      .toUpperCase()}\n` +
-                    `─────────────────────\n` +
-                    `*Deposit Amount:* $${amountNum.toLocaleString()}\n` +
-                    `*Desk Fee (10%):* -$${fee.toFixed(2)}\n` +
-                    `*Net to Broker:* $${net.toFixed(2)}\n` +
-                    `─────────────────────` +
-                    qrLine
-                );
-                const href = `https://wa.me/263710554856?text=${msg}`;
+                const buildMsg = () =>
+                  encodeURIComponent(
+                    `*NEW DEPOSIT REQUEST — ChainForge*\n` +
+                      `─────────────────────\n` +
+                      `*Client:* ${formData.firstName} ${formData.lastName}\n` +
+                      `*Email:* ${formData.email}\n` +
+                      `*WhatsApp:* ${formData.whatsapp}\n` +
+                      `─────────────────────\n` +
+                      `*Broker:* ${selectedBroker.toUpperCase()}` +
+                      (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
+                      `\n` +
+                      `*Payment Method:* ${selectedMethod
+                        .replace("_", " ")
+                        .toUpperCase()}\n` +
+                      `─────────────────────\n` +
+                      `*Deposit Amount:* $${amountNum.toLocaleString()}\n` +
+                      `*Desk Fee (10%):* -$${fee.toFixed(2)}\n` +
+                      `*Net to Broker:* $${net.toFixed(2)}\n` +
+                      `─────────────────────` +
+                      qrLine,
+                  );
+
+                const dispatch = () => {
+                  if (!isFormValid) return;
+                  const msg = buildMsg();
+                  window.open(`https://wa.me/263782048523?text=${msg}`, "_blank", "noopener,noreferrer");
+                  setTimeout(() => {
+                    window.open(`https://wa.me/263784293089?text=${msg}`, "_blank", "noopener,noreferrer");
+                  }, 350);
+                };
+
                 return (
-                  <a
-                    href={isFormValid ? href : undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={dispatch}
+                    disabled={!isFormValid}
                     aria-disabled={!isFormValid}
-                    onClick={(e) => {
-                      if (!isFormValid) e.preventDefault();
-                    }}
                     className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
                       isFormValid
                         ? "premium-button hover:scale-[1.01]"
@@ -417,7 +424,7 @@ function DepositPage() {
                   >
                     <span>Initiate Transaction</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
+                  </button>
                 );
               })()}
             </div>
@@ -494,6 +501,32 @@ function Row({
   );
 }
 
+function CopyChip({ value, label }: { value: string; label?: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(value);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        } catch {
+          /* noop */
+        }
+      }}
+      className="inline-flex items-center gap-1.5 rounded-md bg-black/40 px-2 py-1 font-mono text-[11px] text-white hover:bg-black/60 transition-colors"
+    >
+      {label ?? value}
+      {copied ? (
+        <Check className="h-3 w-3 text-emerald-400" />
+      ) : (
+        <Copy className="h-3 w-3 text-muted-foreground" />
+      )}
+    </button>
+  );
+}
+
 function MobileDepositInstructions({
   method,
   showQrStep,
@@ -501,21 +534,33 @@ function MobileDepositInstructions({
   method: "ecocash" | "innbucks";
   showQrStep: boolean;
 }) {
+  const ECOCASH_CODE = "*153*2*2*002905#";
   return (
     <ol className="space-y-3 text-amber-100/90 list-decimal pl-3.5">
-      <li>
-        <span className="font-semibold text-white">SEND FUNDS</span> to{" "}
-        <span className="font-mono text-white font-bold">078 429 3089</span>.
-        <span className="block text-[11px] mt-1 bg-black/40 text-white p-1.5 rounded-lg font-mono">
-          {method === "ecocash"
-            ? "EcoCash: *151# → Send Money → 078 429 3089"
-            : "InnBucks: Send Money → 078 429 3089"}
-        </span>
-      </li>
-      <li>
-        <span className="font-semibold text-white">RECIPIENT:</span> confirm
-        name is <span className="font-bold text-white">MARC A ZHOU</span>.
-      </li>
+      {method === "ecocash" ? (
+        <li>
+          <span className="font-semibold text-white">DIAL MERCHANT CODE</span>{" "}
+          to pay our desk:
+          <div className="mt-1.5 flex items-center gap-2">
+            <CopyChip value={ECOCASH_CODE} />
+            <span className="text-[10px] uppercase tracking-widest text-muted-foreground/70">
+              Tap to copy
+            </span>
+          </div>
+          <p className="text-[11px] mt-1.5 text-amber-100/80">
+            EcoCash → Merchant Payment → paste the code → enter amount → confirm.
+          </p>
+        </li>
+      ) : (
+        <li>
+          <span className="font-semibold text-white">SEND FUNDS</span> via
+          InnBucks to:
+          <div className="mt-1.5 grid gap-1 rounded-lg bg-black/40 p-2 font-mono text-[11px] text-white">
+            <span>Number: 0782048523</span>
+            <span>Name: Paradise Mnqobi Sibanda</span>
+          </div>
+        </li>
+      )}
       <li>
         <span className="font-semibold text-white">SCREENSHOT</span> the
         successful transaction.
@@ -535,12 +580,47 @@ function MobileDepositInstructions({
 }
 
 function FnbDepositInstructions() {
+  const [account, setAccount] = useState<"maz" | "paradise">("maz");
+  const accounts = {
+    maz: {
+      label: "MAZ FX (PVT) LTD",
+      name: "MAZ FX (PVT) LTD",
+      number: "63051409861",
+      type: "FNB Business Account",
+    },
+    paradise: {
+      label: "Paradise M. Sibanda",
+      name: "Paradise Mnqobi Sibanda",
+      number: "63135912673",
+      type: "FNB Personal Account",
+    },
+  } as const;
+  const chosen = accounts[account];
+
   return (
     <div className="space-y-3 text-amber-100/90">
       <p>
-        Please follow these steps to fund your account. Make sure banking
-        details are entered correctly to avoid transaction errors.
+        Choose which FNB account to deposit into and follow the steps. Enter
+        the banking details carefully.
       </p>
+
+      <div className="grid grid-cols-2 gap-2">
+        {(Object.keys(accounts) as Array<keyof typeof accounts>).map((k) => (
+          <button
+            key={k}
+            type="button"
+            onClick={() => setAccount(k)}
+            className={`rounded-xl border px-3 py-2 text-[11px] font-semibold transition-all ${
+              account === k
+                ? "border-primary-glow bg-primary-glow/[0.12] text-white shadow-[0_0_18px_rgba(139,92,246,0.25)]"
+                : "border-border/60 bg-background/30 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {accounts[k].label}
+          </button>
+        ))}
+      </div>
+
       <ol className="space-y-3 list-decimal pl-3.5">
         <li>
           <span className="font-semibold text-white">Log in</span> to your FNB
@@ -549,9 +629,12 @@ function FnbDepositInstructions() {
         <li>
           <span className="font-semibold text-white">Make a payment</span> to:
           <div className="mt-1.5 grid gap-1 rounded-lg bg-black/40 p-2 font-mono text-[11px] text-white">
-            <span>Account Name: MAZ FX (PVT) LTD</span>
-            <span>Account Number: 63051409861</span>
-            <span>Account Type: FNB Business Account</span>
+            <span>Account Name: {chosen.name}</span>
+            <span className="flex items-center gap-2">
+              Account Number:
+              <CopyChip value={chosen.number} />
+            </span>
+            <span>Account Type: {chosen.type}</span>
           </div>
         </li>
         <li>
@@ -559,7 +642,7 @@ function FnbDepositInstructions() {
           Full Name or Trading ID.
         </li>
         <li>
-          <span className="font-semibold text-white">Capture proof:</span>
+          <span className="font-semibold text-white">Capture proof:</span>{" "}
           screenshot the successful transaction or save the PDF receipt.
         </li>
         <li>

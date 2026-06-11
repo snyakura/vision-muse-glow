@@ -220,7 +220,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-4">
             <div className="hidden md:block">
               <a
-                href="https://wa.me/263710554856"
+                href="https://wa.me/263782048523"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
@@ -265,7 +265,7 @@ export function SiteHeader() {
                 <Link to="/withdrawal" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Withdrawal</Link>
                 <Link to="/open-account" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground">Open Account</Link>
                 <a
-                  href="https://wa.me/263710554856"
+                  href="https://wa.me/263782048523"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
@@ -285,7 +285,7 @@ export function SiteHeader() {
 
       {/* WhatsApp Quick Floating Action Button */}
       <motion.a
-        href="https://wa.me/263710554856"
+        href="https://wa.me/263782048523"
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, scale: 0.5, y: 20 }}

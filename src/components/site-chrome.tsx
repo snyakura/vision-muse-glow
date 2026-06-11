@@ -121,6 +121,7 @@ export function SiteHeader() {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [servicesHovered, setServicesHovered] = useState(false);
+  const [logoBurst, setLogoBurst] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -153,15 +154,26 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-6xl h-36 items-center justify-between px-6 py-0">
           
-          <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-            <motion.div 
-              whileHover={{ scale: 1.04 }}
+          <Link
+            to="/"
+            className="flex items-center"
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              // Cool burst overlay on logo click
+              e.stopPropagation();
+              setLogoBurst(true);
+              setTimeout(() => setLogoBurst(false), 1400);
+            }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.04, rotate: [0, -2, 2, 0] }}
+              transition={{ rotate: { duration: 0.6 } }}
               className="flex h-36 items-center justify-center relative"
             >
-              <img 
-                src="/q.png" 
-                alt="ChainForge Logo" 
-                className="h-32 md:h-36 w-auto object-contain filter drop-shadow-[0_0_28px_rgba(139,92,246,0.45)]" 
+              <img
+                src="/q.png"
+                alt="ChainForge Logo"
+                className="h-32 md:h-36 w-auto object-contain filter drop-shadow-[0_0_28px_rgba(139,92,246,0.45)]"
               />
             </motion.div>
           </Link>

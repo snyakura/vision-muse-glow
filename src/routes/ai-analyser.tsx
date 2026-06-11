@@ -80,7 +80,7 @@ function AIAnalyser() {
           <Reveal>
             <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 text-xs text-muted-foreground backdrop-blur-md">
               <Sparkles className="h-3 w-3 text-primary-glow" />
-              Powered by ChainForge Intelligence
+              Powered by THE FOREX MAFIA Intelligence
             </div>
           </Reveal>
           <Reveal delay={0.08}>

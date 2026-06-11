@@ -35,11 +35,11 @@ const BROKERS: BrokerCard[] = [
     logo: "/elev8.png",
     tag: "Recommended",
     blurb:
-      "Our flagship partner. Get verified, fund as little as $50 and we'll add you to our private trading groups. Use promo code FOREXMAFIA for a 100% deposit bonus.",
+      "Our flagship partner. Get verified, fund as little as $5 and we'll add you to our private trading groups. Use promo code FOREXMAFIA for a 100% deposit bonus.",
     steps: [
       "Click the button below to register.",
       "Verify your identity and email.",
-      "Fund a minimum of $50.",
+      "Fund a minimum of $5.",
       "Apply promo code: FOREXMAFIA",
       "DM us your screenshot to be added to the groups.",
     ],
@@ -160,7 +160,7 @@ function OpenAccountPage() {
                 Signals and mentorship will be{" "}
                 <span className="text-foreground font-semibold">free</span>.
                 Register with the link below, get verified, fund as little as{" "}
-                <span className="text-foreground font-semibold">$50</span> and
+                <span className="text-foreground font-semibold">$5</span> and
                 we'll add you to our groups. Use our promo code{" "}
                 <span className="font-mono text-primary-glow">"FOREXMAFIA"</span>{" "}
                 and get a{" "}

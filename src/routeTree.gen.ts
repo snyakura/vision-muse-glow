@@ -14,7 +14,6 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as OpenAccountRouteImport } from './routes/open-account'
 import { Route as MarketRouteImport } from './routes/market'
 import { Route as DepositRouteImport } from './routes/deposit'
-import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AiAnalyserRouteImport } from './routes/ai-analyser'
 import { Route as AboutRouteImport } from './routes/about'
@@ -45,11 +44,6 @@ const DepositRoute = DepositRouteImport.update({
   path: '/deposit',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -76,7 +70,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
   '/blog': typeof BlogRoute
-  '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
   '/market': typeof MarketRoute
   '/open-account': typeof OpenAccountRoute
@@ -88,7 +81,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
   '/blog': typeof BlogRoute
-  '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
   '/market': typeof MarketRoute
   '/open-account': typeof OpenAccountRoute
@@ -101,7 +93,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/ai-analyser': typeof AiAnalyserRoute
   '/blog': typeof BlogRoute
-  '/contact': typeof ContactRoute
   '/deposit': typeof DepositRoute
   '/market': typeof MarketRoute
   '/open-account': typeof OpenAccountRoute
@@ -115,7 +106,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai-analyser'
     | '/blog'
-    | '/contact'
     | '/deposit'
     | '/market'
     | '/open-account'
@@ -127,7 +117,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai-analyser'
     | '/blog'
-    | '/contact'
     | '/deposit'
     | '/market'
     | '/open-account'
@@ -139,7 +128,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai-analyser'
     | '/blog'
-    | '/contact'
     | '/deposit'
     | '/market'
     | '/open-account'
@@ -152,7 +140,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AiAnalyserRoute: typeof AiAnalyserRoute
   BlogRoute: typeof BlogRoute
-  ContactRoute: typeof ContactRoute
   DepositRoute: typeof DepositRoute
   MarketRoute: typeof MarketRoute
   OpenAccountRoute: typeof OpenAccountRoute
@@ -197,13 +184,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DepositRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -240,7 +220,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AiAnalyserRoute: AiAnalyserRoute,
   BlogRoute: BlogRoute,
-  ContactRoute: ContactRoute,
   DepositRoute: DepositRoute,
   MarketRoute: MarketRoute,
   OpenAccountRoute: OpenAccountRoute,
@@ -250,3 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

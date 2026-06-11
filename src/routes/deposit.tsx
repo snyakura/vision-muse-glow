@@ -12,6 +12,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Zap,
+  Copy,
+  Check,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { PageBackground } from "@/components/page-background";
@@ -33,7 +35,7 @@ export const Route = createFileRoute("/deposit")({
 type BrokerType = "weltrade" | "deriv" | "other";
 type PaymentMethodType = "ecocash" | "innbucks" | "fnb_eft";
 
-const MIN_DEPOSIT = 10;
+const MIN_DEPOSIT = 1;
 
 function DepositPage() {
   const [formData, setFormData] = useState({

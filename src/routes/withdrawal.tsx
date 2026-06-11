@@ -232,6 +232,9 @@ function WithdrawalPage() {
                       CR Number must begin with "CR"
                     </p>
                   )}
+                  <p className="mt-3 text-[11px] leading-relaxed rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-3 py-2">
+                    Type <span className="font-mono font-bold text-white">"THE FOREX MAFIA"</span> on the Deriv payment-agents withdrawal side and select us as the agent.
+                  </p>
                 </div>
               )}
             </div>
@@ -409,100 +412,128 @@ function WithdrawalPage() {
                 </div>
               </div>
 
-              <div className="space-y-3.5 text-xs border-b border-border/60 pb-5">
-                <Row label="Source Broker" value={selectedBroker} capitalize />
-                {selectedBroker === "deriv" && crNumber && (
-                  <Row label="Account ID" value={crNumber} mono uppercase />
-                )}
-                <Row
-                  label="Payout Via"
-                  value={selectedMethod.replace("_", " ")}
-                  uppercase
-                />
-                <Row
-                  label="Gross Withdraw"
-                  value={`$${Number(amount || 0).toLocaleString()}.00`}
-                  mono
-                />
-                <div className="flex justify-between items-center text-muted-foreground">
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="h-3 w-3" /> ETA
-                  </span>
-                  <span className="font-mono text-foreground">~15 min</span>
-                </div>
-                <div className="pt-3 flex justify-between items-baseline">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">
-                    Net Payout
-                  </span>
-                  <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
-                    ${Number(amount || 0).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-
-              {/* Flashing protocol */}
-              <div className="mt-5 p-4 rounded-2xl protocol-flash text-xs">
-                <p className="text-[10px] font-bold uppercase tracking-wider font-['Montserrat'] mb-3 flex items-center gap-1.5 protocol-flash-title">
-                  <Zap className="h-3.5 w-3.5" />
-                  Withdrawal Instructions
-                </p>
-                {selectedBroker === "deriv" ? (
-                  <DerivWithdrawalProtocol />
-                ) : (
-                  <StandardWithdrawalProtocol />
-                )}
-              </div>
-
               {(() => {
-                const walletLine = requiresWalletDetails
-                  ? `*Wallet Number:* ${walletNumber}\n*Name on Account:* ${walletName}\n`
-                  : "";
-                const bankLine = requiresBankDetails
-                  ? `*Bank:* ${bankName}\n*Account Holder:* ${bankAccountName}\n*Account #:* ${bankAccountNumber}\n${bankBranchCode ? `*Branch Code:* ${bankBranchCode}\n` : ""}`
-                  : "";
-                const reminder =
-                  selectedBroker === "deriv"
-                    ? `*Reminder:* attach your Deriv withdrawal POP screenshot.`
-                    : `*Reminder:* attach (1) proof of your Binance transfer to our wallet.`;
-
-                const msg = encodeURIComponent(
-                  `*NEW WITHDRAWAL REQUEST — ChainForge*\n` +
-                    `─────────────────────\n` +
-                    `*Client:* ${formData.firstName} ${formData.lastName}\n` +
-                    `*Email:* ${formData.email}\n` +
-                    `*WhatsApp:* ${formData.whatsapp}\n` +
-                    `─────────────────────\n` +
-                    `*Source Broker:* ${selectedBroker.toUpperCase()}` +
-                    (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
-                    `\n` +
-                    `*Payout Method:* ${selectedMethod
-                      .replace("_", " ")
-                      .toUpperCase()}\n` +
-                    walletLine +
-                    bankLine +
-                    `*Amount:* $${Number(amount || 0).toLocaleString()}\n` +
-                    `─────────────────────\n` +
-                    reminder
-                );
-                const href = `https://wa.me/263710554856?text=${msg}`;
+                const grossAmt = Number(amount || 0);
+                const feePct = grossAmt >= 1000 ? 0.05 : 0;
+                const wFee = +(grossAmt * feePct).toFixed(2);
+                const netPayout = +(grossAmt - wFee).toFixed(2);
                 return (
-                  <a
-                    href={isFormValid ? href : undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-disabled={!isFormValid}
-                    onClick={(e) => {
-                      if (!isFormValid) e.preventDefault();
-                    }}
-                    className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
-                      isFormValid
-                        ? "premium-button hover:scale-[1.01]"
-                        : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
-                    }`}
-                  >
-                    <span>Request Liquidation</span>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
+                  <>
+                    <div className="space-y-3.5 text-xs border-b border-border/60 pb-5">
+                      <Row label="Source Broker" value={selectedBroker} capitalize />
+                      {selectedBroker === "deriv" && crNumber && (
+                        <Row label="Account ID" value={crNumber} mono uppercase />
+                      )}
+                      <Row
+                        label="Payout Via"
+                        value={selectedMethod.replace("_", " ")}
+                        uppercase
+                      />
+                      <Row
+                        label="Gross Withdraw"
+                        value={`$${grossAmt.toLocaleString()}.00`}
+                        mono
+                      />
+                      {feePct > 0 && (
+                        <div className="flex justify-between items-center text-muted-foreground">
+                          <span>Desk Fee (5% · $1k+)</span>
+                          <span className="font-mono text-rose-400">- ${wFee.toFixed(2)}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between items-center text-muted-foreground">
+                        <span className="flex items-center gap-1.5">
+                          <Clock className="h-3 w-3" /> ETA
+                        </span>
+                        <span className="font-mono text-foreground">~15 min</span>
+                      </div>
+                      <div className="pt-3 flex justify-between items-baseline">
+                        <span className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">
+                          Net Payout
+                        </span>
+                        <span className="text-xl font-bold tracking-tight text-primary-glow font-mono">
+                          ${netPayout.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Flashing protocol */}
+                    <div className="mt-5 p-4 rounded-2xl protocol-flash text-xs">
+                      <p className="text-[10px] font-bold uppercase tracking-wider font-['Montserrat'] mb-3 flex items-center gap-1.5 protocol-flash-title">
+                        <Zap className="h-3.5 w-3.5" />
+                        Withdrawal Instructions
+                      </p>
+                      {selectedBroker === "deriv" ? (
+                        <DerivWithdrawalProtocol />
+                      ) : (
+                        <StandardWithdrawalProtocol />
+                      )}
+                    </div>
+
+                    {(() => {
+                      const walletLine = requiresWalletDetails
+                        ? `*Wallet Number:* ${walletNumber}\n*Name on Account:* ${walletName}\n`
+                        : "";
+                      const bankLine = requiresBankDetails
+                        ? `*Bank:* ${bankName}\n*Account Holder:* ${bankAccountName}\n*Account #:* ${bankAccountNumber}\n${bankBranchCode ? `*Branch Code:* ${bankBranchCode}\n` : ""}`
+                        : "";
+                      const reminder =
+                        selectedBroker === "deriv"
+                          ? `*Reminder:* attach your Deriv withdrawal POP screenshot.`
+                          : `*Reminder:* attach (1) proof of your Binance transfer to our wallet.`;
+                      const feeLine =
+                        feePct > 0
+                          ? `*Desk Fee (5%):* -$${wFee.toFixed(2)}\n*Net Payout:* $${netPayout.toFixed(2)}\n`
+                          : "";
+
+                      const buildMsg = () =>
+                        encodeURIComponent(
+                          `*NEW WITHDRAWAL REQUEST — ChainForge*\n` +
+                            `─────────────────────\n` +
+                            `*Client:* ${formData.firstName} ${formData.lastName}\n` +
+                            `*Email:* ${formData.email}\n` +
+                            `*WhatsApp:* ${formData.whatsapp}\n` +
+                            `─────────────────────\n` +
+                            `*Source Broker:* ${selectedBroker.toUpperCase()}` +
+                            (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
+                            `\n` +
+                            `*Payout Method:* ${selectedMethod
+                              .replace("_", " ")
+                              .toUpperCase()}\n` +
+                            walletLine +
+                            bankLine +
+                            `*Amount:* $${grossAmt.toLocaleString()}\n` +
+                            feeLine +
+                            `─────────────────────\n` +
+                            reminder,
+                        );
+
+                      const dispatch = () => {
+                        if (!isFormValid) return;
+                        const msg = buildMsg();
+                        window.open(`https://wa.me/263782048523?text=${msg}`, "_blank", "noopener,noreferrer");
+                        setTimeout(() => {
+                          window.open(`https://wa.me/263784293089?text=${msg}`, "_blank", "noopener,noreferrer");
+                        }, 350);
+                      };
+
+                      return (
+                        <button
+                          type="button"
+                          onClick={dispatch}
+                          disabled={!isFormValid}
+                          aria-disabled={!isFormValid}
+                          className={`group mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all ${
+                            isFormValid
+                              ? "premium-button hover:scale-[1.01]"
+                              : "bg-muted/20 text-muted-foreground/40 cursor-not-allowed border border-border/50"
+                          }`}
+                        >
+                          <span>Request Liquidation</span>
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </button>
+                      );
+                    })()}
+                  </>
                 );
               })()}
             </div>

@@ -136,6 +136,8 @@ function Brokers() {
     { name: "JustMarkets", src: "/justmarkets.png" },
     { name: "Octa", src: "/octa.png" },
     { name: "Elev8", src: "/elev8.png" },
+    { name: "Binance", src: "/binance.png" },
+    { name: "OKX", src: "https://altcoinsbox.com/wp-content/uploads/2023/03/okx-logo.png" },
   ];
 
   const marqueeItems = [...brokerLogos, ...brokerLogos, ...brokerLogos];
@@ -151,14 +153,19 @@ function Brokers() {
             {marqueeItems.map((b, i) => (
               <div key={`${b.name}-${i}`} className="flex items-center rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-all duration-300 hover:border-primary-glow/40 hover:bg-white/[0.06] hover:shadow-[0_0_28px_-8px_rgba(139,92,246,0.5)]">
                 <div className={["Deriv", "Weltrade", "Octa"].includes(b.name) ? "h-16 w-16" : "h-10 w-10"}>
-                  <BrandLogo 
-                    src={b.src} 
-                    alt={b.name} 
-                    size="sm" 
-                    variant="bare" 
-                    className="h-full w-full opacity-90 transition-opacity group-hover:opacity-100" 
+                  <BrandLogo
+                    src={b.src}
+                    alt={b.name}
+                    size="sm"
+                    variant="bare"
+                    className="h-full w-full opacity-90 transition-opacity group-hover:opacity-100"
                   />
                 </div>
+                {b.name === "OKX" || b.name === "Binance" ? (
+                  <span className="ml-2 text-xs font-bold tracking-wider text-foreground/80 font-['Montserrat']">
+                    {b.name}
+                  </span>
+                ) : null}
               </div>
             ))}
           </div>

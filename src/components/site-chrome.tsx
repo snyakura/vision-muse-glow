@@ -377,18 +377,22 @@ export function SiteFooter() {
         
         {/* Column 1: Logo & Branding (ChainForge + TFM) */}
         <div className="flex flex-col items-center md:items-start space-y-4">
-          <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-90">
-            <img
-              src="/q.png"
-              alt="ChainForge Logo"
-              className="h-32 w-auto object-contain filter drop-shadow-[0_0_30px_rgba(139,92,246,0.35)]"
-            />
+          <Link to="/" className="flex items-center gap-3">
+            <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+              <img
+                src="/q.png"
+                alt="ChainForge Logo"
+                className="h-32 w-auto object-contain filter drop-shadow-[0_0_30px_rgba(139,92,246,0.35)]"
+              />
+            </motion.div>
             <span className="h-16 w-px bg-border/60" aria-hidden />
-            <img
-              src="/TFM.png"
-              alt="The Forex Mafia"
-              className="h-28 w-auto object-contain filter drop-shadow-[0_0_24px_rgba(245,158,11,0.28)]"
-            />
+            <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+              <img
+                src="/TFM.png"
+                alt="The Forex Mafia"
+                className="h-48 w-auto object-contain filter drop-shadow-[0_0_24px_rgba(245,158,11,0.28)]"
+              />
+            </motion.div>
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground text-center md:text-left">
             Institutional-grade payment infrastructure and AI-driven trading intelligence for the global forex and crypto community.
@@ -428,10 +432,10 @@ export function SiteFooter() {
             href="https://wa.me/263782048523"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors"
+            className="mt-6 premium-button group gap-2 text-xs"
           >
             <MessageSquare className="h-3.5 w-3.5" />
-            Chat the desk: +263 78 204 8523
+            <span>Contact Desk</span>
           </a>
         </div>
 

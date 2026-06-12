@@ -31,10 +31,12 @@ function TVWidget({
   script,
   config,
   height = 460,
+  containerId,
 }: {
   script: string;
   config: Record<string, unknown>;
   height?: number;
+  containerId?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -43,6 +45,7 @@ function TVWidget({
     host.innerHTML = "";
     const wrapper = document.createElement("div");
     wrapper.className = "tradingview-widget-container__widget";
+    if (containerId) wrapper.id = containerId;
     host.appendChild(wrapper);
     const s = document.createElement("script");
     s.src = script;
@@ -51,9 +54,9 @@ function TVWidget({
     s.innerHTML = JSON.stringify(config);
     host.appendChild(s);
     return () => {
-      host.innerHTML = "";
+      if (host) host.innerHTML = "";
     };
-  }, [script, JSON.stringify(config)]);
+  }, [script, JSON.stringify(config), height, containerId]);
 
   return (
     <div
@@ -117,7 +120,7 @@ function MarketPage() {
           </div>
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-6">
           <Reveal>
             <div className="card-animated rounded-3xl p-4 md:p-6">
               <Header
@@ -132,54 +135,6 @@ function MarketPage() {
                   ...tvTheme,
                   currencies: ["EUR", "USD", "JPY", "GBP", "CHF", "AUD", "CAD", "NZD"],
                   backgroundColor: "rgba(8,6,18,0)",
-                }}
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <div className="card-animated rounded-3xl p-4 md:p-6">
-              <Header
-                icon={<LineChart className="h-4 w-4" />}
-                label="Market Overview"
-                tag="Indices · FX · Crypto"
-              />
-              <TVWidget
-                height={420}
-                script="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js"
-                config={{
-                  ...tvTheme,
-                  showChart: true,
-                  showSymbolLogo: true,
-                  showFloatingTooltip: true,
-                  tabs: [
-                    {
-                      title: "FX Majors",
-                      symbols: [
-                        { s: "FX:EURUSD" },
-                        { s: "FX:GBPUSD" },
-                        { s: "FX:USDJPY" },
-                        { s: "FX:USDCHF" },
-                        { s: "FX:AUDUSD" },
-                        { s: "OANDA:XAUUSD", d: "Gold" },
-                      ],
-                    },
-                    {
-                      title: "Crypto",
-                      symbols: [
-                        { s: "BINANCE:BTCUSDT" },
-                        { s: "BINANCE:ETHUSDT" },
-                        { s: "BINANCE:SOLUSDT" },
-                      ],
-                    },
-                    {
-                      title: "Indices",
-                      symbols: [
-                        { s: "FOREXCOM:SPXUSD", d: "S&P 500" },
-                        { s: "FOREXCOM:NSXUSD", d: "Nasdaq 100" },
-                        { s: "FOREXCOM:DJI", d: "Dow Jones" },
-                      ],
-                    },
-                  ],
                 }}
               />
             </div>

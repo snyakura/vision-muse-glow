@@ -232,12 +232,12 @@ function OpenAccountPage() {
                   <Gift className="h-4 w-4 shrink-0 mt-0.5" />
                   After registering, send your verification screenshot to{" "}
                   <a
-                    href="https://wa.me/263782048523"
+                    href="https://wa.me/263784293089"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-semibold text-emerald-300 underline-offset-2 hover:underline"
                   >
-                    +263 78 204 8523
+                    +263 78 429 3089
                   </a>{" "}
                   on WhatsApp and say "done".
                 </div>
@@ -256,7 +256,7 @@ function OpenAccountPage() {
               Message the desk on WhatsApp and we'll add you to the signals & mentorship channels.
             </p>
             <a
-              href="https://wa.me/263782048523"
+              href="https://wa.me/263784293089"
               target="_blank"
               rel="noopener noreferrer"
               className="premium-button group mt-6"

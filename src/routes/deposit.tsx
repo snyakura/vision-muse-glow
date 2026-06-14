@@ -47,6 +47,7 @@ function DepositPage() {
 
   const [selectedBroker, setSelectedBroker] = useState<BrokerType>("weltrade");
   const [crNumber, setCrNumber] = useState<string>("");
+  const [binanceAddress, setBinanceAddress] = useState<string>("");
   const [selectedMethod, setSelectedMethod] =
     useState<PaymentMethodType>("ecocash");
   const [amount, setAmount] = useState<string>("100");
@@ -58,7 +59,7 @@ function DepositPage() {
   const isCrInvalid =
     selectedBroker === "deriv" &&
     crNumber.trim().length > 0 &&
-    !crNumber.toLowerCase().startsWith("cr");
+    !/^CR\d+$/i.test(crNumber.trim());
   const isAmountInvalid = amountNum < MIN_DEPOSIT;
 
   const isFormValid =
@@ -67,8 +68,8 @@ function DepositPage() {
     formData.email.trim() !== "" &&
     formData.whatsapp.trim() !== "" &&
     !isAmountInvalid &&
-    (selectedBroker !== "deriv" ||
-      (crNumber.toLowerCase().startsWith("cr") && crNumber.trim().length > 2));
+    (selectedBroker !== "deriv" || /^CR\d+$/i.test(crNumber.trim())) &&
+    ((selectedBroker !== "weltrade" && selectedBroker !== "other") || binanceAddress.trim() !== "");
 
   return (
     <>
@@ -217,9 +218,33 @@ function DepositPage() {
                   {isCrInvalid && (
                     <p className="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-2">
                       <AlertCircle className="h-3.5 w-3.5" />
-                      CR Number must begin with "CR"
+                      CR Number should start with CR only
                     </p>
                   )}
+                </div>
+              )}
+
+              {(selectedBroker === "weltrade" || selectedBroker === "other") && (
+                <div className="mt-5 pt-4 border-t border-border/50">
+                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-2">
+                    Your Binance Payout Address (USDT TRC20)
+                  </label>
+                  <div className="flex items-center rounded-xl border border-border px-3 py-2.5 bg-background/40 focus-within:border-primary-glow/50 transition-colors">
+                    <input
+                      type="text"
+                      placeholder="Paste your USDT TRC20 address here"
+                      value={binanceAddress}
+                      onChange={(e) => setBinanceAddress(e.target.value)}
+                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0 font-mono"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2 text-rose-500 font-bold bg-rose-500/10 border border-rose-500/20 rounded-lg px-3 py-2 mt-3">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    <span className="text-[11px] uppercase tracking-wider">USDT TRC20 only!</span>
+                  </div>
+                  <p className="mt-2 text-[10px] text-muted-foreground leading-relaxed">
+                    Double check your address. We are not responsible for funds sent to a wrong address.
+                  </p>
                 </div>
               )}
             </div>
@@ -330,6 +355,9 @@ function DepositPage() {
                 {selectedBroker === "deriv" && crNumber && (
                   <Row label="Account ID" value={crNumber} mono uppercase />
                 )}
+                {(selectedBroker === "weltrade" || selectedBroker === "other") && binanceAddress && (
+                  <Row label="Payout Address" value={binanceAddress} mono />
+                )}
                 <Row
                   label="Method"
                   value={selectedMethod.replace("_", " ")}
@@ -389,6 +417,7 @@ function DepositPage() {
                       `─────────────────────\n` +
                       `*Broker:* ${selectedBroker.toUpperCase()}` +
                       (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
+                      ((selectedBroker === "weltrade" || selectedBroker === "other") ? `\n*Binance Address:* ${binanceAddress}` : "") +
                       `\n` +
                       `*Payment Method:* ${selectedMethod
                         .replace("_", " ")
@@ -404,10 +433,7 @@ function DepositPage() {
                 const dispatch = () => {
                   if (!isFormValid) return;
                   const msg = buildMsg();
-                  window.open(`https://wa.me/263782048523?text=${msg}`, "_blank", "noopener,noreferrer");
-                  setTimeout(() => {
-                    window.open(`https://wa.me/263784293089?text=${msg}`, "_blank", "noopener,noreferrer");
-                  }, 350);
+                  window.open(`https://wa.me/263784293089?text=${msg}`, "_blank", "noopener,noreferrer");
                 };
 
                 return (
@@ -556,7 +582,7 @@ function MobileDepositInstructions({
           <span className="font-semibold text-white">SEND FUNDS</span> via
           InnBucks to:
           <div className="mt-1.5 grid gap-1 rounded-lg bg-black/40 p-2 font-mono text-[11px] text-white">
-            <span>Number: 0782048523</span>
+            <span>Number: 0784293089</span>
             <span>Name: Paradise Mnqobi Sibanda</span>
           </div>
         </li>

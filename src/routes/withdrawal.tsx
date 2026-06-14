@@ -12,6 +12,8 @@ import {
   CheckCircle2,
   Clock,
   Zap,
+  Copy,
+  Check,
   AlertCircle,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -43,7 +45,6 @@ function WithdrawalPage() {
   });
 
   const [selectedBroker, setSelectedBroker] = useState<BrokerType>("weltrade");
-  const [crNumber, setCrNumber] = useState<string>("");
   const [selectedMethod, setSelectedMethod] =
     useState<PayoutMethodType>("ecocash");
   const [amount, setAmount] = useState<string>("500");
@@ -64,19 +65,11 @@ function WithdrawalPage() {
   const requiresBinanceQr =
     selectedBroker === "weltrade" || selectedBroker === "other";
 
-  const isCrInvalid =
-    selectedBroker === "deriv" &&
-    crNumber.trim().length > 0 &&
-    !crNumber.toLowerCase().startsWith("cr");
-
   const isFormValid =
     formData.firstName.trim() !== "" &&
     formData.lastName.trim() !== "" &&
     formData.email.trim() !== "" &&
     formData.whatsapp.trim() !== "" &&
-    (selectedBroker !== "deriv" ||
-      (crNumber.toLowerCase().startsWith("cr") &&
-        crNumber.trim().length > 2)) &&
     Number(amount) > 0 &&
     (!requiresWalletDetails ||
       (walletNumber.trim() !== "" && walletName.trim() !== "")) &&
@@ -208,31 +201,7 @@ function WithdrawalPage() {
 
               {selectedBroker === "deriv" && (
                 <div className="mt-5 pt-4 border-t border-border/50">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block mb-2">
-                    Deriv CR Number
-                  </label>
-                  <div
-                    className={`flex items-center rounded-xl border px-3 py-2.5 bg-background/40 transition-colors ${
-                      isCrInvalid
-                        ? "border-rose-500/80 focus-within:border-rose-500"
-                        : "border-border focus-within:border-primary-glow/50"
-                    }`}
-                  >
-                    <input
-                      type="text"
-                      placeholder="CR123456"
-                      value={crNumber}
-                      onChange={(e) => setCrNumber(e.target.value)}
-                      className="w-full bg-transparent text-sm text-foreground outline-none border-none p-0 font-mono uppercase tracking-wide"
-                    />
-                  </div>
-                  {isCrInvalid && (
-                    <p className="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-2">
-                      <AlertCircle className="h-3.5 w-3.5" />
-                      CR Number must begin with "CR"
-                    </p>
-                  )}
-                  <p className="mt-3 text-[11px] leading-relaxed rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-3 py-2">
+                  <p className="text-[11px] leading-relaxed rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-3 py-2">
                     Type <span className="font-mono font-bold text-white">"THE FOREX MAFIA"</span> on the Deriv payment-agents withdrawal side and select us as the agent.
                   </p>
                 </div>
@@ -246,23 +215,35 @@ function WithdrawalPage() {
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-400/20 text-amber-300 text-[10px]">
                     !
                   </span>
-                  Send Funds to Our Binance — Scan QR
+                  Send Funds to Our Binance — Scan or Copy Address
                 </h3>
-                <div className="grid gap-5 sm:grid-cols-[auto_1fr] items-center">
-                  <div className="rounded-2xl bg-white p-3 shadow-lg w-fit">
+                <div className="grid gap-6 sm:grid-cols-[auto_1fr] items-start">
+                  <div className="rounded-2xl bg-white p-3 shadow-xl w-fit shrink-0">
                     <img
                       src="/QR.png"
                       alt="Binance deposit QR code"
                       className="h-44 w-44 object-contain"
                     />
                   </div>
-                  <div className="text-sm text-muted-foreground space-y-2">
+                  <div className="text-sm space-y-4">
                     <p>
                       On your {selectedBroker === "weltrade" ? "Weltrade" : "broker"}{" "}
                       dashboard, withdraw via Binance and scan this QR to send
                       the funds to our corporate Binance wallet.
                     </p>
-                    <p className="text-foreground font-semibold">
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 block">
+                        Wallet Address
+                      </label>
+                      <CopyChip value="TPvTAj6w8AZQzsnu27TsPjUMR7tNJ9CHgP" />
+                      <div className="flex items-center gap-2 text-rose-500 font-bold bg-rose-500/10 border border-rose-500/20 rounded-lg px-3 py-2 mt-2">
+                        <AlertCircle className="h-4 w-4 shrink-0" />
+                        <span className="text-[11px] uppercase tracking-wider">USDT TRC20 only!</span>
+                      </div>
+                    </div>
+
+                    <p className="text-foreground font-semibold pt-2 border-t border-border/40">
                       Screenshot the successful transaction — you'll need to
                       attach it on WhatsApp.
                     </p>
@@ -421,9 +402,6 @@ function WithdrawalPage() {
                   <>
                     <div className="space-y-3.5 text-xs border-b border-border/60 pb-5">
                       <Row label="Source Broker" value={selectedBroker} capitalize />
-                      {selectedBroker === "deriv" && crNumber && (
-                        <Row label="Account ID" value={crNumber} mono uppercase />
-                      )}
                       <Row
                         label="Payout Via"
                         value={selectedMethod.replace("_", " ")}
@@ -493,9 +471,7 @@ function WithdrawalPage() {
                             `*Email:* ${formData.email}\n` +
                             `*WhatsApp:* ${formData.whatsapp}\n` +
                             `─────────────────────\n` +
-                            `*Source Broker:* ${selectedBroker.toUpperCase()}` +
-                            (selectedBroker === "deriv" ? ` (CR: ${crNumber})` : "") +
-                            `\n` +
+                            `*Source Broker:* ${selectedBroker.toUpperCase()}\n` +
                             `*Payout Method:* ${selectedMethod
                               .replace("_", " ")
                               .toUpperCase()}\n` +
@@ -510,10 +486,7 @@ function WithdrawalPage() {
                       const dispatch = () => {
                         if (!isFormValid) return;
                         const msg = buildMsg();
-                        window.open(`https://wa.me/263782048523?text=${msg}`, "_blank", "noopener,noreferrer");
-                        setTimeout(() => {
-                          window.open(`https://wa.me/263784293089?text=${msg}`, "_blank", "noopener,noreferrer");
-                        }, 350);
+                        window.open(`https://wa.me/263784293089?text=${msg}`, "_blank", "noopener,noreferrer");
                       };
 
                       return (
@@ -607,6 +580,32 @@ function Row({
         {value}
       </span>
     </div>
+  );
+}
+
+function CopyChip({ value, label }: { value: string; label?: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(value);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        } catch {
+          /* noop */
+        }
+      }}
+      className="inline-flex items-center gap-1.5 rounded-md bg-black/40 px-2 py-1 font-mono text-[11px] text-white hover:bg-black/60 transition-colors w-full justify-between sm:w-auto"
+    >
+      <span className="truncate">{label ?? value}</span>
+      {copied ? (
+        <Check className="h-3 w-3 text-emerald-400 shrink-0" />
+      ) : (
+        <Copy className="h-3 w-3 text-muted-foreground shrink-0" />
+      )}
+    </button>
   );
 }
 
